@@ -1,0 +1,156 @@
+@import '~antd/dist/antd.css';
+/* .App {
+  margin-left: 10px;
+} */
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+.App-header {
+  background-color: #FFFFFF;
+  min-height: 100vh;
+
+}
+
+.content {
+  position:absolute;
+  top: 100px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  overflow-y:scroll;
+  background-color: #FFFFFF;
+}
+
+.withdrawGroupDiv .input-number{
+  display: inline-block;
+}
+.withdrawGroupDiv .maxWithdrawAmountButton{
+  position: absolute;
+  left: 71%;
+  top: 20%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.withdrawWETHGroupDiv .input-number{
+  display: inline-block;
+}
+.withdrawWETHGroupDiv .maxWithdrawWETHAmountButton{
+  position: absolute;
+  left: 76%;
+  top: 20%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.repayBorrowDiv .input-number{
+  display: inline-block;
+}
+.repayBorrowDiv .maxRepayBorrowAmountButton{
+  position: absolute;
+  left: 84%;
+  top: 20%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.borrowDiv .input-number{
+  display: inline-block;
+}
+.borrowDiv .maxBorrowAmountButton{
+  position: absolute;
+  left: 72%;
+  top: 20%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 10px;
+}
+.liquidateAmountGroupDiv .input-number{
+  display: inline-block;
+}
+.liquidateAmountGroupDiv .maxLiquidateAmountButton{
+  position: absolute;
+  left: 82%;
+  top: 20%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+button {
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.ant-alert {
+  background: #F35454;
+  text-align: center;
+  border: 0;
+  &.informational-banner {
+    background: #F6F6F9;
+    .ant-alert-message {
+      color: #333344;
+    }
+    // .ant-alert-icon {
+    //   display: none;
+    // }
+  }
+}
+
+.ant-alert-message {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: medium;
+}
+
+.ant-alert-icon {
+  color: #FFFFFF !important;
+  position: static;
+  padding-right: 10px;
+  margin-bottom: 2px;
+}

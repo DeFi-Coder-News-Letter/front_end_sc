@@ -1,0 +1,140 @@
+$button-color: #A55AFF;
+.input-unit-wrapper {
+    .balance-info {
+        display: flex !important;
+        justify-content: space-between;
+        display: block;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        width: auto;
+        margin: auto;
+    }
+
+    .button-wrapper {
+        width: 100%;
+        margin: auto;
+        margin-top: 10px;
+        button {
+            width: 100%;
+            border-color: $button-color !important;
+            background-color: $button-color !important;
+            color: #FFFFFF !important;
+            &:hover, &:active {
+                background-color: $button-color;
+                border-color: $button-color;
+                color: #FFFFFF;
+            }
+        }
+    }
+    .button-wrapper-borrow {
+        width: 100%;
+        margin: auto;
+        margin-top: 10px;
+        button {
+            width: 100%;
+            border-color: #675CFF !important;
+            background-color: #675CFF !important;
+            color: #FFFFFF !important;
+            &:hover, &:active {
+                background-color: #675CFF;
+                border-color: #675CFF;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .input-number{
+        width: 100%;
+    }
+
+    .max-amount-button{
+        position: absolute;
+        right: 28px;
+        top: 8px;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        font-weight: 500;
+        font-size: 12px;
+        color: $button-color;
+    }
+    .max-amount-button-disable{
+        position: absolute;
+        right: 28px;
+        top: 8px;
+        border: none;
+        padding: 0;
+        font-weight: 500;
+        font-size: 12px;
+        color: #92909A;
+    }
+    button.disable-button {
+        background-color: #E9E7F0 !important;
+        border-color: #E9E7F0 !important;
+        color: #92909A !important;
+    }  
+    .alert-message {
+        padding: 10px 8px;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 12px;
+        color: #FE1B1B;
+        border: 1px solid #FFAFAF;
+        border-radius: 4px;
+        background: #FFEFEF;
+    }
+    .safe-max-alert-message {
+        margin-top: 10px;
+        padding: 10px 24px;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 13px;
+        color: #FB5F5F;
+        border: 1px solid #FED6D6;
+        border-radius: 3px;
+        background: #FFF9F9;
+    }
+    .balance-desc {
+        font-size: 12px;
+        line-height: 27px;
+        color: #808086;
+    }
+
+    .balance-amount {
+        font-size: 14px;
+        font-weight: medium;
+    }
+    .max-amount-button-borrow{
+        position: absolute;
+        right: 28px;
+        top: 8px;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        font-weight: 500;
+        font-size: 12px;
+        color: #675CFF;
+    }
+    .max-amount-button-borrow-disable{
+        position: absolute;
+        right: 28px;
+        top: 8px;
+        border: none;
+        padding: 0;
+        font-weight: 500;
+        font-size: 12px;
+        color: #92909A;
+    }
+
+    .ant-btn-lg,.ant-input-number-lg,.ant-input-number-input{
+        height: 32px !important;
+        line-height: 32px;
+    }
+    .ant-btn-lg,.ant-input-number-lg,.ant-input-number-input{
+        font-size: 12px !important;
+    }
+}

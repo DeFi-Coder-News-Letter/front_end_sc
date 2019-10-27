@@ -1,0 +1,81 @@
+.CM {
+    .borrow-input {
+        .info-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 1px 16px;
+            width: auto;
+        }
+        .balance-type {
+            font-size: 14px;
+            font-weight: regular;
+        }
+    
+        .balance-amount {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .tab-wrapper {
+            width: auto;
+            border: 1px solid #EBEAEE;
+            border-radius: 2px;
+            margin: auto;
+            .ant-tabs-nav-container {
+                background-color: #EBEAEE;
+            }
+        }
+        
+        .tab-content {
+            text-align: center;
+            padding: 16px 32px 30px;
+            background-color: #FFFFFF;
+        }
+        
+        .ant-tabs-bar {
+            margin: 0;
+            color: #675CFF;
+        }
+        
+        .ant-tabs-nav {
+            width: 100%;
+            > div {
+                display: flex;
+            }
+        }
+        
+        .ant-tabs-tab {
+            color: #333344;
+            margin: 0 auto !important;
+            padding: 16px !important; 
+            font-size: 16px;
+            font-weight: bold !important;
+            &:hover {
+                color: #675CFF !important;
+            }
+            &.ant-tabs-tab-active {
+                color: #675CFF;
+            }
+        }
+        
+        .ant-tabs-ink-bar {
+           background-color: #675CFF !important;
+        }
+        // .ant-tabs .ant-tabs-top-content > .ant-tabs-tabpane, .ant-tabs .ant-tabs-bottom-content > .ant-tabs-tabpane {
+        //     padding: 15px !important;
+        // }
+    }    
+}
+
+.LG {
+    .borrow-input {
+        width: 330px;
+    }
+    .ant-tabs-tabpane {
+        height: auto;
+    }
+}
+
+.XS {
+
+}

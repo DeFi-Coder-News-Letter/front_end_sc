@@ -1,0 +1,232 @@
+.CM {
+    .header {
+        position: fixed;
+        width: 100%;
+        z-index: 10;
+        background: #222C3C;
+    }
+    .header-content {
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .market-info-title, .market-ratio, .account-info{  
+        color: #8B8F95;
+        white-space: nowrap;
+    }
+    .market-info-digits {
+        color: #FFFFFF;
+        display: block;
+        font-weight: medium;
+    }
+    .left {
+        display: flex;
+    }
+}
+
+.LG {
+    .header {
+        height: 70px;
+    }
+    .with-banner {
+        top: 40px;
+    }
+    .without-banner {
+        top: 0px;
+    }
+    .header-content {
+        width: 1138px;
+    }
+    .market-info-title, .market-ratio, .account-info{  
+        white-space: nowrap;
+    }
+    .market-info {
+        height: auto;
+        margin: auto 0;
+        padding: 8px 27px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    .market-ratio {
+        .market-info-title {
+            font-size: 12px;
+            line-height: 27px;
+        }
+        .market-info-digits {
+            align-self: center;
+            font-size: 18px;
+            font-weight: medium;
+            padding-left: 10px;
+        }
+    }
+    
+    .market-ratio, .account-info {
+        height: auto;
+        margin: auto 0;
+        padding: 0 27px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 12px;
+        border-left: 1px solid rgba(255,255,255,0.1);
+        > div:not(.market-info-digits) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .market-info-digits {
+        font-size: 12px !important;
+    }
+
+    .usdx-faucet {
+        margin-left: 5px;
+        padding: 3px 2px;
+        font-size: 10px;
+    }
+    .header-logo {
+        width: 62px;
+        height: 44px,
+    }
+
+    .usdx-faucet {
+        border: 1px solid #299CF6;
+        font-weight: medium;
+        border-radius: 3px;
+        cursor: pointer;
+        color: #FFFFFF;
+        &:hover, &:active {
+            color: #FFFFFF;
+        }
+    }
+
+    .right {
+        margin: auto 0;
+    }
+
+    div.login {
+        font-size: 14px;
+        // background: url('../assets/img/downwhite.png') no-repeat 160px 4px;
+        background-size: 10px;
+        height: 30px;
+        position: relative;
+        font-weight: 200;
+        margin: auto 0;
+
+        &:hover {
+            .popup {
+                display: block;
+            }
+        }
+
+        .popup {
+            display: none;
+            z-index: 999;
+            width: 180px;
+            background: #fff;
+            padding: 3px;
+            color: #333;
+            border-radius: 4px;
+            position: absolute;
+            top: 24px;
+            left: 0px;
+            border: 1px solid rgba(217, 222, 227, 1);
+            box-shadow: 0px 5px 12px 0px rgba(42, 49, 56, 0.15);
+
+            p {
+                margin: 0;
+                // background: url('../assets/img/connection.png') no-repeat 44px center;
+                background-size: 15px;
+                padding: 6px;
+                text-align: center;
+                padding-left: 25px;
+                cursor: pointer;
+
+                &.out {
+                    // background: url('../assets/img/out.png') no-repeat 44px center;
+                    background-size: 17px;
+                }
+            }
+
+            span {
+                display: block;
+                width: 0;
+                height: 0;
+                border-width: 0 6px 6px;
+                border-style: solid;
+                border-color: transparent transparent rgba(217, 222, 227, 1);
+                position: absolute;
+                top: -6px;
+                right: 8px;
+            }
+
+            em {
+                display: block;
+                width: 0;
+                height: 0;
+                border-width: 0 5px 5px;
+                border-style: solid;
+                border-color: transparent transparent #fff;
+                position: absolute;
+                top: 2px;
+                left: -5px;
+            }
+        }
+    }
+}
+
+.XS {
+    .header {
+        top: 0px;
+        height: 66px;
+        padding: 0 12px;
+    }
+    .market-info {
+        height: auto;
+        margin: auto 0;
+        display: flex;
+        flex-direction: column;
+        font-size: 9px;
+        padding: 10px;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        &:last-child {
+            border-right: 0;
+        }
+    }
+    .market-ratio {
+        height: auto;
+        margin: auto 0;
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        border-left: 1px solid rgba(255,255,255,0.1);
+        > div:not(.market-info-digits) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .account-info {
+        display: none;
+    }
+    .usdx-faucet {
+        margin-left: 5px;
+        padding: 3px 2px;
+        font-size: 10px;
+    }
+    .header-logo {
+        width: 32px;
+        height: 22px,
+    }
+    .usdx-faucet {
+        display: none;
+    }
+    .right {
+        display: none;
+    }
+}
