@@ -51,7 +51,7 @@ class RecordBoard extends Component {
             if (this.props.account !== undefined) {
                 this.getRecentTransactions();
             }
-        }, 1000 * 15);
+        }, 1000 * 5);
     }
 
     componentWillUnmount() {
@@ -62,12 +62,14 @@ class RecordBoard extends Component {
         if (this.state.RecentTransactions === null) {
             return '';
         }
-        return (<div className='record-board'>
-            <div className='board-title'>Recent Transactions</div>
-            <div className='board-content'>
-                {this.state.RecentTransactions ? this.state.RecentTransactions.map((record, i) => <div key={i}><Record {...record} goTxnHashHref={this.goTxnHashHref} /></div>) : null}
+        return (
+            <div className='record-board'>
+                <div className='board-title'>Recent Transactions</div>
+                <div className='board-content'>
+                    {this.state.RecentTransactions ? this.state.RecentTransactions.map((record, i) => <div key={i}><Record {...record} goTxnHashHref={this.goTxnHashHref} /></div>) : null}
+                </div>
             </div>
-        </div>);
+        );
     }
 
     render = () => {
