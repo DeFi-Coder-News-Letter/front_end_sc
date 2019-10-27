@@ -111,20 +111,17 @@ class Borrow extends Component {
     } else if (NetworkName === 'Rinkeby') {
       usdxAddress = Network.Rinkeby.USDx;
     }
-    MoneyMarket().getSupplyBalance(
-      myAddress,
-      usdxAddress,
-      (err, res) => {
-        if (res === undefined || res === null || this.state.hasLendUSDxAmount === window.web3.fromWei(res.toNumber(), "ether")) {
-          return;
-        }
-        this.setState({ hasLendUSDxAmount: window.web3.fromWei(res.toNumber(), "ether") });
-        if (window.web3.fromWei(res.toNumber(), "ether") > 0) {
-          this.setState({ hasLendUSDx: true });
-        } else if (this.state.hasLendUSDx !== false) {
-          this.setState({ hasLendUSDx: false });
-        }
+    MoneyMarket().getSupplyBalance(myAddress, usdxAddress, (err, res) => {
+      if (res === undefined || res === null || this.state.hasLendUSDxAmount === window.web3.fromWei(res.toNumber(), "ether")) {
+        return;
       }
+      this.setState({ hasLendUSDxAmount: window.web3.fromWei(res.toNumber(), "ether") });
+      if (window.web3.fromWei(res.toNumber(), "ether") > 0) {
+        this.setState({ hasLendUSDx: true });
+      } else if (this.state.hasLendUSDx !== false) {
+        this.setState({ hasLendUSDx: false });
+      }
+    }
     );
   }
 

@@ -79,15 +79,13 @@ class Lend extends Component {
     } else if (NetworkName === 'Rinkeby') {
       usdxAddress = Network.Rinkeby.USDx;
     }
-    MoneyMarket().getBorrowBalance(myAddress,
-      usdxAddress,
-      (err, res) => {
-        if (res !== undefined && res !== null && toFormatShowNumber(window.web3.fromWei(res.toNumber(), "ether")) > 0) {
-          this.setState({ hasBorrowedUSDx: true });
-        } else {
-          this.setState({ hasBorrowedUSDx: false });
-        }
+    MoneyMarket().getBorrowBalance(myAddress, usdxAddress, (err, res) => {
+      if (res !== undefined && res !== null && Number(window.web3.fromWei(res.toNumber(), "ether")) > 0) {
+        this.setState({ hasBorrowedUSDx: true });
+      } else {
+        this.setState({ hasBorrowedUSDx: false });
       }
+    }
     );
   }
 
