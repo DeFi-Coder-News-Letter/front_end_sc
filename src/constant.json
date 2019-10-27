@@ -6,9 +6,9 @@
         "USDx": "0x54b909745294bf82d36845EE69c1daAdDbE14978"
     },
     "Main": {
-        "MoneyMarket": "0x0eEe3E3828A45f7601D5F54bF49bB01d1A9dF5ea",
-        "WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "USDx": "0xeb269732ab75a6fd61ea60b06fe994cd32a83549"
+        "MoneyMarket": "0xeda3849869fd560b49dab8c110be3a020f46c79e",
+        "WETH": "0x06a1cd567e61b7edda49c30d3d32e60f607fd646",
+        "USDx": "0x3a9e75afcffcd89613037989ea0ed6cec44a4353"
     },
     "Rinkeby": {
         "MoneyMarket": "0x5759F246E6b66B654c61Fec7427dc69E693E98fA",

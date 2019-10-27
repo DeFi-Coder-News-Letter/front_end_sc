@@ -19,8 +19,7 @@ export default function WETH() {
     
     var WETH;
     if (NetworkName === 'Main') {
-        // WETH = WETHSpec.at("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
-        WETH = WETHSpec.at("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");////测试用weth_faucet
+        WETH = WETHSpec.at("0x06a1cd567e61b7edda49c30d3d32e60f607fd646");////测试用weth_faucet
     } else if (NetworkName === 'Rinkeby') {
         WETH = WETHSpec.at("0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e");
     }

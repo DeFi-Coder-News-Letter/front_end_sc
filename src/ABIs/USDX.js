@@ -9,7 +9,7 @@ export default function USDX() {
     let NetworkName = findNetwork(window.web3.version.network);
     var USDX;
     if (NetworkName === 'Main') {
-        USDX = usdxSpec.at("0xeb269732ab75a6fd61ea60b06fe994cd32a83549");
+        USDX = usdxSpec.at("0x3a9e75afcffcd89613037989ea0ed6cec44a4353");
     } else if (NetworkName === 'Rinkeby') {
         USDX = usdxSpec.at("0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2");
     }
