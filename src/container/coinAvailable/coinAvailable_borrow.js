@@ -28,9 +28,11 @@ class CoinAvailable extends Component {
 
     this.componentDidMount_temp();
 
-    window.ethereum.on('accountsChanged', () => {
-      this.componentDidMount_temp();
-    });
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', () => {
+        this.componentDidMount_temp();
+      });
+    }
   }
 
   // ***************88 usdx_Available_Amount

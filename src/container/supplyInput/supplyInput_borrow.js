@@ -100,26 +100,34 @@ class SupplyInput extends Component {
     if (window.ethereum === undefined) {
       return;
     }
-    window.ethereum.on('accountsChanged', (accounts) => {
-      setTimeout(this.refreshData(), 500);
-      this.getAllowance();
-      this.getMaxWithdrawAmount();
-      this.getAccountBalance();
-      this.getMyAddressWETHBalance();
-      this.setState({ supplyAmount: '', withdrawAmount: '', wrapAmount: '', unwrapAmount: '' });
-      // reset button&inputText status
-      this.setState({ isWrapEnable: true, wrapInputDisabled: false });
-      this.setState({ isunwrapEnable: true, unwrapInputDisabled: false });
-      this.setState({ isSupplyEnable: true, supplyInputDisabled: false });
-      this.setState({ isWithdrawEnable: true, withdrawInputDisabled: false });
-      this.setState({ pendingApproval: false });
-    });
+
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        setTimeout(this.refreshData(), 500);
+        this.getAllowance();
+        this.getMaxWithdrawAmount();
+        this.getAccountBalance();
+        this.getMyAddressWETHBalance();
+        this.setState({ supplyAmount: '', withdrawAmount: '', wrapAmount: '', unwrapAmount: '' });
+        // reset button&inputText status
+        this.setState({ isWrapEnable: true, wrapInputDisabled: false });
+        this.setState({ isunwrapEnable: true, unwrapInputDisabled: false });
+        this.setState({ isSupplyEnable: true, supplyInputDisabled: false });
+        this.setState({ isWithdrawEnable: true, withdrawInputDisabled: false });
+        this.setState({ pendingApproval: false });
+      });
+    }
+
+
 
     this.componentDidMount_temp();
 
-    window.ethereum.on('accountsChanged', () => {
-      this.componentDidMount_temp();
-    });
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', () => {
+        this.componentDidMount_temp();
+      });
+    }
+
   };
 
   // get_Account_ETH_Balance

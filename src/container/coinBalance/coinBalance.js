@@ -19,9 +19,11 @@ class CoinBalance extends Component {
 
     this.componentDidMount_temp();
 
-    window.ethereum.on('accountsChanged', () => {
-      this.componentDidMount_temp();
-    });
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', () => {
+        this.componentDidMount_temp();
+      });
+    }
   }
 
   getAccountUSDXBalanceByAddress = () => {
@@ -100,8 +102,8 @@ class CoinBalance extends Component {
     }
 
     return <CoinInfo {...props} login={window.web3.eth.accounts[0]} />
-    
-    
+
+
     // <div className='balance-info'>
     //   <span className='balance-desc'>{props.balanceDescription || props.balanceType + ' ' + props.balanceUnit}</span>
     //   <span className='balance-amount'>{window.web3.eth.accounts[0] ? toDoubleThousands(props.balanceAmount) : '-'}&nbsp;{props.balanceType || 'Ether'}</span>

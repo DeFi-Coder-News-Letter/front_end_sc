@@ -23,9 +23,11 @@ export function withMarketInfo(Header) {
 
       this.componentDidMount_temp();
 
-      window.ethereum.on('accountsChanged', () => {
-        this.componentDidMount_temp();
-      });
+      if (window.web3.currentProvider.isMetaMask) {
+        window.ethereum.on('accountsChanged', () => {
+          this.componentDidMount_temp();
+        });
+      }
     }
 
     getAccountETHBalanceByAddress = () => {

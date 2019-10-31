@@ -28,9 +28,11 @@ class CoinAvailable extends Component {
 
     this.componentDidMount_temp();
 
-    window.ethereum.on('accountsChanged', () => {
-      this.componentDidMount_temp();
-    });
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', () => {
+        this.componentDidMount_temp();
+      });
+    }
   }
 
   // ***************** get_max_Withdraw_WETH_Amount

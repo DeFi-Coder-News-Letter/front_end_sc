@@ -19,7 +19,7 @@ class Main extends Component {
 
         this.componentDidMount_temp();
 
-        if (this.web3.currentProvider.isMetaMask) {
+        if (window.web3.currentProvider.isMetaMask) {
             window.ethereum.on('accountsChanged', () => {
                 this.componentDidMount_temp();
             });

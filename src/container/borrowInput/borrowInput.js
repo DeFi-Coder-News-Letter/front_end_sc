@@ -91,19 +91,19 @@ class BorrowInput extends Component {
     if (window.ethereum === undefined) {
       return;
     }
-    window.ethereum.on('accountsChanged', (accounts) => {
-      setTimeout(this.refreshData(), 500);
-      this.getUSDxAllowance();
-      this.getMaxBorrowAmount();
-      this.getBorrowBalance();
-      this.setState({ borrowAmount: '', repayBorrowAmount: '', isBorrowEnable: true, isRepayBorrowEnable: true, exceedsSafeMax: false });
-    });
+
+    if (window.web3.currentProvider.isMetaMask) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        setTimeout(this.refreshData(), 500);
+        this.getUSDxAllowance();
+        this.getMaxBorrowAmount();
+        this.getBorrowBalance();
+        this.setState({ borrowAmount: '', repayBorrowAmount: '', isBorrowEnable: true, isRepayBorrowEnable: true, exceedsSafeMax: false });
+      });
+    }
+
 
     this.componentDidMount_temp();
-
-    window.ethereum.on('accountsChanged', () => {
-      this.componentDidMount_temp();
-    });
   }
 
   getCollateralRatio = () => {
