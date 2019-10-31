@@ -96,7 +96,8 @@ class SupplyInput extends Component {
     }
     this.web3 = window.web3;
 
-    if (window.ethereum !== undefined) {
+    // if (window.ethereum !== undefined) {
+    if (window.web3.currentProvider.isMetaMask) {
       window.ethereum.on('accountsChanged', (accounts) => {
         setTimeout(this.refreshData(), 500);
         this.getAllowance();
