@@ -22,7 +22,7 @@ import zh_CN from '../../language/zh_CN';
 
 class Main extends Component {
     constructor(props) {
-        // alert(FormattedMessage)
+        alert(navigator.language)
         super(props);
         this.state = {
             currentAccount: null,
