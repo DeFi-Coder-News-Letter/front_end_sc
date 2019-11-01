@@ -31,7 +31,6 @@ const en_US = {
     Total_Supplied: "Total Supplied",
     Total_Borrowed: "Total Borrowed",
     Supply_APR: "Supply APR",
-    Borrow_APR: "Borrow APR",
     Before_supplying: "Before supplying USDx for the first time, you must enable USDx.",
     Already_borrowed: "Already borrowed USDx, please repay all of them in Borrow Page before supplying any.",
     INSUFFICIENT_LIQUIDITY: "INSUFFICIENT LIQUIDITY",
@@ -47,6 +46,7 @@ const en_US = {
     Home: "Home",
     SUPPLY: "SUPPLY",
     BORROW: "BORROW",
-    REPAY: "REPAY"
+    REPAY: "REPAY",
+    Balance: "Balance"
 }
 export default en_US;
