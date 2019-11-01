@@ -3,10 +3,26 @@ import './main.scss';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import AccountInfo from '../../container/accountInfo/accountInfo_main';
-import { findNetwork, getLoginStatusKey } from '../../util.js'
+import { findNetwork, getLoginStatusKey } from '../../util.js';
+
+
+// import {IntlProvider, addLocaleData} from 'react-intl';
+// import en from 'react-intl/locale-data/en';
+// import zh from 'react-intl/locale-data/zh';
+// addLocaleData([...en, ...zh]);
+import { IntlProvider, FormattedMessage } from 'react-intl';
+// import intl from 'intl';
+// addLocaleDate([...en,...zh]);
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
+
+
+
+
 
 class Main extends Component {
     constructor(props) {
+        // alert(FormattedMessage)
         super(props);
         this.state = {
             currentAccount: null,
@@ -103,62 +119,84 @@ class Main extends Component {
             NetworkName = findNetwork(window.web3.version.network);
             account = this.web3.eth.accounts[0];
         }
+
+
+        // return (
+        //     <IntlProvider locale={'zh'} messages={zh_CN} >
+        //         <h1>hhhhhhhhhhhh</h1>
+        //         {
+        //             <FormattedMessage id='hello' description='say hello to Howard.' defaultMessage='Hello, Howard' />
+        //         }
+        //     </IntlProvider>
+        // )
+
         return (
-            <MediaQuery maxWidth={736}>
-                {(match) => <div className={'main-page ' + (match ? 'CM XS' : 'CM LG')}>
-                    <div className='main-page-header'>
-                        <img src={'images/logo@2x.svg'} className='header-logo' alt="MAIN" />
-                        {match ? null : <div className='login-info-sec'>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div className={account !== undefined && this.state.isLogIn ? 'signed-in' : 'connect-sign'}></div>
-                                <span style={{ fontWeight: 500, paddingLeft: '8px' }}>{account !== undefined && this.state.isLogIn ? `${NetworkName}` : 'Unconnected'}</span>
-                            </div>
-                            <div className="login" style={{ fontWeight: 500 }}>
-                                {account !== undefined && this.state.isLogIn ? account.substring(0, 8) + '...' + account.substring(account.length - 6) : 'Connect to Metamask'}
-                                <div className="popup">
-                                    <span><em></em></span>
-                                    <p style={{ display: account !== undefined && this.state.isLogIn ? 'none' : 'block', fontWeight: 500 }} onClick={() => this.connectMetamask()}>Connect</p>
-                                    <p className="out" style={{ display: account !== undefined && this.state.isLogIn ? 'block' : 'none', fontWeight: 500 }} onClick={() => this.unConnectMetamask()}>Logout</p>
+            <IntlProvider locale={'en'} messages={zh_CN} >
+                <MediaQuery maxWidth={736}>
+                    {(match) => <div className={'main-page ' + (match ? 'CM XS' : 'CM LG')}>
+                        <div className='main-page-header'>
+                            <img src={'images/logo@2x.svg'} className='header-logo' alt="MAIN" />
+                            {match ? null : <div className='login-info-sec'>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <div className={account !== undefined && this.state.isLogIn ? 'signed-in' : 'connect-sign'}></div>
+                                    <span style={{ fontWeight: 500, paddingLeft: '8px' }}>{account !== undefined && this.state.isLogIn ? `${NetworkName}` : 'Unconnected'}</span>
                                 </div>
-                            </div>
-                        </div>}
-                    </div>
-                    <div className='headline-wrapper'>
-                        <div className='headline'>
-                            <span>Decentralized Lending with Lendf.me</span>
+                                <div className="login" style={{ fontWeight: 500 }}>
+                                    {account !== undefined && this.state.isLogIn ? account.substring(0, 8) + '...' + account.substring(account.length - 6) : 'Connect to Metamask'}
+                                    <div className="popup">
+                                        <span><em></em></span>
+                                        <p style={{ display: account !== undefined && this.state.isLogIn ? 'none' : 'block', fontWeight: 500 }} onClick={() => this.connectMetamask()}>Connect</p>
+                                        <p className="out" style={{ display: account !== undefined && this.state.isLogIn ? 'block' : 'none', fontWeight: 500 }} onClick={() => this.unConnectMetamask()}>Logout</p>
+                                    </div>
+                                </div>
+                            </div>}
                         </div>
-                        {/* <div className='headline-intro'>
+                        <div className='headline-wrapper'>
+                            <div className='headline'>
+                                {/* <span>Decentralized Lending with Lendf.me</span> */}
+                                <FormattedMessage id='Decentralized' />
+                            </div>
+                            {/* <div className='headline-intro'>
                                 <div>Borrowing and lending are mutually exclusive and cannot be occur simultaneously; </div>
                                 <div>In order to offer USDx in Lend page, you must first repay the USDx loan in the Borrow option.</div>
                             </div> */}
-                    </div>
-                    <div className='info-sec'>
-                        <AccountInfo currentPage={'main'} account={this.state.currentAccount} login={this.state.isLogIn} />
-                    </div>
-                    <div className='button-container'>
-                        <div className='lend-container'>
-                            <div className='lend-button'>
-                                <Link className={'lend-link'} to={{ pathname: './supply', state: { isLogIn: this.state.isLogIn } }} />
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src={'images/icon_s@2x.png'} alt="MAIN" />
-                                    <div className='title'>Supply USDx</div>
+                        </div>
+                        <div className='info-sec'>
+                            <AccountInfo currentPage={'main'} account={this.state.currentAccount} login={this.state.isLogIn} />
+                        </div>
+                        <div className='button-container'>
+                            <div className='lend-container'>
+                                <div className='lend-button'>
+                                    <Link className={'lend-link'} to={{ pathname: './supply', state: { isLogIn: this.state.isLogIn } }} />
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <img src={'images/icon_s@2x.png'} alt="MAIN" />
+                                        <div className='title'>
+                                            <FormattedMessage id='Supply_USDx' />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='description'>
+                                    <FormattedMessage id='Supply_your' />
                                 </div>
                             </div>
-                            <div className='description'>Supply your USDx assets to earn interest on your holdings.</div>
-                        </div>
-                        <div className='borrow-container'>
-                            <div className='borrow-button'>
-                                <Link className={'borrow-link'} to={{ pathname: './borrow', state: { isLogIn: this.state.isLogIn } }} />
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src={'images/icon_b@2x.png'} alt="MAIN" />
-                                    <div className='title'>Borrow USDx</div>
+                            <div className='borrow-container'>
+                                <div className='borrow-button'>
+                                    <Link className={'borrow-link'} to={{ pathname: './borrow', state: { isLogIn: this.state.isLogIn } }} />
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <img src={'images/icon_b@2x.png'} alt="MAIN" />
+                                        <div className='title'>
+                                            <FormattedMessage id='Borrow_USDx' />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='description'>
+                                    <FormattedMessage id='Pledge_WETH' />
                                 </div>
                             </div>
-                            <div className='description'>Pledge WETH assets to borrow USDx instantly, at competitive interest rate.</div>
                         </div>
-                    </div>
-                </div>}
-            </MediaQuery>
+                    </div>}
+                </MediaQuery>
+            </IntlProvider>
         );
     }
 }
