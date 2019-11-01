@@ -13,7 +13,7 @@ const Approve = (props) => {
             <div className='approve-section'>
                 <div className='enable-message'>
                     {/* {props.enableMessage} */}
-                    {props.enableMessage === 'Before supplying USDx for the first time, you must enable USDx.' ? <FormattedMessage id='Before_borrowing' /> : null}
+                    {props.enableMessage === 'Before supplying USDx for the first time, you must enable USDx.' ? <FormattedMessage id='Before_supplying' /> : null}
                     {props.enableMessage === 'Before supplying WETH for the first time, you must enable WETH.' ? <FormattedMessage id='Before_supplying_WETH' /> : null}
                     {props.enableMessage === 'Before Borrowing USDx for the first time, you must enable USDx.' ? <FormattedMessage id='Before_borrowing' /> : null}
                 </div>
