@@ -5,6 +5,7 @@ import './balanceInfoWithIcon.scss';
 import { findNetwork } from '../../util.js';
 import CoinInfoWithIcon from '../../component/coinInfoWithIcon/coinInfoWithIcon';
 
+
 class BalanceInfoWithIcon extends Component {
   constructor(props) {
     super(props);

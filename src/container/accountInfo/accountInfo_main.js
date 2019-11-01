@@ -7,6 +7,7 @@ import MoneyMarket from './../../ABIs/MoneyMarket.js';
 import { toFormatShowNumber, getPercentageFormat, toDoubleThousands, findNetwork, formatBigNumber } from '../../util.js';
 import './accountInfo.scss';
 
+
 class AccountInfo extends Component {
   constructor(props) {
     super(props)
@@ -204,6 +205,7 @@ class AccountInfo extends Component {
     ];
 
     return (
+
       <div className={'main-info-board'}>
         <div className={'main-info-board-content'}>
           <InfoSection accountInfo={accountInfo} currentPage={'main'} />

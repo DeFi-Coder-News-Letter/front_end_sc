@@ -13,6 +13,12 @@ import MediaQuery from 'react-responsive';
 import "./lend.scss";
 
 
+// add i18n.
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
+
+
 const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 class Lend extends Component {
@@ -46,26 +52,6 @@ class Lend extends Component {
     }
 
   }
-
-  // getAssetPrice = () => {
-  //   if (MoneyMarket() === undefined) {
-  //     return;
-  //   }
-  //   let usdxAddress = '';
-  //   let NetworkName = findNetwork(window.web3.version.network);
-  //   if (NetworkName === 'Main') {
-  //     usdxAddress = Network.Main.USDx;
-  //   } else if (NetworkName === 'Rinkeby') {
-  //     usdxAddress = Network.Rinkeby.USDx;
-  //   }
-  //   MoneyMarket().assetPrices(usdxAddress, (err, res) => {
-  //     if (res !== undefined && res !== null) {
-  //       this.setState({
-  //         supplyAssetPrice: this.web3.fromWei(res.toNumber(), "ether")
-  //       });
-  //     }
-  //   });
-  // };
 
 
   // *********** has_Borrowed_USDx
@@ -222,52 +208,54 @@ class Lend extends Component {
     };
 
     return (
-      <MediaQuery maxWidth={768}>
-        {(match) =>
-          <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
-            <WithMarketInfoEnhanced networkName={NetworkName} account={currentAccount} login={window.web3.eth.accounts[0]} />
-            <div className='redirect-button'>
-              <div className='go-back-button'>
-                <Link to={'/'}>
-                  <img src={'images/icon_home@2x.png'} alt="HOME" />
-                  <span>Home</span>
-                </Link>
-              </div>
-              <div className='go-to-borrow'>
-                <Link to={'/borrow'} >
-                  <span>Borrow</span>
-                  <img src={'images/icon_borrow@2x.png'} alt="BORROW" />
-                </Link>
-              </div>
-            </div>
-            <AccountInfo networkName={NetworkName} currentPage={'lend'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} />
-
-
-
-
-
-            <div className="lend-page-wrapper">
-              <div className="supply-group">
-                <div className="supply-title">
-                  <span>SUPPLY</span>
+      <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
+        <MediaQuery maxWidth={768}>
+          {(match) =>
+            <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
+              <WithMarketInfoEnhanced networkName={NetworkName} account={currentAccount} login={window.web3.eth.accounts[0]} />
+              <div className='redirect-button'>
+                <div className='go-back-button'>
+                  <Link to={'/'}>
+                    <img src={'images/icon_home@2x.png'} alt="HOME" />
+                    <span>
+                      <FormattedMessage id='Home' />
+                    </span>
+                  </Link>
                 </div>
-                <div className="supply-content" style={{}}>
-                  {/* <div className="supply-content" style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}> */}
-                  <SupplyInput {...usdxProps} />
-
-
-                  {this.state.isLogIn && window.web3.eth.accounts[0] && (this.state.isApproved_USDx == 1 || this.state.not_approve_atfirst_USDX == 1)
-                    ?
-                    <RecordBoard coinType={'USDx'} account={currentAccount} page={'lend'} />
-                    :
-                    null
-                  }
+                <div className='go-to-borrow'>
+                  <Link to={'/borrow'} >
+                    <span>
+                      <FormattedMessage id='Borrow' />
+                    </span>
+                    <img src={'images/icon_borrow@2x.png'} alt="BORROW" />
+                  </Link>
                 </div>
               </div>
+              <AccountInfo networkName={NetworkName} currentPage={'lend'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} />
+
+              <div className="lend-page-wrapper">
+                <div className="supply-group">
+                  <div className="supply-title">
+                    <span>
+                      <FormattedMessage id='SUPPLY' /></span>
+                  </div>
+                  <div className="supply-content" style={{}}>
+                    {/* <div className="supply-content" style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}> */}
+                    <SupplyInput {...usdxProps} />
+
+                    {this.state.isLogIn && window.web3.eth.accounts[0] && (this.state.isApproved_USDx == 1 || this.state.not_approve_atfirst_USDX == 1)
+                      ?
+                      <RecordBoard coinType={'USDx'} account={currentAccount} page={'lend'} />
+                      :
+                      null
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        }
-      </MediaQuery>
+          }
+        </MediaQuery>
+      </IntlProvider>
     );
   }
 }

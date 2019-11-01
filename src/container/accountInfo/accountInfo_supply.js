@@ -7,6 +7,11 @@ import MoneyMarket from './../../ABIs/MoneyMarket.js';
 import { toFormatShowNumber, getPercentageFormat, toDoubleThousands, findNetwork, formatBigNumber } from '../../util.js';
 import './accountInfo.scss';
 
+// add i18n.
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
+
 class AccountInfo extends Component {
   constructor(props) {
     super(props)
@@ -196,14 +201,16 @@ class AccountInfo extends Component {
       }
     ];
     return (
-      <div className={'account-info-board'}>
-        <div className={'info-board-title'}>
-          {'USDx Market'}
+      <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
+        <div className={'account-info-board'}>
+          <div className={'info-board-title'}>
+            <FormattedMessage id='USDx_Market' />
+          </div>
+          <div className={'info-board-content'}>
+            <InfoSection accountInfo={accountInfo} currentPage={'lend'} />
+          </div>
         </div>
-        <div className={'info-board-content'}>
-          <InfoSection accountInfo={accountInfo} currentPage={'lend'} />
-        </div>
-      </div>
+      </IntlProvider>
     )
   }
 }

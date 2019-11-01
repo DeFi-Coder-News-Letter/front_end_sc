@@ -5,33 +5,20 @@ import MediaQuery from 'react-responsive';
 import AccountInfo from '../../container/accountInfo/accountInfo_main';
 import { findNetwork, getLoginStatusKey } from '../../util.js';
 
-
-// import {IntlProvider, addLocaleData} from 'react-intl';
-// import en from 'react-intl/locale-data/en';
-// import zh from 'react-intl/locale-data/zh';
-// addLocaleData([...en, ...zh]);
+// add i18n.
 import { IntlProvider, FormattedMessage } from 'react-intl';
-// import intl from 'intl';
-// addLocaleDate([...en,...zh]);
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 
-
-
-
 class Main extends Component {
     constructor(props) {
-        alert(navigator.language)
         super(props);
         this.state = {
             currentAccount: null,
             isLogIn: false
         }
         this.web3 = window.web3;
-        // this.localStorage = window.localStorage;
-        // this.localStorage.isLogIn = JSON.stringify({isLogIn: false});
-        // alert('main.js')
 
         this.componentDidMount_temp();
 
@@ -120,18 +107,8 @@ class Main extends Component {
             account = this.web3.eth.accounts[0];
         }
 
-
-        // return (
-        //     <IntlProvider locale={'zh'} messages={zh_CN} >
-        //         <h1>hhhhhhhhhhhh</h1>
-        //         {
-        //             <FormattedMessage id='hello' description='say hello to Howard.' defaultMessage='Hello, Howard' />
-        //         }
-        //     </IntlProvider>
-        // )
-
         return (
-            <IntlProvider locale={'en'} messages={zh_CN} >
+            <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
                 <MediaQuery maxWidth={736}>
                     {(match) => <div className={'main-page ' + (match ? 'CM XS' : 'CM LG')}>
                         <div className='main-page-header'>

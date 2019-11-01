@@ -14,6 +14,11 @@ import Network from '../../constant.json';
 import MediaQuery from 'react-responsive';
 import './borrow.scss';
 
+// add i18n.
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
+
 const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 class Borrow extends Component {
@@ -276,68 +281,82 @@ class Borrow extends Component {
     }
 
     return (
-      <MediaQuery maxWidth={768}>
-        {(match) =>
-          <div className={'borrow-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
+      <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
+        <MediaQuery maxWidth={768}>
+          {(match) =>
+            <div className={'borrow-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
 
-            <WithMarketInfoEnhanced networkName={findNetwork(window.web3.version.network)} account={window.web3.eth.accounts[0]} login={window.web3.eth.accounts[0]} />
+              <WithMarketInfoEnhanced networkName={findNetwork(window.web3.version.network)} account={window.web3.eth.accounts[0]} login={window.web3.eth.accounts[0]} />
 
-            <div className='redirect-button'>
-              <div className='go-back-button'>
-                <Link to={'/'}>
-                  <img src={'images/icon_home@2x.png'} alt="HOME" />
-                  <spam>Home</spam>
-                </Link>
-              </div>
-              <div className='go-to-lend'>
-                <Link to={'/supply'} >
-                  <span>Supply</span>
-                  <img src={'images/icon_lend@2x.png'} alt="SUPPLY" />
-                </Link>
-              </div>
-            </div>
-
-            <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} />
-
-            {match && <label className='input-unit-switch'>
-              <input type='checkbox' checked={this.state.borrowgroup} onChange={() => this.setState({ borrowgroup: !this.state.borrowgroup })} />
-              <span className="slider round"></span>
-              <span className="supply">Supply</span>
-              <span className="borrow">Borrow</span>
-            </label>
-            }
-
-            <div className='borrow-page-content-wrapper'>
-              {(!this.state.borrowgroup || !match) && <div className='supply-group'>
-                <div className='supply-title'>
-                  <span className='title-font'>SUPPLY</span>
+              <div className='redirect-button'>
+                <div className='go-back-button'>
+                  <Link to={'/'}>
+                    <img src={'images/icon_home@2x.png'} alt="HOME" />
+                    <spam>
+                      <FormattedMessage id='Home' />
+                    </spam>
+                  </Link>
                 </div>
-                <div className='supply-content' style={{ display: (this.state.isApproved_WETH === 1) || (this.state.not_approve_atfirst_WETH === 1) ? 'block' : 'none' }}>
-                  <SupplyInput {...wethProps} father_approve_WETH={this.state.isApproved_WETH} />
-                  <RecordBoard coinType={'WETH'} account={currentAccount} page={'borrow'} />
+                <div className='go-to-lend'>
+                  <Link to={'/supply'} >
+                    <span>
+                      <FormattedMessage id='Supply' />
+                    </span>
+                    <img src={'images/icon_lend@2x.png'} alt="SUPPLY" />
+                  </Link>
                 </div>
               </div>
+
+              <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} />
+
+              {match && <label className='input-unit-switch'>
+                <input type='checkbox' checked={this.state.borrowgroup} onChange={() => this.setState({ borrowgroup: !this.state.borrowgroup })} />
+                <span className="slider round"></span>
+                <span className="supply">
+                  <FormattedMessage id='Supply' />
+                </span>
+                <span className="borrow">
+                  <FormattedMessage id='Borrow' />
+                </span>
+              </label>
               }
 
-              {(this.state.borrowgroup || !match) && <div className='borrow-group'>
-                <div className='borrow-title-borrow'>
-                  <span className='title-font'>BORROW</span>
+              <div className='borrow-page-content-wrapper'>
+                {(!this.state.borrowgroup || !match) && <div className='supply-group'>
+                  <div className='supply-title'>
+                    <span className='title-font'>
+                      <FormattedMessage id='SUPPLY' />
+                    </span>
+                  </div>
+                  <div className='supply-content' style={{ display: (this.state.isApproved_WETH === 1) || (this.state.not_approve_atfirst_WETH === 1) ? 'block' : 'none' }}>
+                    <SupplyInput {...wethProps} father_approve_WETH={this.state.isApproved_WETH} />
+                    <RecordBoard coinType={'WETH'} account={currentAccount} page={'borrow'} />
+                  </div>
                 </div>
-                <div className='borrow-content' style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}>
-                  <BorrowInput networkName={NetworkName} {...borrowProps} father_approve_USDx={this.state.isApproved_USDx} />
-                  {this.state.isLogIn
-                    ?
-                    <RecordBoard coinType={'USDx'} account={currentAccount} page={'borrow'} />
-                    :
-                    null
-                  }
+                }
+
+                {(this.state.borrowgroup || !match) && <div className='borrow-group'>
+                  <div className='borrow-title-borrow'>
+                    <span className='title-font'>
+                      <FormattedMessage id='BORROW' />
+                    </span>
+                  </div>
+                  <div className='borrow-content' style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}>
+                    <BorrowInput networkName={NetworkName} {...borrowProps} father_approve_USDx={this.state.isApproved_USDx} />
+                    {this.state.isLogIn
+                      ?
+                      <RecordBoard coinType={'USDx'} account={currentAccount} page={'borrow'} />
+                      :
+                      null
+                    }
+                  </div>
                 </div>
+                }
               </div>
-              }
             </div>
-          </div>
-        }
-      </MediaQuery>
+          }
+        </MediaQuery>
+      </IntlProvider>
     );
   }
 }
