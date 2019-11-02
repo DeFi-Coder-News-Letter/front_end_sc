@@ -40,7 +40,7 @@ const zh_CN = {
     ENABLE_WETH: "授权",
     Borrow: "借款",
     USDx_Borrowed_borrow: "USDx已借数量",
-    USDx_Available: "USDx可借数量",
+    USDx_Available: "USDx可用数量",
     USDx_Available_supply: "USDx可取数量",
     Repay: "偿还",
     USDx_Balance: "USDx余额",
