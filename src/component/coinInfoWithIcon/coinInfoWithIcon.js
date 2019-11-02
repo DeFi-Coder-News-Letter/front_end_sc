@@ -19,7 +19,7 @@ const CoinInfoWithIcon = (props) => {
           {/* {props.coin}&nbsp;{props.action} */}
           {(props.coin + ' ' + props.action) === 'USDx Supplied' ? <FormattedMessage id='USDx_Supplied' /> : null}
           {(props.coin + ' ' + props.action) === 'WETH Supplied' ? <FormattedMessage id='WETH_Supplied' /> : null}
-          {(props.coin + ' ' + props.action) === 'USDx Borrowed' ? <FormattedMessage id='USDx_Borrowed' /> : null}
+          {(props.coin + ' ' + props.action) === 'USDx Borrowed' ? <FormattedMessage id='USDx_Borrowed_borrow' /> : null}
         </span>
 
         <span className='balance-amount'>

@@ -3,6 +3,7 @@ const zh_CN = {
     superHello: "你好，{ someone } !",
     Decentralized: "去中心化USDx存借平台",
     USDx_Supplied: "USDx已存数量",
+    USDx_Supplied_home: "USDx存款总额",
     USDx_Borrowed: "USDx借款总额",
     Utilization_Rate: "USDx借存比率",
     Collateralization_ratio: "抵押率",

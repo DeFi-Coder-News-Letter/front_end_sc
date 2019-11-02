@@ -3,6 +3,7 @@ const en_US = {
     superHello: "你好，{ someone } !",
     Decentralized: "Decentralized Lending with Lendf.me",
     USDx_Supplied: "USDx Supplied",
+    USDx_Supplied_home: "USDx Supplied",
     USDx_Borrowed: "USDx Borrowed",
     Utilization_Rate: "Utilization Rate",
     Collateralization_ratio: "Collateralization ratio",

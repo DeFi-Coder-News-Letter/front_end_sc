@@ -17,8 +17,8 @@ const InfoSection = (props) => {
                             <div>
                                 <img src={'images/board_icon.png'} style={{ marginRight: '7px' }} alt="" />
                                 {/* <div className='info-title'>{info.title}</div> */}
-                                <div className='info-title'>{info.title === 'USDx Supplied' ? <FormattedMessage id='USDx_Supplied' /> : null}</div>
-                                <div className='info-title'>{info.title === 'USDx Borrowed' ? <FormattedMessage id='USDx_Borrowed_borrow' /> : null}</div>
+                                <div className='info-title'>{info.title === 'USDx Supplied' ? <FormattedMessage id='USDx_Supplied_home' /> : null}</div>
+                                <div className='info-title'>{info.title === 'USDx Borrowed' ? <FormattedMessage id='USDx_Borrowed' /> : null}</div>
                                 <div className='info-title'>{info.title === 'Utilization Rate' ? <FormattedMessage id='Utilization_Rate' /> : null}</div>
                                 <div className='info-title'>{info.title === 'Collateralization ratio' ? <FormattedMessage id='Collateralization_ratio' /> : null}</div>
                                 <div className='info-title'>{info.title === 'USDx Supply APR' ? <FormattedMessage id='USDx_Supply_APR' /> : null}</div>
