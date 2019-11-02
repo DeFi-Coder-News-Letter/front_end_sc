@@ -49,6 +49,6 @@ const en_US = {
     SUPPLY: "SUPPLY",
     BORROW: "BORROW",
     REPAY: "REPAY",
-    Balance: "Balance"
+    Balance: " Balance"
 }
 export default en_US;
