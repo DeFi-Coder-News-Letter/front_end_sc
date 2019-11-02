@@ -35,7 +35,7 @@ class CoinAvailable extends Component {
     }
   }
 
-  // ***************88 usdx_Available_Amount
+  // ***************88 usdx Available_Amount
   get_Account_Balance = () => {
     if (this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined || USDX() === undefined) {
       return;
