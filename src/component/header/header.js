@@ -140,7 +140,7 @@ class Header extends Component {
 
                             <div className='market-info'>
                                 <span className='market-info-title'>
-                                    USDx 
+                                    USDx &nbsp;
                                     <FormattedMessage id='Balance' />
                                     {window.web3 !== undefined && findNetwork(window.web3.version.network) === 'Rinkeby' ? <a className='usdx-faucet' onClick={this.allocateUSDx}>Faucet</a> : ''}</span>
                                 <span className='market-info-digits'>{this.props.USDxBalance}</span>
@@ -148,7 +148,7 @@ class Header extends Component {
 
                             <div className='market-info'>
                                 <span className='market-info-title'>
-                                    ETH 
+                                    ETH &nbsp;
                                     <FormattedMessage id='Balance' />
                                 </span>
                                 <span className='market-info-digits'>{this.props.ETHBalance}</span>
@@ -156,7 +156,7 @@ class Header extends Component {
 
                             <div className='market-info'>
                                 <span className='market-info-title'>
-                                    WETH 
+                                    WETH &nbsp;
                                     <FormattedMessage id='Balance' />
                                 </span>
                                 <span className='market-info-digits'>{this.props.WETHBalance}</span>
