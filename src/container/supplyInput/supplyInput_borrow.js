@@ -2025,7 +2025,7 @@ class SupplyInput extends Component {
 
 
         <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
-          <TabPane tab={this.props.tabLeftName} key="1" className='tab-content'>
+          <TabPane tab={this.props.tabLeftName === 'SUPPLY'? navigator.language === 'zh-CN' ? '存款' : 'SUPPLY':this.props.tabLeftName} key="1" className='tab-content'>
             {
               this.props.father_approve_WETH == 1
                 ?
@@ -2041,7 +2041,7 @@ class SupplyInput extends Component {
             }
           </TabPane>
 
-          <TabPane tab={this.props.tabRightName} key="2" className='tab-content'>
+          <TabPane tab={this.props.tabRightName === 'WITHDRAW'? navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW':this.props.tabRightName} key="2" className='tab-content'>
             {this.state.isApproved && <CoinAvailable coin={'weth'} action={'withdraw'} login={this.props.login} />}
             {this.state.isApproved ? <InputUnit {...withdrawProps} /> : <Approve {...approveProps} />}
           </TabPane>

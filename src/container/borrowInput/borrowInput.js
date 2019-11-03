@@ -1411,7 +1411,7 @@ class BorrowInput extends Component {
       <div className='borrow-input'>
         <BalanceInfoWithIcon coin={'USDx'} action={'Borrowed'} login={this.props.login} />
         <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
-          <TabPane tab="BORROW" key="1" className='tab-content'>
+          <TabPane tab={navigator.language === 'zh-CN' ? '借款' : 'BORROW'} key="1" className='tab-content'>
             {
               this.props.father_approve_USDx == 1
                 ?
@@ -1424,7 +1424,7 @@ class BorrowInput extends Component {
             }
           </TabPane>
 
-          <TabPane tab="REPAY" key="2" className='tab-content'>
+          <TabPane tab={navigator.language === 'zh-CN' ? '偿还' : 'REPAY'} key="2" className='tab-content'>
             {this.state.isApproved && <CoinBalance coin={'usdx'} login={this.props.login} />}
             {this.state.isApproved
               ?
