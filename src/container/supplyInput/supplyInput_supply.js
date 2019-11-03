@@ -1970,7 +1970,7 @@ class SupplyInput extends Component {
         <BalanceInfoWithIcon coin={'USDx'} action={'Supplied'} login={window.web3.eth.accounts[0] ? true : false} />
 
         <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
-          <TabPane tab={this.props.tabLeftName} key="1" className='tab-content'>
+          <TabPane tab={this.props.tabLeftName === 'SUPPLY'? navigator.language === 'zh-CN' ? '存款' : 'SUPPLY':this.props.tabLeftName} key="1" className='tab-content'>
             {
               this.props.isApproved_USDx == 1
                 ?
@@ -1990,7 +1990,7 @@ class SupplyInput extends Component {
             }
           </TabPane>
 
-          <TabPane tab={this.props.tabRightName} key="2" className='tab-content'>
+          <TabPane tab={ this.props.tabRightName === 'WITHDRAW'? navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW':this.props.tabRightName} key="2" className='tab-content'>
             {this.props.isApproved_USDx == 1 && <CoinAvailable coin={'usdx'} action={'withdraw'} login={this.props.login} father_USDx={this.state.maxWithdrawUSDXAmount} />}
             {this.props.isApproved_USDx == 1 ? <InputUnit {...withdrawProps} /> : <Approve {...approveProps} />}
           </TabPane>
