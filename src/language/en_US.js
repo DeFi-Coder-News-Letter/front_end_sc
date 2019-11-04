@@ -1,7 +1,5 @@
 const en_US = {
-    hello: "你好，我在测试！",
-    superHello: "你好，{ someone } !",
-    Decentralized: "Decentralized Lending with Lendf.me",
+    Decentralized: "Earn Interest and Borrow Money at Ease with Lendf.Me",
     USDx_Supplied: "USDx Supplied",
     USDx_Supplied_home: "USDx Supplied",
     USDx_Borrowed: "USDx Borrowed",

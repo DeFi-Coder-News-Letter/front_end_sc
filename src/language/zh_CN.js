@@ -1,6 +1,4 @@
 const zh_CN = {
-    hello: "你好，我在测试！",
-    superHello: "你好，{ someone } !",
     Decentralized: "随存随贷，你自己的银行",
     USDx_Supplied: "USDx已存数量",
     USDx_Supplied_home: "USDx存款总额",
