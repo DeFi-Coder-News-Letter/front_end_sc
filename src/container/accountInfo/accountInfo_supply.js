@@ -107,7 +107,20 @@ class AccountInfo extends Component {
       });
   }
 
-
+  get_USDx_supply = () => {
+    let usdxAddress = '';
+    let NetworkName = findNetwork(window.web3.version.network);
+    if (NetworkName === 'Main') {
+      usdxAddress = Network.Main.USDx;
+    } else if (NetworkName === 'Rinkeby') {
+      usdxAddress = Network.Rinkeby.USDx;
+    }
+    MoneyMarket().markets(usdxAddress, (err, res) => {
+      if (res !== undefined && res !== null) {
+        this.setState({ USDx_supply: this.web3.fromWei(res[3], "ether") });
+      }
+    })
+  }
 
   // ***************** borrowInterestRate
   getBorrowInterestRate = () => {
@@ -165,12 +178,14 @@ class AccountInfo extends Component {
       this.getBorrowInterestRate();
       this.getSupplyInterestRate();
       this.getUtilizationRate();
+      this.get_USDx_supply();
     }, 700);
     this.getAddressIntervalBorrow = setInterval(() => {
       if (true) {
         this.getBorrowInterestRate();
         this.getSupplyInterestRate();
         this.getUtilizationRate();
+        this.get_USDx_supply();
       }
     }, 1000 * 15);
   }
@@ -180,7 +195,7 @@ class AccountInfo extends Component {
     const accountInfo = [
       {
         title: 'Total Supplied',
-        amount: (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || !this.props.login) ? '-' : '$' + toDoubleThousands(this.state.tatol_Supplied),
+        amount: (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || !this.props.login) ? '-' : '$' + toDoubleThousands(this.state.USDx_supply),
         page: 'lend'
       },
       {

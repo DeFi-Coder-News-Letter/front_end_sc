@@ -130,17 +130,17 @@ class SupplyInput extends Component {
     if (window.web3 !== undefined && this.web3.eth.accounts[0] !== undefined && this.props.coin !== undefined) {
       this.props.coin.balanceOf(this.web3.eth.accounts[0], (err, res) => {
         let balance = 0;
-        // SupplyMax
         if (res !== undefined && res !== null) {
           balance = formatBigNumber(res);
         }
+
         let AccountBalance = toFormatShowNumber(balance)
         let MaxSupplyAmount = balance;
+
         if (this.state.accountBalance !== AccountBalance) {
-          this.setState({ accountBalance: AccountBalance });
-          this.setState({ isSupplyEnable: true });
-          this.setState({ supplyAmount: '' });
+          this.setState({ accountBalance: AccountBalance, isSupplyEnable: true, supplyAmount: '' });
         }
+
         if (this.state.maxSupplyAmount !== MaxSupplyAmount) {
           this.setState({ maxSupplyAmount: balance });
         }
@@ -540,11 +540,10 @@ class SupplyInput extends Component {
 
   // ************** handle_Supply_Max
   handleSupplyMax = () => {
-    // this.setState({ supplyAmount: toFormat4Number(this.state.maxSupplyAmount) });
     this.setState({ supplyAmount: this.state.maxSupplyAmount });
+
     if (Number(this.state.maxSupplyAmount) === 0) {
-      this.setState({ isSupplyEnable: false });
-      this.setState({ supplyButtonText: this.props.supplyButtonInfo });
+      this.setState({ isSupplyEnable: false, supplyButtonText: this.props.supplyButtonInfo });
     } else {
       this.setState({ isSupplyEnable: true });
     }
@@ -577,7 +576,10 @@ class SupplyInput extends Component {
   }
 
   handleWithdrawMax = () => {
-    this.setState({ withdrawAmount: this.state.maxWithdrawUSDXAmount, withdrawMax: true }, () => {
+    this.setState({
+      withdrawAmount: this.state.maxWithdrawUSDXAmount,
+      withdrawMax: true
+    }, () => {
       // console.log(this.state.maxWithdrawUSDXAmount);
       if (Number(this.state.maxWithdrawUSDXAmount) === 0) {
         this.setState({ isWithdrawEnable: false, withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
