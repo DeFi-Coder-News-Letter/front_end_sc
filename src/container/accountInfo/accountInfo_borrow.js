@@ -299,7 +299,6 @@ class AccountInfo extends Component {
       <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
         <div className={'account-info-board'}>
           <div className={'info-board-title'}>
-            {/* {'Account Portfolio'} */}
             <FormattedMessage id='Account_Portfolio' />
           </div>
           <div className={'info-board-content'}>

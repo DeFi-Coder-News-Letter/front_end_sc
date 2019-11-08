@@ -87,11 +87,13 @@ class CoinAvailable extends Component {
                                     if (Number(availableBorrowAmount) < 0) {
                                       availableBorrowAmount = 0;
                                     }
+
                                     if (Number(availableBorrowAmount) === Number(this.state.cash)) {
                                       availableBorrowAmount = this.state.cash;
                                     } else if (Number(availableBorrowAmount) === Number(usdxAvailableAmount)) {
                                       availableBorrowAmount = availableBorrowAmount / (1 + Number(formatBigNumber(res_orin)));
                                     }
+                                    
                                     if (this.state.usdxAvailableAmount !== availableBorrowAmount) {
                                       this.setState({ usdxAvailableAmount: availableBorrowAmount })
                                     }

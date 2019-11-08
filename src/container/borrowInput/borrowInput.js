@@ -523,8 +523,8 @@ class BorrowInput extends Component {
   }
 
   handleRepayMax = () => {
-    this.setState({ repayBorrowAmount: this.state.maxRepayBorrowAmount });
-    this.setState({ repayBorrowMax: true });
+    this.setState({ repayBorrowAmount: this.state.maxRepayBorrowAmount,repayBorrowMax: true  });
+
     if (Number(this.state.maxRepayBorrowAmount) === 0) {
       this.setState({ isRepayBorrowEnable: false });
       this.setState({ repayButtonText: this.props.repayButtonInfo });
@@ -1334,7 +1334,7 @@ class BorrowInput extends Component {
       this.getMaxBorrowAmount();
       this.getAccountUSDXBalanceByAddress();
       this.getOriginationFee();
-    }, 1000 * 15)
+    }, 1000 * 5)
 
     // Initial Loading Component Info 
     this.refreshData();

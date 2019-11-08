@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, Button, InputNumber, Input } from 'antd';
 import Approve from '../../component/approve/approve';
-import InputUnit from '../../component/inputUnit/inputUnit';
-import WETH from '../../ABIs/WETH';
+// import InputUnit from '../../component/inputUnit/inputUnit';
+// import WETH from '../../ABIs/WETH';
 import USDX from "../../ABIs/USDX.js";
 import MoneyMarket from './../../ABIs/MoneyMarket.js';
 import { saveTransaction, getTxnHashHref, toDoubleThousands, validNumber, toFormatShowNumber, getTransactionHistoryKey, findNetwork, diffMin, formatBigNumber, toNonExponential } from '../../util.js';
 import Asset from '../../constant.json';
 import Network from '../../constant.json';
 import './supplyInput.scss';
-import CoinAvailable from './../coinAvailable/coinAvailable_supply';
-import CoinBalance from './../coinBalance/coinBalance_supply';
-import BalanceInfoWithIcon from './../balanceInfoWithIcon/balanceInfoWithIcon_supply';
+// import CoinAvailable from './../coinAvailable/coinAvailable_supply';
+// import CoinBalance from './../coinBalance/coinBalance_supply';
 import ErrorCode from '../../error_code.json';
+
+
+// add i18n.
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
 
 const { TabPane } = Tabs;
 
-class SupplyInput extends Component {
+class SupplyContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +107,7 @@ class SupplyInput extends Component {
         setTimeout(this.refreshData(), 500);
         this.getAllowance();
         // this.getMaxWithdrawAmount();
-        this.getAccountBalance();
+        // this.getAccountBalance();
         // this.getMyAddressWETHBalance();
         this.setState({ supplyAmount: '', withdrawAmount: '', wrapAmount: '', unwrapAmount: '' });
         // reset button&inputText status
@@ -126,27 +131,26 @@ class SupplyInput extends Component {
 
 
   // ******************* account_Balance
-  getAccountBalance = () => {
-    if (window.web3 !== undefined && this.web3.eth.accounts[0] !== undefined && this.props.coin !== undefined) {
-      this.props.coin.balanceOf(this.web3.eth.accounts[0], (err, res) => {
-        let balance = 0;
-        if (res !== undefined && res !== null) {
-          balance = formatBigNumber(res);
-        }
+  // getAccountBalance = () => {
+  //   if (window.web3 !== undefined && this.web3.eth.accounts[0] !== undefined && this.props.coin !== undefined) {
+  //     this.props.coin.balanceOf(this.web3.eth.accounts[0], (err, res) => {
+  //       console.log(res)
+  //       let balance = 0;
+  //       if (res !== undefined && res !== null) {
+  //         balance = formatBigNumber(res);
+  //       }
 
-        let AccountBalance = toFormatShowNumber(balance)
-        let MaxSupplyAmount = balance;
+  //       let AccountBalance = toFormatShowNumber(balance)
+  //       let MaxSupplyAmount = balance;
 
-        if (this.state.accountBalance !== AccountBalance) {
-          this.setState({ accountBalance: AccountBalance, isSupplyEnable: true, supplyAmount: '' });
-        }
+  //       if (this.state.accountBalance !== AccountBalance) {
+  //         this.setState({ accountBalance: AccountBalance, isSupplyEnable: true, supplyAmount: '' });
+  //       }
+  //         this.setState({ maxSupplyAmount: balance }, ()=>{     });
 
-        if (this.state.maxSupplyAmount !== MaxSupplyAmount) {
-          this.setState({ maxSupplyAmount: balance });
-        }
-      });
-    }
-  }
+  //     });
+  //   }
+  // }
 
   getCurrentSupplyAssetAmount = () => {
     if (window.web3 !== undefined && this.web3.eth.accounts[0] !== undefined && MoneyMarket() !== undefined) {
@@ -283,97 +287,7 @@ class SupplyInput extends Component {
   }
 
 
-  // ***********************  get_Max_Withdraw_Amount
-  // getMaxWithdrawAmount = () => {
-  //   if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
-  //     return;
-  //   }
-  //   MoneyMarket().calculateAccountValues(this.web3.eth.accounts[0], (err, res) => {
-  //     if (res === undefined || res === null || this.state.supplyAssetPrice === 0) {
-  //       return;
-  //     }
-  //     // console.log(res);
-  //     // Supplied Balance = MoneyMarket.calculateAccountValues(address userAddress)[1]
-  //     // Borrowed Balance = MoneyMarket.calculateAccountValues(address userAddress)[2]
-  //     let sumofSupplies = this.web3.fromWei(this.web3.fromWei(res[1].toNumber(), "ether"), "ether");
-  //     let sumofBorrow = this.web3.fromWei(this.web3.fromWei(res[2].toNumber(), "ether"), "ether") * this.state.collateralRatio;
-  //     //weth价格修改 增加了下面两行
-  //     if (this.props.usdxCoin) {
-  //       sumofSupplies = sumofSupplies * this.state.supplyAssetPrice / 1;
-  //       sumofBorrow = sumofBorrow * this.state.supplyAssetPrice / 1;
-  //     }
 
-  //     let max = Math.min((sumofSupplies - sumofBorrow), this.state.supplyAccountBalance, this.state.assetBalance);
-
-  //     if (Number(max) < 0) {
-  //       max = 0;
-  //     }
-
-  //     if (this.state.maxWithdrawAmount !== Number(max)) {
-  //       this.setState({ maxWithdrawAmount: Number(max) });
-  //     }
-  //   }
-  //   );
-  // }
-
-
-  // ******************* max_Withdraw_USDX_Amount
-  getmaxWithdrawUSDXAmount = () => {
-    if (typeof web3 !== 'undefined' && this.web3.eth.accounts[0] !== undefined) {
-      let wethAddress = '';
-      let usdxAddress = '';
-      let mmAddress = '';
-      let NetworkName = findNetwork(window.web3.version.network);
-      if (NetworkName === 'Main') {
-        mmAddress = Network.Main.MoneyMarket;
-        usdxAddress = Network.Main.USDx;
-        wethAddress = Network.Main.WETH;
-      } else if (NetworkName === 'Rinkeby') {
-        mmAddress = Network.Rinkeby.MoneyMarket;
-        usdxAddress = Network.Rinkeby.USDx;
-        wethAddress = Network.Rinkeby.WETH;
-      }
-      MoneyMarket().calculateAccountValues(
-        this.web3.eth.accounts[0],
-        (err, res) => {
-          if (res !== undefined || res !== null) {
-            MoneyMarket().collateralRatio((err, res1) => {
-              if (res1 !== undefined && res1 !== null) {
-                let sumofSupplies = this.web3.fromWei(this.web3.fromWei(res[1].toNumber(), "ether"), "ether");
-                let sumofBorrow = this.web3.fromWei(this.web3.fromWei(res[2].toNumber(), "ether"), "ether") * this.web3.fromWei(res1.toNumber(), "ether");
-                MoneyMarket().assetPrices(wethAddress, (err, res2) => {
-                  MoneyMarket().assetPrices(usdxAddress, (err, res3) => {
-                    if (res3 !== undefined && res3 !== null) {
-                      sumofSupplies = sumofSupplies * (this.web3.fromWei(res2.toNumber(), "ether") / this.web3.fromWei(res3.toNumber(), "ether")) / 1;
-                      sumofBorrow = sumofBorrow * (this.web3.fromWei(res2.toNumber(), "ether") / this.web3.fromWei(res3.toNumber(), "ether")) / 1;
-                      MoneyMarket().getSupplyBalance(this.web3.eth.accounts[0], usdxAddress, (err, res5) => {
-                        if (res5 !== undefined && res5 !== null) {
-                          USDX().balanceOf(mmAddress, (err, res6) => {
-                            if (res6 !== undefined && res6 !== null) {
-                              let max = Math.min((sumofSupplies - sumofBorrow), this.web3.fromWei(res5.toNumber(), "ether"), this.web3.fromWei(res6.toNumber(), "ether"));
-                              if (Number(max) < 0) {
-                                max = 0;
-                              }
-                              // let testMax = 0.000000005163079378;
-                              // console.log('lend........withdraw....testMax:' + testMax + ' / toDoubleThousands:' + toDoubleThousands(toNonExponential(testMax)));
-                              this.setState({ maxWithdrawUSDXAmount: toNonExponential(max) }, () => {
-                                // console.log(this.state.maxWithdrawUSDXAmount);
-                              });
-                            }
-                          });
-                        }
-                      }
-                      );
-                    }
-                  });
-                });
-              }
-            });
-          }
-        }
-      );
-    }
-  };
 
 
   // handle_Approve_USDx
@@ -440,232 +354,19 @@ class SupplyInput extends Component {
     );
   };
 
-  // ********************8 supplyAmount
-  handleSupplyClick = () => {
-    if (this.state.supplyAmount === '' || this.state.supplyAmount === 0 || this.state.supplyAmount === null) {
-      return;
-    }
-    this.setState({ isSupplyEnable: false, supplyButtonText: 'SUBMITTING…', supplyInputDisabled: true, maxClassName: 'max-amount-button-disable' });
-    let supplyAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
-    if (NetworkName === 'Main') {
-      if (this.props.supplyType === 'WETH') {
-        supplyAddress = Network.Main.WETH;
-      }
-      if (this.props.supplyType === 'USDX') {
-        supplyAddress = Network.Main.USDx;
-      }
-    } else if (NetworkName === 'Rinkeby') {
-      if (this.props.supplyType === 'WETH') {
-        supplyAddress = Network.Rinkeby.WETH;
-      }
-      if (this.props.supplyType === 'USDX') {
-        supplyAddress = Network.Rinkeby.USDx;
-      }
-    }
-    MoneyMarket().supply.estimateGas(
-      supplyAddress,
-      this.web3.toWei(this.state.supplyAmount, "ether"),
-      {
-        from: this.web3.eth.accounts[0]
-      },
-      (err, gasLimit) => {
-        console.log('gasLimit:' + gasLimit);
-        this.web3.eth.getGasPrice((err, gasPrice) => {
-          console.log('gasPrice:' + gasPrice);
-          if (gasPrice === undefined && gasPrice === null) {
-            console.err('gasPrice is ' + gasPrice)
-            return;
-          }
-          MoneyMarket().supply.sendTransaction(
-            supplyAddress,
-            this.web3.toWei(this.state.supplyAmount, "ether"),
-            {
-              from: this.web3.eth.accounts[0],
-              gas: gasLimit,
-              gasPrice: gasPrice
-            },
-            (err, res) => {
-              if (res !== undefined && res !== null) {
-                let txId = res;
-                let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
-                let recordSupplyAmount = toDoubleThousands(this.state.supplyAmount);
-                if (this.props.wethCoin === true) {
-                  saveTransaction('loading-supply-weth', this.web3.eth.accounts[0], Asset['Asset'].WETH, this.props.page,
-                    this.web3.version.network, 'Supply', recordSupplyAmount, 'WETH', txnHashHref, txId, 0, this.web3.toWei(this.state.supplyAmount, "ether"), false, null);
-                } else if (this.props.usdxCoin === true) {
-                  saveTransaction('loading-supply-usdx', this.web3.eth.accounts[0], Asset['Asset'].USDx, this.props.page,
-                    this.web3.version.network, 'Supply', recordSupplyAmount, 'USDx', txnHashHref, txId, 0, this.web3.toWei(this.state.supplyAmount, "ether"), false, null);
-                }
-              } else {
-                this.setState({ isSupplyEnable: true, supplyInputDisabled: false });
-              }
-            }
-          )
-        }
-        )
-      }
-    );
-  }
 
 
 
-  handleSupplyChange = (value) => {
-    // console.log(value);
-    if (value === null || value === '') {
-      this.setState({ isSupplyEnable: true });
-      this.setState({ supplyButtonText: this.props.supplyButtonInfo });
-      this.setState({ supplyAmount: '' });
-      return;
-    } else if (value.toString().length > 18 || value > this.state.maxSupplyAmount) {
-      let supplyButtonText = 'INSUFFICIENT BALANCE';
-      this.setState({ supplyAmount: value });
-      this.setState({ isSupplyEnable: false });
-      this.setState({ supplyButtonText: supplyButtonText });
-      return;
-    }
-    if (value.toString().indexOf('.') === value.toString().length - 1) {
-      value = value + '00'
-    }
-    this.setState({ supplyAmount: value });
-    // let buttonText = 'INSUFFICIENT BALANCE';
-    if ((!validNumber(value) && value !== '') || value === 0) {
-      this.setState({ isSupplyEnable: false });
-      this.setState({ supplyButtonText: this.props.supplyButtonInfo });
-    } else {
-      this.setState({ isSupplyEnable: true });
-    }
-  }
 
 
-  // ************** handle_Supply_Max
-  handleSupplyMax = () => {
-    this.setState({ supplyAmount: this.state.maxSupplyAmount });
 
-    if (Number(this.state.maxSupplyAmount) === 0) {
-      this.setState({ isSupplyEnable: false, supplyButtonText: this.props.supplyButtonInfo });
-    } else {
-      this.setState({ isSupplyEnable: true });
-    }
-  }
 
-  handleWithdrawChange = (value) => {
-    if (value === null || value === '') {
-      this.setState({ isWithdrawEnable: true });
-      this.setState({ withdrawButtonText: this.state.withdrawButtonInfo });
-      this.setState({ withdrawAmount: '' });
-      this.setState({ withdrawMax: false });
-      return;
-    } else if (value.toString().length > 18 || value > this.state.maxWithdrawUSDXAmount) {
-      this.setState({ withdrawAmount: value });
-      this.setState({ isWithdrawEnable: false });
-      this.setState({ withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
-      return;
-    }
-    if (value.toString().indexOf('.') === value.toString().length - 1) {
-      value = value + '00'
-    }
-    this.setState({ withdrawAmount: value });
-    this.setState({ withdrawMax: false });
-    if ((!validNumber(value) && value !== '') || value === 0) {
-      this.setState({ isWithdrawEnable: false });
-      this.setState({ withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
-    } else {
-      this.setState({ isWithdrawEnable: true });
-    }
-  }
 
-  handleWithdrawMax = () => {
-    this.setState({
-      withdrawAmount: this.state.maxWithdrawUSDXAmount,
-      withdrawMax: true
-    }, () => {
-      // console.log(this.state.maxWithdrawUSDXAmount);
-      if (Number(this.state.maxWithdrawUSDXAmount) === 0) {
-        this.setState({ isWithdrawEnable: false, withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
-      } else {
-        this.setState({ isWithdrawEnable: true });
-      }
-    });
-  }
 
-  handleWithdrawClick = () => {
-    if (this.state.withdrawAmount === '' || Number(this.state.withdrawAmount) === 0 || this.state.withdrawAmount === null) {
-      return;
-    }
-    if (this.state.withdrawAmount > this.state.maxWithdrawUSDXAmount) {
-      this.setState({ withdrawAmount: this.state.maxWithdrawUSDXAmount })
-    }
-    let amount = this.web3.toWei(this.state.withdrawAmount, "ether");
-    if (this.state.withdrawMax) {
-      // 暂时用-1
-      amount = -1;
-    }
 
-    this.setState({ isWithdrawEnable: false, withdrawButtonText: 'SUBMITTING…', withdrawInputDisabled: true, withdrawMaxClassName: 'max-amount-button-disable' });
-    let withdrawAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
-    if (NetworkName === 'Main') {
-      if (this.props.withdrawType === 'WETH') {
-        withdrawAddress = Network.Main.WETH;
-      }
-      if (this.props.withdrawType === 'USDX') {
-        withdrawAddress = Network.Main.USDx;
-      }
-    } else if (NetworkName === 'Rinkeby') {
-      if (this.props.withdrawType === 'WETH') {
-        withdrawAddress = Network.Rinkeby.WETH;
-      }
-      if (this.props.withdrawType === 'USDX') {
-        withdrawAddress = Network.Rinkeby.USDx;
-      }
-    }
 
-    MoneyMarket().withdraw.estimateGas(
-      withdrawAddress,
-      amount,
-      {
-        from: this.web3.eth.accounts[0]
-      },
-      (err, gasLimit) => {
-        console.log('gasLimit:' + gasLimit);
-        this.web3.eth.getGasPrice((err, gasPrice) => {
-          console.log('gasPrice:' + gasPrice);
-          if (gasPrice === undefined && gasPrice === null) {
-            console.err('gasPrice is ' + gasPrice)
-            return;
-          }
-          MoneyMarket().withdraw.sendTransaction(
-            withdrawAddress,
-            // this.state.withdrawMax === true ? -1 : this.web3.toWei(this.state.withdrawAmount, "ether"),
-            amount,
-            {
-              from: this.web3.eth.accounts[0],
-              gas: gasLimit,
-              gasPrice: gasPrice
-            },
-            (err, res) => {
-              if (res !== undefined && res !== null) {
-                let txId = res;
-                let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
-                let recordWithdrawAmount = (amount === -1) ? toDoubleThousands(this.state.maxWithdrawUSDXAmount) : toDoubleThousands(this.state.withdrawAmount);
-                if (this.props.wethCoin === true) {
-                  saveTransaction('loading-supply-withdraw-weth', this.web3.eth.accounts[0], Asset['Asset'].WETH,
-                    this.props.page, this.web3.version.network, 'Withdraw', recordWithdrawAmount, 'WETH', txnHashHref, txId, 0, this.state.withdrawMax === true ? -1 : this.web3.toWei(this.state.withdrawAmount, "ether"), false, null);
-                } else if (this.props.usdxCoin === true) {
-                  saveTransaction('loading-supply-withdraw-usdx', this.web3.eth.accounts[0], Asset['Asset'].USDx,
-                    this.props.page, this.web3.version.network, 'Withdraw', recordWithdrawAmount, 'USDx', txnHashHref, txId, 0, this.state.withdrawMax === true ? -1 : this.web3.toWei(this.state.withdrawAmount, "ether"), false, null);
-                }
-              } else {
-                this.setState({ isWithdrawEnable: true, withdrawInputDisabled: false });
-              }
-            }
-          )
-        }
-        )
-      }
-    );
-  }
+
+
 
 
   usdxEventMonitor = () => {
@@ -721,185 +422,16 @@ class SupplyInput extends Component {
     });
   }
 
-  // wethEventMonitor = () => {
-  //   if (WETH() === undefined) {
-  //     return;
-  //   }
-  //   let that = this;
-  //   var approvalWETHEvent = WETH().Approval();
-  //   approvalWETHEvent.watch((error, result) => {
-  //     console.log('watch -> approvalWETHEvent:' + JSON.stringify(result));
-  //     if (error) {
-  //       console.log('watch wethEventMonitor approvalWETHEvent error --> ' + JSON.stringify(error));
-  //       return;
-  //     }
-  //     var storage = null;
-  //     var results = null;
-  //     var key = null;
-  //     if (window.localStorage) {
-  //       if (typeof web3 === 'undefined') {
-  //         return;
-  //       }
-  //       storage = window.localStorage;
-  //       key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
-  //       results = JSON.parse(`${storage.getItem(key)}`);
-  //     }
-  //     if (results === null) {
-  //       return;
-  //     }
-  //     let resultObj = JSON.parse(JSON.stringify(result));
-  //     var txId = resultObj.transactionHash;
-  //     this.setState({ pendingApproval: false, isApproved: true });
-  //     // change icon and status = 1 by txId
-  //     storage.removeItem(key);
-  //     results = results.map(item => {
-  //       if (item.status === 0 && item.transactionType === 'Enable' && item.txId !== txId) {
-  //         let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1,
-  //           txId: txId,
-  //           txnHashHref: txnHashHref
-  //         }
-  //       } else if (item.txId === txId) {
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1
-  //         }
-  //       }
-  //       return {
-  //         ...item
-  //       }
-  //     })
-  //     storage.setItem(key, JSON.stringify(results));
-  //   });
-  //   //测试用weth_faucet 暂时注释
-  //   // let NetworkName = findNetwork(window.web3.version.network);
-  //   // if (NetworkName === 'Rinkeby') {//测试用weth_faucet 暂时注释  主网支持后放开判断
-  //   var depositWETHEvent = WETH().Deposit();
-  //   depositWETHEvent.watch((error, result) => {
-  //     console.log('watch -> depositWETHEvent:' + JSON.stringify(result));
-  //     if (error) {
-  //       console.log('watch wethEventMonitor depositWETHEvent error --> ' + JSON.stringify(error));
-  //       return;
-  //     }
-  //     var storage = null;
-  //     var results = null;
-  //     var key = null;
-  //     if (window.localStorage) {
-  //       if (typeof web3 === 'undefined') {
-  //         return;
-  //       }
-  //       storage = window.localStorage;
-  //       key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
-  //       results = JSON.parse(`${storage.getItem(key)}`);
-  //     }
-  //     if (results === null) {
-  //       return;
-  //     }
-  //     let resultObj = JSON.parse(JSON.stringify(result));
-  //     var txId = resultObj.transactionHash;
-  //     // Refresh data
-  //     // console.log('rrrrrrrrrrrrrrrrrrrrrrrrr')
-  //     this.refreshData();
-  //     // this.getAccountETHBalance();
-  //     this.setState({ wrapAmount: '', isWrapEnable: true, wrapInputDisabled: false });
-  //     this.setState({ isSupplyEnable: true, supplyButtonText: this.props.supplyButtonInfo, supplyAmount: '' });
-  //     this.setState({ unwrapAmount: '', isunwrapEnable: true });
-  //     this.setState({ withdrawAmount: '', withdrawMax: false, isWithdrawEnable: true });
-  //     storage.removeItem(key);
-  //     let argsObj = JSON.parse(JSON.stringify(resultObj.args));
-  //     results = results.map(item => {
-  //       // check is speed up
-  //       if (item.status === 0 && item.transactionType === 'Wrap' && item.realAmount === argsObj.wad && item.txId !== txId) {
-  //         let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1,
-  //           txId: txId,
-  //           txnHashHref: txnHashHref
-  //         }
-  //       } else if (item.txId === txId) {
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1
-  //         }
-  //       }
-  //       return {
-  //         ...item
-  //       }
-  //     })
-  //     storage.setItem(key, JSON.stringify(results));
-  //   });
-
-  //   //测试用weth_faucet 暂时注释
-  //   var withdrawalWETHEvent = WETH().Withdrawal();
-  //   withdrawalWETHEvent.watch((error, result) => {
-  //     console.log('watch -> withdrawalWETHEvent:' + JSON.stringify(result));
-  //     if (error) {
-  //       console.log('watch wethEventMonitor withdrawalWETHEvent error --> ' + JSON.stringify(error));
-  //       return;
-  //     }
-  //     var storage = null;
-  //     var results = null;
-  //     var key = null;
-  //     if (window.localStorage) {
-  //       if (typeof web3 === 'undefined') {
-  //         return;
-  //       }
-  //       storage = window.localStorage;
-  //       key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
-  //       results = JSON.parse(`${storage.getItem(key)}`);
-  //     }
-  //     if (results === null) {
-  //       return;
-  //     }
-  //     let resultObj = JSON.parse(JSON.stringify(result));
-  //     var txId = resultObj.transactionHash;
-  //     // Refresh data
-  //     this.refreshData();
-  //     this.setState({ unwrapAmount: '', isunwrapEnable: true, supplyAmount: '', unwrapInputDisabled: false, maxClassName: 'max-amount-button' });
-  //     storage.removeItem(key);
-  //     let argsObj = JSON.parse(JSON.stringify(resultObj.args));
-  //     results = results.map(item => {
-  //       // check is speed up
-  //       if (item.status === 0 && item.transactionType === 'Unwrap' && item.realAmount === argsObj.wad && item.txId !== txId) {
-  //         let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1,
-  //           txId: txId,
-  //           txnHashHref: txnHashHref
-  //         }
-  //       } else if (item.txId === txId) {
-  //         return {
-  //           ...item,
-  //           icon: 'done',
-  //           status: 1
-  //         }
-  //       }
-  //       return {
-  //         ...item
-  //       }
-  //     })
-  //     storage.setItem(key, JSON.stringify(results));
-  //   });
-  //   // }
-  // }
 
   refreshData = () => {
     // this.getAccountETHBalance();
     this.getCurrentSupplyAssetAmount();
-    this.getAccountBalance();
+    // this.getAccountBalance();
     this.getAssetBalance();
     this.getUSDxAssetPrice();
     // this.getMaxWithdrawAmount();
-    this.getmaxWithdrawUSDXAmount();
+    // this.getmaxWithdrawUSDXAmount();
+    this.get_My_USDx_Supplied_max_Withdraw_USDx_Amount();
   }
 
   //check
@@ -1663,16 +1195,17 @@ class SupplyInput extends Component {
     })
   }
 
+
+
   mmMonitor = () => {
     if (MoneyMarket() === undefined) {
       return;
     }
     let that = this;
-    var supplyReceivedEvent = MoneyMarket().SupplyReceived();
-    supplyReceivedEvent.watch((error, result) => {
-      console.log('watch -> supplyReceivedEvent:' + JSON.stringify(result));
+    MoneyMarket().SupplyReceived().watch((error, result) => {
+      console.log('supply_USDx_Received_Event: ' + JSON.stringify(result));
       if (error) {
-        console.log('watch mmMonitor supplyReceivedEvent error --> ' + JSON.stringify(error));
+        console.log('supply_USDx_Received_Event eeeeeeeeeeerror --> ' + JSON.stringify(error));
         return;
       }
       var storage = null;
@@ -1683,16 +1216,13 @@ class SupplyInput extends Component {
           return;
         }
         storage = window.localStorage;
-        if (that.props.wethCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
-        } else if (that.props.usdxCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
-        }
+        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
         results = JSON.parse(`${storage.getItem(key)}`);
       }
       if (results === null) {
         return;
       }
+
       let resultObj = JSON.parse(JSON.stringify(result));
       var txId = resultObj.transactionHash;
       // Refresh Data
@@ -1758,6 +1288,7 @@ class SupplyInput extends Component {
       var txId = resultObj.transactionHash;
       // Refresh data
       that.refreshData();
+
       that.setState({ isWithdrawEnable: true, supplyAmount: '' });
       that.setState({ withdrawAmount: null, withdrawMax: false, withdrawInputDisabled: false, withdrawMaxClassName: 'max-amount-button' });
       storage.removeItem(key);
@@ -1858,12 +1389,350 @@ class SupplyInput extends Component {
       if (event === 'BorrowTaken' || event === 'BorrowRepaid') {
         this.setState({ withdrawAmount: '' });
         // this.getMaxWithdrawAmount();
-        this.getmaxWithdrawUSDXAmount();
-        this.getAccountBalance();
+        // this.getmaxWithdrawUSDXAmount();
+        this.get_My_USDx_Supplied_max_Withdraw_USDx_Amount();
+        // this.getAccountBalance();
         // this.getMyAddressWETHBalance();
       }
     });
   }
+
+
+
+
+  // ***** 华丽的分割线 ***** ***** 华丽的分割线 ***** ***** 华丽的分割线 ***** ***** 华丽的分割线 ***** ***** 华丽的分割线 ***** ***** 华丽的分割线 ***** ***** 华丽的分割线 *****
+
+
+
+  Get_My_USDx_Balance = () => {
+    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
+      return;
+    }
+    USDX().balanceOf(this.web3.eth.accounts[0], (err, res) => {
+      if (res) {
+        this.setState({
+          My_USDx_Balance: this.web3.fromWei(res.toNumber(), "ether"),
+          My_USDx_Balance_BN: res
+        }, () => {
+          // console.log(this.state.My_USDx_Balance_BN)//this.state.My_USDx_Balance_BN.toLocaleString().replace(/,/g, '')
+          // console.log(this.state.My_USDx_Balance_BN.toLocaleString().replace(/,/g, ''))
+          // console.log(this.state.My_USDx_Balance_BN.div(this.web3.toBigNumber(10 ** 18))) // BN
+          // console.log(this.state.My_USDx_Balance_BN.div(this.web3.toBigNumber(10 ** 18)).toLocaleString())
+        })
+      }
+    });
+  }
+
+
+
+  get_My_USDx_Supplied_max_Withdraw_USDx_Amount = () => {
+    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined || MoneyMarket() === undefined) {
+      return;
+    }
+    let usdxAddress = '';
+    let mmAddress = '';
+    let NetworkName = findNetwork(window.web3.version.network);
+    if (NetworkName === 'Main') {
+      usdxAddress = Network.Main.USDx;
+      mmAddress = Network.Main.MoneyMarket;
+    } else if (NetworkName === 'Rinkeby') {
+      usdxAddress = Network.Rinkeby.USDx;
+      mmAddress = Network.Rinkeby.MoneyMarket;
+    }
+    MoneyMarket().getAccountLiquidity(this.web3.eth.accounts[0], (error, res_Account_Liquidity_BN) => {
+      if (res_Account_Liquidity_BN) {
+
+
+        MoneyMarket().assetPrices(usdxAddress, (err, res_usdx_price_BN) => {
+          if (res_usdx_price_BN) {
+            // console.log(res_Account_Liquidity_BN)
+            res_Account_Liquidity_BN = res_Account_Liquidity_BN.mul(this.web3.toBigNumber(10 ** 18)).div(res_usdx_price_BN);
+            // console.log(res_Account_Liquidity_BN)
+            MoneyMarket().getSupplyBalance(this.web3.eth.accounts[0], usdxAddress, (err, res_supplied_BN) => {
+              if (res_supplied_BN) {
+                this.setState({
+                  My_USDx_Supplied: this.web3.fromWei(res_supplied_BN.toNumber(), "ether"),
+                }, () => {
+                  USDX().balanceOf(mmAddress, (err, res_cash_BN) => {
+                    if (res_cash_BN) {
+                      // console.log(res_Account_Liquidity_BN.toLocaleString())
+                      // console.log(res_supplied_BN.toLocaleString())
+                      // console.log(res_cash_BN.toLocaleString())
+                      let moreSmallNum = res_Account_Liquidity_BN.sub(res_supplied_BN).toNumber() < 0 ? res_Account_Liquidity_BN : res_supplied_BN;
+                      let mostSmallNum = moreSmallNum.sub(res_cash_BN).toNumber() < 0 ? moreSmallNum : res_cash_BN;
+                      // console.log(mostSmallNum.toLocaleString())
+                      if (!(mostSmallNum.gt(this.web3.toBigNumber(0)))) {
+                        this.setState({ maxWithdrawUSDXAmount: 0 });
+                        return;
+                      }
+                      this.setState({
+                        maxWithdrawUSDXAmount: this.web3.fromWei(mostSmallNum.toNumber(), "ether"),
+                        maxWithdrawUSDXAmount_BN: mostSmallNum
+                      });
+                    }
+                  })
+                })
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+
+
+
+  handle_Supply_Max = () => {
+    let supply_to_show = this.state.My_USDx_Balance_BN.div(this.web3.toBigNumber(10 ** 18)).toLocaleString().substring(0, 18);
+    this.setState({
+      i_will_supply_max: true,
+      supplyAmount: supply_to_show
+    });
+    if (Number(this.state.My_USDx_Balance_BN) === 0) {
+      this.setState({ isSupplyEnable: false, supplyButtonText: this.props.supplyButtonInfo });
+    } else {
+      this.setState({ isSupplyEnable: true });
+    }
+  }
+
+
+
+  handle_Supply_Change = (value) => {
+    if (value.length > 18) {
+      return;
+    }
+    this.setState({
+      i_will_supply_max: false
+    });
+    console.log(value)
+    if (value === null || value === '') {
+
+      console.log("value === null || value === ''")
+      this.setState({
+        isSupplyEnable: true,
+        supplyButtonText: this.props.supplyButtonInfo,
+        supplyAmount: ''
+      });
+      return;
+    } else if (value.length > 18 || this.web3.toBigNumber(value).mul(this.web3.toBigNumber(10 ** 18)).sub(this.state.My_USDx_Balance_BN) > 0) {
+      let supplyButtonText = 'INSUFFICIENT BALANCE';
+      console.log(this.web3.toBigNumber(value).mul(this.web3.toBigNumber(10 ** 18)).sub(this.state.My_USDx_Balance_BN) > 0)
+      this.setState({
+        supplyAmount: value,
+        isSupplyEnable: false,
+        supplyButtonText: supplyButtonText
+      });
+      return;
+    }
+    this.setState({ supplyAmount: value });
+
+    if ((Number(value)) === 0) {
+      this.setState({ isSupplyEnable: false, supplyButtonText: this.props.supplyButtonInfo });
+      return;
+    } else {
+      this.setState({ isSupplyEnable: true });
+    }
+  }
+
+
+
+  handle_Supply_Click = () => {
+    if (this.state.supplyAmount === '' || this.state.supplyAmount === 0 || this.state.supplyAmount === null) {
+      return;
+    }
+    this.setState({
+      isSupplyEnable: false,
+      supplyButtonText: 'SUBMITTING…',
+      supplyInputDisabled: true,
+      maxClassName: 'max-amount-button-disable'
+    });
+
+    let supplyAddress = '';
+    let NetworkName = findNetwork(window.web3.version.network);
+    if (NetworkName === 'Main') {
+      supplyAddress = Network.Main.USDx;
+    } else if (NetworkName === 'Rinkeby') {
+      supplyAddress = Network.Rinkeby.USDx;
+    }
+
+    let to_supply_amount_BN = this.web3.toBigNumber(0);
+    if (this.state.i_will_supply_max) {
+      to_supply_amount_BN = this.state.My_USDx_Balance_BN;
+    } else {
+      to_supply_amount_BN = this.web3.toBigNumber(this.state.supplyAmount).mul(this.web3.toBigNumber(10 ** 18));
+    }
+
+    MoneyMarket().supply.estimateGas(supplyAddress, to_supply_amount_BN, { from: this.web3.eth.accounts[0] }, (err, gasLimit) => {
+      this.web3.eth.getGasPrice((err, gasPrice) => {
+        MoneyMarket().supply.sendTransaction(
+          supplyAddress,
+          to_supply_amount_BN,
+          {
+            from: this.web3.eth.accounts[0],
+            gas: gasLimit,
+            gasPrice: gasPrice
+          },
+          (err, res) => {
+            if (res !== undefined && res !== null) {
+              let txId = res;
+              let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
+              let recordSupplyAmount = toDoubleThousands(this.state.supplyAmount);
+
+              saveTransaction(
+                'loading-supply-usdx',
+                this.web3.eth.accounts[0],
+                Asset['Asset'].USDx,
+                this.props.page,
+                this.web3.version.network,
+                'Supply',
+                recordSupplyAmount,
+                'USDx',
+                txnHashHref,
+                txId,
+                0,
+                this.web3.toWei(this.state.supplyAmount, "ether"),
+                false,
+                null
+              );
+            } else {
+              this.setState({ isSupplyEnable: true, supplyInputDisabled: false });
+            }
+          }
+        )
+      })
+    });
+  }
+
+
+
+  handle_Withdraw_Max = () => {
+    let withdraw_to_show = this.state.maxWithdrawUSDXAmount_BN.div(this.web3.toBigNumber(10 ** 18)).toLocaleString().substring(0, 18);
+    this.setState({
+      withdrawAmount: withdraw_to_show,
+      withdrawMax: true
+    }, () => {
+      if (Number(this.state.maxWithdrawUSDXAmount) === 0) {
+        this.setState({ isWithdrawEnable: false, withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
+      } else {
+        this.setState({ isWithdrawEnable: true });
+      }
+    });
+  }
+
+
+
+  handle_Withdraw_Change = (value) => {
+    if (value.length > 18) {
+      return;
+    }
+    this.setState({
+      withdrawMax: false
+    });
+    if (value === null || value === '') {
+      this.setState({
+        isWithdrawEnable: true,
+        withdrawButtonText: this.state.withdrawButtonInfo,
+        withdrawAmount: '',
+        withdrawMax: false
+      });
+      return;
+    } else if (this.web3.toBigNumber(value).mul(this.web3.toBigNumber(10 ** 18)).sub(this.state.maxWithdrawUSDXAmount_BN) > 0) {
+      this.setState({
+        withdrawAmount: value,
+        isWithdrawEnable: false,
+        withdrawButtonText: 'INSUFFICIENT LIQUIDITY'
+      });
+      return;
+    }
+    this.setState({ withdrawAmount: value });
+    if (Number(value) === 0) {
+      this.setState({ isWithdrawEnable: false, withdrawButtonText: 'INSUFFICIENT LIQUIDITY' });
+    } else {
+      this.setState({ isWithdrawEnable: true });
+    }
+  }
+
+
+
+
+  handle_Withdraw_Click = () => {
+    if (this.state.withdrawAmount === '' || Number(this.state.withdrawAmount) === 0 || this.state.withdrawAmount === null) {
+      return;
+    }
+    // if (this.state.withdrawAmount > this.state.maxWithdrawUSDXAmount) {
+    //   this.setState({ withdrawAmount: this.state.maxWithdrawUSDXAmount })
+    // }
+    // let amount = this.web3.toWei(this.state.withdrawAmount, "ether");
+    let amount = this.web3.toBigNumber(this.state.withdrawAmount).mul(this.web3.toBigNumber(10 ** 18));
+    if (this.state.withdrawMax) {
+      amount = -1;
+    }
+
+    this.setState({
+      isWithdrawEnable: false,
+      withdrawButtonText: 'SUBMITTING…',
+      withdrawInputDisabled: true,
+      withdrawMaxClassName: 'max-amount-button-disable'
+    });
+    let withdrawAddress = '';
+    let NetworkName = findNetwork(window.web3.version.network);
+    if (NetworkName === 'Main') {
+      withdrawAddress = Network.Main.USDx;
+    } else if (NetworkName === 'Rinkeby') {
+      withdrawAddress = Network.Rinkeby.USDx;
+    }
+
+    MoneyMarket().withdraw.estimateGas(withdrawAddress, amount, { from: this.web3.eth.accounts[0] }, (err, gasLimit) => {
+      this.web3.eth.getGasPrice((err, gasPrice) => {
+        MoneyMarket().withdraw.sendTransaction(
+          withdrawAddress,
+          amount,
+          {
+            from: this.web3.eth.accounts[0],
+            gas: gasLimit,
+            gasPrice: gasPrice
+          },
+          (err, res) => {
+            if (res !== undefined && res !== null) {
+              let txId = res;
+              let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
+              let recordWithdrawAmount = (amount === -1) ? toDoubleThousands(this.state.maxWithdrawUSDXAmount) : toDoubleThousands(this.state.withdrawAmount);
+              saveTransaction(
+                'loading-supply-withdraw-usdx',
+                this.web3.eth.accounts[0],
+                Asset['Asset'].USDx,
+                this.props.page,
+                this.web3.version.network,
+                'Withdraw',
+                recordWithdrawAmount,
+                'USDx',
+                txnHashHref,
+                txId,
+                0,
+                this.state.withdrawMax === true ? -1 : this.web3.toWei(this.state.withdrawAmount, "ether"),
+                false,
+                null
+              );
+            } else {
+              this.setState({ isWithdrawEnable: true, withdrawInputDisabled: false });
+            }
+          }
+        )
+      })
+    });
+  }
+
+
+
+  refresh_status = () => {
+    this.Get_My_USDx_Balance();
+  }
+
+
+
+
+
+
 
   componentDidMount_temp = () => {
     // event monitor
@@ -1892,18 +1761,23 @@ class SupplyInput extends Component {
     this.getAllowance();
     this.getCollateralRatio();
     this.getCurrentSupplyAssetAmount();
-    this.getAccountBalance();
+    // this.getAccountBalance();
     this.getAssetBalance();
     this.getUSDxAssetPrice();
     // this.getMaxWithdrawAmount();
-    this.getmaxWithdrawUSDXAmount();
+    // this.getmaxWithdrawUSDXAmount();
+    this.get_My_USDx_Supplied_max_Withdraw_USDx_Amount();
+    this.Get_My_USDx_Balance();
+
 
     this.refreshInterval = setInterval(() => {
       this.getCurrentSupplyAssetAmount();
       this.getAssetBalance();
       // this.getMaxWithdrawAmount();
-      this.getmaxWithdrawUSDXAmount();
-      this.getAccountBalance();
+      // this.getmaxWithdrawUSDXAmount();
+      this.get_My_USDx_Supplied_max_Withdraw_USDx_Amount();
+      // this.getAccountBalance();
+      this.Get_My_USDx_Balance();
     }, 1000 * 15)
   }
 
@@ -1925,82 +1799,134 @@ class SupplyInput extends Component {
       page: this.props.page
     };
 
-    const supplyProps = {
-      balanceDescription: '',
-      balanceAmount: this.state.accountBalance,
-      balanceType: 'USDx',
-      balanceUnit: 'Balance',
-      minAmount: 0,
-      maxAmount: this.state.maxSupplyAmount,
-      step: 0.01,
-      amount: this.state.supplyAmount,
-      isEnable: this.state.isSupplyEnable,
-      inputDisabled: this.state.supplyInputDisabled,
-      buttonInfo: this.state.isSupplyEnable ? this.props.supplyButtonInfo : this.state.supplyButtonText,
-      handleChange: this.handleSupplyChange,
-      handleClick: this.handleSupplyClick,
-      handleMax: this.handleSupplyMax,
-      hasBorrowedUSDx: this.props.hasBorrowedUSDx,
-      placeholderHint: 'Amount in USDx',
-      buttonClassName: 'button-wrapper',
-      maxClassName: this.state.maxClassName
-    };
-
-    const withdrawProps = {
-      balanceDescription: '',
-      balanceAmount: this.state.maxWithdrawUSDXAmount,
-      balanceType: 'USDx',
-      balanceUnit: 'Available',
-      minAmount: 0,
-      maxAmount: this.state.maxWithdrawUSDXAmount,
-      step: 0.01,
-      amount: this.state.withdrawAmount,
-      isEnable: this.state.isWithdrawEnable,
-      inputDisabled: this.state.withdrawInputDisabled,
-      buttonInfo: this.state.isWithdrawEnable ? this.props.withdrawButtonInfo : this.state.withdrawButtonText,
-      handleChange: this.handleWithdrawChange,
-      handleMax: this.handleWithdrawMax,
-      handleClick: this.handleWithdrawClick,
-      hasBorrowedUSDx: this.props.hasBorrowedUSDx,
-      placeholderHint: 'Amount in USDx',
-      buttonClassName: 'button-wrapper',
-      maxClassName: this.state.withdrawMaxClassName
-    };
 
     return (
-      <div className='supply-input'>
-        <BalanceInfoWithIcon coin={'USDx'} action={'Supplied'} login={window.web3.eth.accounts[0] ? true : false} />
+      <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
+        <div className='supply-input'>
+          <div className='info-wrapper'>
+            <span className='balance-type'>
+              <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/USDx@2x.png`} alt="" />&nbsp;<FormattedMessage id='USDx_Supplied' />
+            </span>
+            <span className='balance-amount'>
+              {this.state.My_USDx_Supplied ? toDoubleThousands(this.state.My_USDx_Supplied) : '-'}
+            </span>
+          </div>
 
-        <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
-          <TabPane tab={this.props.tabLeftName === 'SUPPLY'? navigator.language === 'zh-CN' ? '存款' : 'SUPPLY':this.props.tabLeftName} key="1" className='tab-content'>
-            {
-              this.props.isApproved_USDx == 1
-                ?
-                <span>
-                  <CoinBalance coin={'usdx'} login={this.props.login} />
-                  <InputUnit {...supplyProps} />
-                </span>
-                :
-                null
-            }
-            {
-              this.props.not_approve_atfirst_USDX == 1
-                ?
-                <Approve {...approveProps} />
-                :
-                null
-            }
-          </TabPane>
+          <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
+            <TabPane tab={this.props.tabLeftName === 'SUPPLY' ? navigator.language === 'zh-CN' ? '存款' : 'SUPPLY' : this.props.tabLeftName} key="1" className='tab-content'>
+              {
+                this.props.isApproved_USDx == 1
+                  ?
+                  <span>
+                    <div className='balance-info'>
+                      <span className='balance-desc'>
+                        <FormattedMessage id='USDx_Balance' />
+                      </span>
+                      <span className='balance-amount'>{this.state.My_USDx_Balance ? toDoubleThousands(this.state.My_USDx_Balance) : '-'}&nbsp;USDx</span>
+                    </div>
+                    <div className='input-unit-wrapper'>
+                      {
+                        !(this.props.hasBorrowedUSDx || false)
+                          ?
+                          <div className='input-wrapper'>
+                            <Input
+                              type='number'
+                              placeholder={'Amount in USDx'}
+                              min={0}
+                              value={this.state.supplyAmount}
+                              onChange={(e) => this.handle_Supply_Change(e.target.value)}
+                              className='input-number'
+                              disabled={this.state.supplyInputDisabled}
+                            />
+                            <span className={this.state.maxClassName} onClick={this.state.supplyInputDisabled ? '' : this.handle_Supply_Max}>MAX</span>
+                          </div>
+                          :
+                          <div className='alert-message'>
+                            <FormattedMessage id='Already_borrowed' />
+                          </div>
+                      }
+                      <div className={'button-wrapper'}>
+                        <Button
+                          size='large'
+                          className={!!(this.props.hasBorrowedUSDx || false || !this.state.isSupplyEnable) ? 'disable-button' : ''}
+                          onClick={() => { this.handle_Supply_Click() }}
+                          disabled={!this.state.isSupplyEnable || !!(this.props.hasBorrowedUSDx || false)}
+                        >
+                          {this.state.isSupplyEnable ? this.props.supplyButtonInfo : this.state.supplyButtonText}
+                        </Button>
+                      </div>
+                    </div>
+                  </span>
+                  :
+                  null
+              }
+              {
+                this.props.not_approve_atfirst_USDX == 1
+                  ?
+                  <Approve {...approveProps} />
+                  :
+                  null
+              }
+            </TabPane>
 
-          <TabPane tab={ this.props.tabRightName === 'WITHDRAW'? navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW':this.props.tabRightName} key="2" className='tab-content'>
-            {this.props.isApproved_USDx == 1 && <CoinAvailable coin={'usdx'} action={'withdraw'} login={this.props.login} father_USDx={this.state.maxWithdrawUSDXAmount} />}
-            {this.props.isApproved_USDx == 1 ? <InputUnit {...withdrawProps} /> : <Approve {...approveProps} />}
-          </TabPane>
+            <TabPane tab={this.props.tabRightName === 'WITHDRAW' ? navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW' : this.props.tabRightName} key="2" className='tab-content'>
+              {
+                this.props.isApproved_USDx == 1
+                  ?
+                  <div className='balance-info'>
+                    <span className='balance-desc'>
+                      <FormattedMessage id='USDx_Available_supply' />
+                    </span>
+                    <span className='balance-amount'>{this.state.maxWithdrawUSDXAmount ? toDoubleThousands(this.state.maxWithdrawUSDXAmount) : '-'}&nbsp;</span>
+                  </div>
+                  :
+                  null
+              }
+              {
+                this.props.isApproved_USDx == 1
+                  ?
+                  <div className='input-unit-wrapper'>
+                    {!(false || this.props.hasBorrowedUSDx)
+                      ?
+                      <div className='input-wrapper'>
+                        <Input
+                          type='number'
+                          placeholder={'Amount in USDx'}
+                          min={0}
+                          value={this.state.withdrawAmount}
+                          onChange={(e) => { this.handle_Withdraw_Change(e.target.value) }}
+                          className='input-number'
+                          disabled={this.state.withdrawInputDisabled}
+                        />
+                        <span className={this.state.withdrawMaxClassName} onClick={this.state.withdrawInputDisabled ? '' : this.handle_Withdraw_Max}>MAX</span>
+                      </div>
+                      :
+                      <div className='alert-message'>
+                        <FormattedMessage id='Already_borrowed' />
+                      </div>
+                    }
 
-        </Tabs>
-      </div>
+                    <div className={'button-wrapper'}>
+                      <Button
+                        size='large'
+                        className={!!(this.props.hasBorrowedUSDx || false || !this.state.isWithdrawEnable) ? 'disable-button' : ''}
+                        onClick={this.handle_Withdraw_Click}
+                        disabled={!this.state.isWithdrawEnable || !!(this.props.hasBorrowedUSDx || false)}
+                      >
+                        {this.state.isWithdrawEnable ? this.props.withdrawButtonInfo : this.state.withdrawButtonText}
+                      </Button>
+                    </div>
+                  </div>
+                  :
+                  <Approve {...approveProps} />
+              }
+            </TabPane>
+
+          </Tabs>
+        </div>
+      </IntlProvider>
     )
   }
 }
 
-export default SupplyInput;
+export default SupplyContent;

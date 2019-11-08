@@ -15,7 +15,7 @@ const CoinInfo = (props) => {
 
         <span className='balance-desc'>
           {(props.balanceType + ' ' + props.balanceUnit) === 'USDx Balance' ? <FormattedMessage id='USDx_Balance' /> : null}
-          {(props.balanceType + ' ' + props.balanceUnit) === 'USDx Available' ? <FormattedMessage id='USDx_Available' /> : null}
+          {(props.balanceType + ' ' + props.balanceUnit) === 'USDx Available' ? <FormattedMessage id='USDx_Available_borrow' /> : null}
           {(props.balanceType + ' ' + props.balanceUnit) === 'ETH Balance' ? <FormattedMessage id='ETH_Balance' /> : null}
           {(props.balanceType + ' ' + props.balanceUnit) === 'WETH Balance' ? <FormattedMessage id='WETH_Balance' /> : null}
           {(props.balanceType + ' ' + props.balanceUnit) === 'WETH Available' ? <FormattedMessage id='WETH_Available' /> : null}

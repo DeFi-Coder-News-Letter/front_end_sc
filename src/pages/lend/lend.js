@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SupplyInput from "../../container/supplyInput/supplyInput_supply";
+import SupplyContent from "../../container/supplyInput/SupplyContent";
 import USDX from "../../ABIs/USDX";
 import MoneyMarket from "../../ABIs/MoneyMarket.js";
 import Header from '../../component/header/header';
@@ -241,7 +241,7 @@ class Lend extends Component {
                   </div>
                   <div className="supply-content" style={{}}>
                     {/* <div className="supply-content" style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}> */}
-                    <SupplyInput {...usdxProps} />
+                    <SupplyContent {...usdxProps} />
 
                     {this.state.isLogIn && window.web3.eth.accounts[0] && (this.state.isApproved_USDx == 1 || this.state.not_approve_atfirst_USDX == 1)
                       ?
