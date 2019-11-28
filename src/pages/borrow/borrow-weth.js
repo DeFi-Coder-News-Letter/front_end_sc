@@ -21,7 +21,8 @@ import {
   handle_borrow_change,
   handle_borrow_click,
   handle_repay_click,
-  handle_repay_change
+  handle_repay_change,
+  handle_repay_max
 } from '../../util.js';
 
 import {
@@ -236,7 +237,7 @@ class Borrow_weth extends Component {
                                     placeholder={'WETH to Unwrap'}
                                     min={0}
                                     value={this.state.unwrap_amount}
-                                    onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_WETH)}
+                                    onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
                                     className='input-number'
                                   />
                                   {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
@@ -323,7 +324,7 @@ class Borrow_weth extends Component {
                                   weth 余额
                               </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_WETH ? format_bn(this.state.my_WETH, this.state.WETH_decimals, 2) : '-'}
+                                  {this.state.my_balance ? format_bn(this.state.my_balance, this.state.WETH_decimals, 2) : '-'}
                                   &nbsp;WETH
                               </span>
                               </div>
@@ -334,11 +335,13 @@ class Borrow_weth extends Component {
                                     placeholder={'Amount in WETH'}
                                     min={0}
                                     value={this.state.repay_amount}
-                                    onChange={(e) => handle_repay_change(e.target.value, this, this.state.WETH_decimals, this.state.my_WETH)}
+                                    onChange={(e) => handle_repay_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
                                     className='input-number'
                                     disabled={false}
                                   />
-                                  {/* <span className={this.state.withdrawMaxClassName} onClick={this.state.withdrawInputDisabled ? '' : this.handleWithdrawMax}>MAX</span> */}
+                                  <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.WETH_decimals) }}>
+                                    {'MAX'}
+                                  </span>
                                 </div>
                                 <div className={'button-wrapper-borrow'}>
                                   <Button

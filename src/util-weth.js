@@ -14,7 +14,7 @@ export const get_my_WETH = (that) => {
     // console.log('res_weth: ', res_weth)
     if (res_weth) {
       that.setState({
-        my_WETH: res_weth
+        my_balance: res_weth
       })
     }
   });
