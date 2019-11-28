@@ -20,7 +20,24 @@ class Main extends Component {
         }
         this.web3 = window.web3;
 
-        this.componentDidMount_temp();
+        // this.componentDidMount_temp();
+
+        window.web3.currentProvider.enable().then(
+            res => {
+                this.setState({ isLogIn: true }, () => {
+                    window.web3.version.getNetwork((e, r) => {
+                        if (r) {
+                            this.setState({
+                                NetworkName: r
+                            }, () => {
+                                this.componentDidMount_temp();
+                            })
+                        }
+                    })
+
+                });
+            }
+        )
 
         if (window.web3.currentProvider.isMetaMask) {
             window.ethereum.on('accountsChanged', () => {
@@ -37,7 +54,7 @@ class Main extends Component {
         setTimeout(() => {
             this.connectMetamask();
             this.getCurentAccount();
-        }, 700);
+        }, 2000);
 
         this.getCurentAccountTimer = setInterval(() => {
             this.getCurentAccount();
@@ -48,10 +65,14 @@ class Main extends Component {
 
     getCurentAccount = () => {
         if (typeof web3 !== 'undefined') {
-            this.setState({ currentAccount: window.web3.eth.accounts[0] });
-            if (!this.web3.eth.coinbase) {
-                this.setState({ currentAccount: null });
-            }
+            this.web3.eth.getCoinbase((e, r) => {
+                // console.log(e, r)
+                if (r) {
+                    this.setState({ currentAccount: r });
+                } else {
+                    this.setState({ currentAccount: null });
+                }
+            })
         }
     }
 
@@ -100,12 +121,12 @@ class Main extends Component {
 
 
     render() {
-        let NetworkName;
-        let account;
-        if (typeof web3 !== 'undefined') {
-            NetworkName = findNetwork(window.web3.version.network);
-            account = this.web3.eth.accounts[0];
-        }
+        let NetworkName = findNetwork(this.state.NetworkName);
+        let account = window.web3.eth.accounts[0];
+        // if (typeof web3 !== 'undefined') {
+        //     NetworkName = findNetwork(this.state.NetworkName);
+        //     account = window.web3.eth.accounts[0];
+        // }
 
         return (
             <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >

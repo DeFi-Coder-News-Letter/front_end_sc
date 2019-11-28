@@ -15,7 +15,16 @@ class BalanceInfoWithIcon extends Component {
     }
     this.web3 = window.web3;
 
-    this.componentDidMount_temp();
+    // this.componentDidMount_temp();
+    window.web3.version.getNetwork((e, r) => {
+      if (r) {
+        this.setState({
+          NetworkName: r
+        }, () => {
+          this.componentDidMount_temp();
+        })
+      }
+    })
 
     if (window.web3.currentProvider.isMetaMask) {
       window.ethereum.on('accountsChanged', () => {
@@ -27,7 +36,7 @@ class BalanceInfoWithIcon extends Component {
   get_Borrow_Balance = () => {
     if (typeof web3 !== 'undefined' && this.web3.eth.accounts[0] !== undefined && MoneyMarket() !== undefined) {
       let usdxAddress = '';
-      let NetworkName = findNetwork(window.web3.version.network);
+      let NetworkName = findNetwork(this.state.NetworkName);
       if (NetworkName === 'Main') {
         usdxAddress = Network.Main.USDx;
       } else if (NetworkName === 'Rinkeby') {
@@ -46,7 +55,7 @@ class BalanceInfoWithIcon extends Component {
   componentDidMount_temp = () => {
     setTimeout(() => {
       this.get_Borrow_Balance();
-    }, 700);
+    }, 2000);
 
     this.timerID = setInterval(() => {
       if (typeof web3 !== 'undefined' && this.web3.eth.accounts[0] !== undefined) {

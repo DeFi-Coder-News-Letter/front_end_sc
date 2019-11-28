@@ -18,7 +18,16 @@ class Header extends Component {
         }
         this.web3 = window.web3;
 
-        this.componentDidMount_temp();
+        // this.componentDidMount_temp();
+        window.web3.version.getNetwork((e, r) => {
+            if (r) {
+                this.setState({
+                    NetworkName: r
+                }, () => {
+                    this.componentDidMount_temp();
+                })
+            }
+        })
 
         if (window.web3.currentProvider.isMetaMask) {
             window.ethereum.on('accountsChanged', () => {
@@ -82,7 +91,7 @@ class Header extends Component {
         setTimeout(() => {
             this.connectMetamask();
             // this.getETHAssetPrices();
-        }, 700);
+        }, 2000);
 
         this.timerID = setInterval(() => {
             // this.getETHAssetPrices();
@@ -130,7 +139,7 @@ class Header extends Component {
     }
 
     render = () => {
-        let NetworkName = window.web3 !== undefined ? findNetwork(window.web3.version.network) : null;
+        let NetworkName = window.web3 !== undefined ? findNetwork(this.state.NetworkName) : null;
         return (
             <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
                 <div className={'header ' + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
@@ -142,7 +151,7 @@ class Header extends Component {
                                 <span className='market-info-title'>
                                     USDx
                                     <FormattedMessage id='Balance' />
-                                    {window.web3 !== undefined && findNetwork(window.web3.version.network) === 'Rinkeby' ? <a className='usdx-faucet' onClick={this.allocateUSDx}>Faucet</a> : ''}</span>
+                                    {window.web3 !== undefined && findNetwork(this.state.NetworkName) === 'Rinkeby' ? <a className='usdx-faucet' onClick={this.allocateUSDx}>Faucet</a> : ''}</span>
                                 <span className='market-info-digits'>{this.props.USDxBalance}</span>
                             </div>
 

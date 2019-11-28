@@ -39,7 +39,23 @@ class AccountInfo extends Component {
     }
     this.web3 = window.web3;
 
-    this.componentDidMount_temp();
+    if (window.web3) {
+      window.web3.currentProvider.enable().then(
+        res => {
+          console.log(this.web3.eth.accounts[0]);
+          // this.componentDidMount_temp();
+          window.web3.version.getNetwork((e, r) => {
+            if (r) {
+              this.setState({
+                NetworkName: r
+              }, () => {
+                this.componentDidMount_temp();
+              })
+            }
+          })
+        }
+      )
+    }
 
     if (window.web3.currentProvider.isMetaMask) {
       window.ethereum.on('accountsChanged', () => {
@@ -55,7 +71,7 @@ class AccountInfo extends Component {
       return;
     }
     let wethAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       wethAddress = Network.Main.WETH;
     } else if (NetworkName === 'Rinkeby') {
@@ -68,7 +84,7 @@ class AccountInfo extends Component {
         if (res1 !== undefined && res1 !== null) {
           // console.log('1111111111111111111 weth 价格 -: ', res1);
           let usdxAddress = '';
-          let NetworkName = findNetwork(window.web3.version.network);
+          let NetworkName = findNetwork(this.state.NetworkName);
           if (NetworkName === 'Main') {
             usdxAddress = Network.Main.USDx;
           } else if (NetworkName === 'Rinkeby') {
@@ -114,7 +130,7 @@ class AccountInfo extends Component {
       return;
     }
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -197,7 +213,7 @@ class AccountInfo extends Component {
       return;
     }
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -226,7 +242,7 @@ class AccountInfo extends Component {
       return;
     }
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -243,19 +259,13 @@ class AccountInfo extends Component {
 
 
   componentDidMount_temp = () => {
-    if (window.web3) {
-      window.web3.currentProvider.enable().then(
-        res => {
-          console.log(this.web3.eth.accounts[0]);
-        }
-      )
-    }
+
     setTimeout(() => {
       this.getWETHAssetPrice();
       this.getBorrowBalance();
       this.getBorrowInterestRate();
       this.calculateAccountValuesByAddress();
-    }, 700);
+    }, 2000);
     this.getAddressIntervalBorrow = setInterval(() => {
       if (true) {
         this.getWETHAssetPrice();

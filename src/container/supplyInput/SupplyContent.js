@@ -119,7 +119,16 @@ class SupplyContent extends Component {
       });
     }
 
-    this.componentDidMount_temp();
+    // this.componentDidMount_temp();
+    window.web3.version.getNetwork((e, r) => {
+      if (r) {
+        this.setState({
+          NetworkName: r
+        }, () => {
+          this.componentDidMount_temp();
+        })
+      }
+    })
 
     if (window.web3.currentProvider.isMetaMask) {
       window.ethereum.on('accountsChanged', () => {
@@ -155,7 +164,7 @@ class SupplyContent extends Component {
   getCurrentSupplyAssetAmount = () => {
     if (window.web3 !== undefined && this.web3.eth.accounts[0] !== undefined && MoneyMarket() !== undefined) {
       let withdrawAddress = '';
-      let NetworkName = findNetwork(window.web3.version.network);
+      let NetworkName = findNetwork(this.state.NetworkName);
       if (NetworkName === 'Main') {
         if (this.props.withdrawType === 'WETH') {
           withdrawAddress = Network.Main.WETH;
@@ -189,8 +198,9 @@ class SupplyContent extends Component {
       return;
     }
     let mmAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     mmAddress = Network[NetworkName].MoneyMarket;
+    
     this.props.coin.allowance(this.web3.eth.accounts[0], mmAddress, (err, res) => {
       let allowanceVal = -1;
       if (res) {
@@ -207,7 +217,7 @@ class SupplyContent extends Component {
 
   getAssetBalance = () => {
     let mmAddress = '';
-    let NetworkName = window.web3 !== undefined ? findNetwork(window.web3.version.network) : null;
+    let NetworkName = window.web3 !== undefined ? findNetwork(this.state.NetworkName) : null;
     if (NetworkName === 'Main') {
       mmAddress = Network.Main.MoneyMarket;
     } else if (NetworkName === 'Rinkeby') {
@@ -249,7 +259,7 @@ class SupplyContent extends Component {
       return;
     }
     let wethAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       wethAddress = Network.Main.WETH;
     } else if (NetworkName === 'Rinkeby') {
@@ -271,7 +281,7 @@ class SupplyContent extends Component {
       return;
     }
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -299,7 +309,7 @@ class SupplyContent extends Component {
       i_clicked_approve_btn: 1
     });
     let mmAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       mmAddress = Network.Main.MoneyMarket;
     } else if (NetworkName === 'Rinkeby') {
@@ -320,7 +330,7 @@ class SupplyContent extends Component {
           (err, res) => {
             if (res) {
               let txId = res;
-              let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
+              let txnHashHref = getTxnHashHref((this.state.NetworkName)) + res;
               this.setState({
                 getHash: true,
                 hashNumber: res,
@@ -332,7 +342,7 @@ class SupplyContent extends Component {
                 this.web3.eth.accounts[0],
                 Asset['Asset'].USDx,
                 this.props.page,
-                this.web3.version.network,
+                this.state.NetworkName,
                 'Enable',
                 null,
                 'USDx',
@@ -386,7 +396,7 @@ class SupplyContent extends Component {
       var key = null;
       if (window.localStorage) {
         storage = window.localStorage;
-        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
+        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.state.NetworkName);
         results = JSON.parse(`${storage.getItem(key)}`);
       }
       if (results === null) {
@@ -399,7 +409,7 @@ class SupplyContent extends Component {
       storage.removeItem(key);
       results = results.map(item => {
         if (item.status === 0 && item.transactionType === 'Enable' && item.txId !== txId) {
-          let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
+          let txnHashHref = getTxnHashHref(that.state.NetworkName) + txId;
           return {
             ...item,
             icon: 'done',
@@ -445,9 +455,9 @@ class SupplyContent extends Component {
       }
       storage = window.localStorage;
       if (this.props.wethCoin === true) {
-        key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].WETH, this.props.page, this.web3.version.network);
+        key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].WETH, this.props.page, this.state.NetworkName);
       } else if (this.props.usdxCoin === true) {
-        key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].USDx, this.props.page, this.web3.version.network);
+        key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].USDx, this.props.page, this.state.NetworkName);
       }
       results = JSON.parse(`${storage.getItem(key)}`);
     }
@@ -803,7 +813,7 @@ class SupplyContent extends Component {
         return;
       }
       storage = window.localStorage;
-      key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].USDx, this.props.page, this.web3.version.network);
+      key = getTransactionHistoryKey(this.web3.eth.accounts[0], Asset['Asset'].USDx, this.props.page, this.state.NetworkName);
       results = JSON.parse(`${storage.getItem(key)}`);
     }
     // console.log(results);
@@ -1198,6 +1208,9 @@ class SupplyContent extends Component {
 
 
   mmMonitor = () => {
+    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
+      return;
+    }
     if (MoneyMarket() === undefined) {
       return;
     }
@@ -1216,7 +1229,7 @@ class SupplyContent extends Component {
           return;
         }
         storage = window.localStorage;
-        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
+        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.state.NetworkName);
         results = JSON.parse(`${storage.getItem(key)}`);
       }
       if (results === null) {
@@ -1238,7 +1251,7 @@ class SupplyContent extends Component {
       results = results.map(item => {
         // check is speed up
         if (item.status === 0 && item.transactionType === 'Supply' && item.realAmount === argsObj.amount && item.txId !== txId) {
-          let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
+          let txnHashHref = getTxnHashHref(that.state.NetworkName) + txId;
           return {
             ...item,
             icon: 'supply',
@@ -1275,9 +1288,9 @@ class SupplyContent extends Component {
         }
         storage = window.localStorage;
         if (that.props.wethCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
+          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.state.NetworkName);
         } else if (that.props.usdxCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
+          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.state.NetworkName);
         }
         results = JSON.parse(`${storage.getItem(key)}`);
       }
@@ -1296,7 +1309,7 @@ class SupplyContent extends Component {
       results = results.map(item => {
         // check is speed up
         if (item.status === 0 && item.transactionType === 'Withdraw' && item.realAmount === argsObj.amount && item.txId !== txId) {
-          let txnHashHref = getTxnHashHref(that.web3.version.network) + txId;
+          let txnHashHref = getTxnHashHref(that.state.NetworkName) + txId;
           return {
             ...item,
             icon: 'withdraw',
@@ -1333,9 +1346,9 @@ class SupplyContent extends Component {
         }
         storage = window.localStorage;
         if (that.props.wethCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.web3.version.network);
+          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].WETH, that.props.page, that.state.NetworkName);
         } else if (that.props.usdxCoin === true) {
-          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.web3.version.network);
+          key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.state.NetworkName);
         }
         results = JSON.parse(`${storage.getItem(key)}`);
       }
@@ -1375,6 +1388,9 @@ class SupplyContent extends Component {
   }
 
   refreshDataEventMonitor = () => {
+    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
+      return;
+    }
     if (MoneyMarket() === undefined) {
       return;
     }
@@ -1404,24 +1420,6 @@ class SupplyContent extends Component {
 
 
 
-  Get_My_USDx_Balance = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
-      return;
-    }
-    USDX().balanceOf(this.web3.eth.accounts[0], (err, res) => {
-      if (res) {
-        this.setState({
-          My_USDx_Balance: this.web3.fromWei(res.toNumber(), "ether"),
-          My_USDx_Balance_BN: res
-        }, () => {
-          // console.log(this.state.My_USDx_Balance_BN)//this.state.My_USDx_Balance_BN.toLocaleString().replace(/,/g, '')
-          // console.log(this.state.My_USDx_Balance_BN.toLocaleString().replace(/,/g, ''))
-          // console.log(this.state.My_USDx_Balance_BN.div(this.web3.toBigNumber(10 ** 18))) // BN
-          // console.log(this.state.My_USDx_Balance_BN.div(this.web3.toBigNumber(10 ** 18)).toLocaleString())
-        })
-      }
-    });
-  }
 
 
 
@@ -1431,7 +1429,7 @@ class SupplyContent extends Component {
     }
     let usdxAddress = '';
     let mmAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
       mmAddress = Network.Main.MoneyMarket;
@@ -1536,72 +1534,7 @@ class SupplyContent extends Component {
 
 
 
-  handle_Supply_Click = () => {
-    if (this.state.supplyAmount === '' || this.state.supplyAmount === 0 || this.state.supplyAmount === null) {
-      return;
-    }
-    this.setState({
-      isSupplyEnable: false,
-      supplyButtonText: 'SUBMITTING…',
-      supplyInputDisabled: true,
-      maxClassName: 'max-amount-button-disable'
-    });
 
-    let supplyAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
-    if (NetworkName === 'Main') {
-      supplyAddress = Network.Main.USDx;
-    } else if (NetworkName === 'Rinkeby') {
-      supplyAddress = Network.Rinkeby.USDx;
-    }
-
-    let to_supply_amount_BN = this.web3.toBigNumber(0);
-    if (this.state.i_will_supply_max) {
-      to_supply_amount_BN = this.state.My_USDx_Balance_BN;
-    } else {
-      to_supply_amount_BN = this.web3.toBigNumber(this.state.supplyAmount).mul(this.web3.toBigNumber(10 ** 18));
-    }
-
-    MoneyMarket().supply.estimateGas(supplyAddress, to_supply_amount_BN, { from: this.web3.eth.accounts[0] }, (err, gasLimit) => {
-      this.web3.eth.getGasPrice((err, gasPrice) => {
-        MoneyMarket().supply.sendTransaction(
-          supplyAddress,
-          to_supply_amount_BN,
-          {
-            from: this.web3.eth.accounts[0],
-            gas: gasLimit,
-            gasPrice: gasPrice
-          },
-          (err, res) => {
-            if (res !== undefined && res !== null) {
-              let txId = res;
-              let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
-              let recordSupplyAmount = toDoubleThousands(this.state.supplyAmount);
-
-              saveTransaction(
-                'loading-supply-usdx',
-                this.web3.eth.accounts[0],
-                Asset['Asset'].USDx,
-                this.props.page,
-                this.web3.version.network,
-                'Supply',
-                recordSupplyAmount,
-                'USDx',
-                txnHashHref,
-                txId,
-                0,
-                this.web3.toWei(this.state.supplyAmount, "ether"),
-                false,
-                null
-              );
-            } else {
-              this.setState({ isSupplyEnable: true, supplyInputDisabled: false });
-            }
-          }
-        )
-      })
-    });
-  }
 
 
 
@@ -1675,7 +1608,7 @@ class SupplyContent extends Component {
       withdrawMaxClassName: 'max-amount-button-disable'
     });
     let withdrawAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       withdrawAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -1695,14 +1628,14 @@ class SupplyContent extends Component {
           (err, res) => {
             if (res !== undefined && res !== null) {
               let txId = res;
-              let txnHashHref = getTxnHashHref(this.web3.version.network) + res;
+              let txnHashHref = getTxnHashHref(this.state.NetworkName) + res;
               let recordWithdrawAmount = (amount === -1) ? toDoubleThousands(this.state.maxWithdrawUSDXAmount) : toDoubleThousands(this.state.withdrawAmount);
               saveTransaction(
                 'loading-supply-withdraw-usdx',
                 this.web3.eth.accounts[0],
                 Asset['Asset'].USDx,
                 this.props.page,
-                this.web3.version.network,
+                this.state.NetworkName,
                 'Withdraw',
                 recordWithdrawAmount,
                 'USDx',
@@ -1849,7 +1782,7 @@ class SupplyContent extends Component {
                         <Button
                           size='large'
                           className={!!(this.props.hasBorrowedUSDx || false || !this.state.isSupplyEnable) ? 'disable-button' : ''}
-                          onClick={() => { this.handle_Supply_Click() }}
+                          
                           disabled={!this.state.isSupplyEnable || !!(this.props.hasBorrowedUSDx || false)}
                         >
                           {this.state.isSupplyEnable ? this.props.supplyButtonInfo : this.state.supplyButtonText}

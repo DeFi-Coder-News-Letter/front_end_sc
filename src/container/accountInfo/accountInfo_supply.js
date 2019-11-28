@@ -15,11 +15,15 @@ class AccountInfo extends Component {
     super(props)
     this.state = {}
     this.web3 = window.web3;
+
   }
 
   get_USDx_supply_borrow = () => {
+    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
+      return;
+    }
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -43,13 +47,27 @@ class AccountInfo extends Component {
 
 
   componentDidMount = () => {
+    // this.componentDidMount_temp();
+
+
     if (window.web3) {
       window.web3.currentProvider.enable().then(
-        res => { }
+        res => {
+          window.web3.version.getNetwork((e, r) => {
+            if (r) {
+              this.setState({
+                NetworkName: r
+              }, () => {
+                // this.componentDidMount_temp();
+                this.get_USDx_supply_borrow();
+              })
+            }
+          })
+        }
       )
     }
 
-    this.get_USDx_supply_borrow();
+    // this.get_USDx_supply_borrow();
 
     this.timer_supply = setInterval(() => {
       this.get_USDx_supply_borrow();

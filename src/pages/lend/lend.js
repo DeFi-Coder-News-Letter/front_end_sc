@@ -36,11 +36,27 @@ class Lend extends Component {
     };
     this.web3 = window.web3;
 
+    // window.web3.currentProvider.enable().then(
+    //   res => {
+    //     this.setState({ isLogIn: true }, () => {
+    //       console.log(this.state.isLogIn);
+    //       this.componentDidMount_temp();
+    //     });
+    //   }
+    // )
+
     window.web3.currentProvider.enable().then(
       res => {
         this.setState({ isLogIn: true }, () => {
-          console.log(this.state.isLogIn);
-          this.componentDidMount_temp();
+          window.web3.version.getNetwork((e, r) => {
+            if (r) {
+              this.setState({
+                NetworkName: r
+              }, () => {
+                this.componentDidMount_temp();
+              })
+            }
+          })
         });
       }
     )
@@ -61,7 +77,7 @@ class Lend extends Component {
     }
     let myAddress = window.web3.eth.accounts[0];
     let usdxAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     if (NetworkName === 'Main') {
       usdxAddress = Network.Main.USDx;
     } else if (NetworkName === 'Rinkeby') {
@@ -113,7 +129,7 @@ class Lend extends Component {
       return;
     }
     let mmAddress = '';
-    let NetworkName = findNetwork(window.web3.version.network);
+    let NetworkName = findNetwork(this.state.NetworkName);
     mmAddress = Network[NetworkName].MoneyMarket;
     USDX().allowance(this.web3.eth.accounts[0], mmAddress, (err, res) => {
       if (res !== undefined && res !== null) {
@@ -140,7 +156,7 @@ class Lend extends Component {
     setTimeout(() => {
       this.get_Allowance();
       this.getBorrowBalance();
-    }, 700);
+    }, 2000);
 
     this.accountInterval = setInterval(() => {
       this.get_Allowance();
@@ -183,7 +199,7 @@ class Lend extends Component {
     let NetworkName;
     if (typeof web3 !== 'undefined') {
       currentAccount = this.web3.eth.accounts[0];
-      NetworkName = findNetwork(window.web3.version.network);
+      NetworkName = findNetwork(this.state.NetworkName);
     }
 
     const usdxProps = {

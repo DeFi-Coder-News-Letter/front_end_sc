@@ -7,6 +7,19 @@ export default function USDX() {
     }
     const usdxSpec = window.web3.eth.contract(usdx);
     let NetworkName = findNetwork(window.web3.version.network);
+    // window.web3.version.getNetwork((e, r) => {
+    //     if (r) {
+    //         let NetworkName = findNetwork(r);
+    //         var USDX;
+    //         if (NetworkName === 'Main') {
+    //             USDX = usdxSpec.at("0x3a9e75afcffcd89613037989ea0ed6cec44a4353");
+    //         } else if (NetworkName === 'Rinkeby') {
+    //             USDX = usdxSpec.at("0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2");
+    //         }
+    //         return USDX;
+    //     }
+    // })
+    // let NetworkName = findNetwork(r);
     var USDX;
     if (NetworkName === 'Main') {
         USDX = usdxSpec.at("0x3a9e75afcffcd89613037989ea0ed6cec44a4353");

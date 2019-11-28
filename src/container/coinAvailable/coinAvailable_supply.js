@@ -27,6 +27,15 @@ class CoinAvailable extends Component {
     this.web3 = window.web3;
 
     // this.componentDidMount_temp();
+    window.web3.version.getNetwork((e, r) => {
+      if (r) {
+        this.setState({
+          NetworkName: r
+        }, () => {
+          this.componentDidMount_temp();
+        })
+      }
+    })
 
     // window.ethereum.on('accountsChanged', () => {
     //   this.componentDidMount_temp();
@@ -45,7 +54,7 @@ class CoinAvailable extends Component {
                 let sumofSupplies = this.web3.fromWei(this.web3.fromWei(res[1].toNumber(), "ether"), "ether");
                 let sumofBorrow = this.web3.fromWei(this.web3.fromWei(res[2].toNumber(), "ether"), "ether") * this.web3.fromWei(res1.toNumber(), "ether");
                 let wethAddress = '';
-                let NetworkName = findNetwork(window.web3.version.network);
+                let NetworkName = findNetwork(this.state.NetworkName);
                 if (NetworkName === 'Main') {
                   wethAddress = Network.Main.WETH;
                 } else if (NetworkName === 'Rinkeby') {

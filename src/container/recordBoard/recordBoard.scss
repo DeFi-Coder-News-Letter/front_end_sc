@@ -4,20 +4,22 @@
         border-radius: 2px;
         border: 1px solid #E6EAEE;
     }
-    
+
     .board-title {
         height: 50px;
         padding: 14px;
         font-size: 16px;
-        background:rgba(245,243,249,1);
+        background: rgba(245, 243, 249, 1);
         border-bottom: 1px solid #E6EAEE;
     }
-    
+
     .board-content {
         max-height: 349px;
         overflow: auto;
-        > div {
+
+        >div {
             border-bottom: 1px solid #E6EAEE;
+
             &:last-child {
                 border: 0;
             }
@@ -31,6 +33,59 @@
     }
 }
 
-.XS {
+.XS {}
 
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 14px;
+    cursor: pointer;
+}
+
+.transaction-detail {
+    color: #333344;
+    display: flex;
+    font-size: 12px;
+    max-width: 220px;
+}
+
+.transaction-time {
+    color: #808086;
+    font-size: 13px;
+}
+
+@keyframes icon-loading {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.icon-loading {
+    animation: icon-loading 0.8s linear infinite;
+    width: 16px;
+    height: 16px;
+}
+
+.ant-popover-placement-top,
+.ant-popover-placement-topLeft,
+.ant-popover-placement-topRight {
+    padding-bottom: 0.1px !important;
+}
+
+.ant-popover-placement-top>.ant-popover-content>.ant-popover-arrow,
+.ant-popover-placement-topLeft>.ant-popover-content>.ant-popover-arrow,
+.ant-popover-placement-topRight>.ant-popover-content>.ant-popover-arrow {
+    bottom: -4px !important;
+}
+
+.ant-popover {
+    width: 328px !important;
+}
+
+.ant-popover-inner-content {
+    text-align: center !important;
 }
