@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CoinInfo from '../../component/coinInfo/coinInfo';
 import WETH from '../../ABIs/WETH';
-import USDX from "./../../ABIs/USDX.js";
+
 import { toFormatShowNumber, toDoubleThousands } from '../../util.js';
 import './coinBalance.scss';
 
@@ -25,25 +25,6 @@ class CoinBalance extends Component {
   }
 
 
-  // ********************* usdx_Account_Balance
-  getAccountUSDXBalanceByAddress = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
-      return;
-    }
-    USDX().balanceOf(this.web3.eth.accounts[0],
-      (err, res) => {
-        let usdxBalance = 0;
-        if (res !== undefined && res !== null) {
-          usdxBalance = this.web3.fromWei(res.toNumber(), "ether");
-        }
-        if (this.state.usdxAccountBalance !== usdxBalance) {
-          this.setState({ usdxAccountBalance: usdxBalance }, () => {
-            // console.log(this.state.usdxAccountBalance);
-          })
-        }
-      }
-    );
-  }
 
 
   componentDidMount_temp = () => {

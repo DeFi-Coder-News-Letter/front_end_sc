@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import USDX from "./../../ABIs/USDX.js";
-import WETH from "./../../ABIs/WETH.js";
+
 import { findNetwork, saveLoginStatus, getLoginStatusKey } from './../../util.js';
 import './header.scss';
 
@@ -122,21 +121,8 @@ class Header extends Component {
         clearInterval(this.timerID);
     }
 
-    // 领取测试币 USDx
-    allocateUSDx = () => {
-        if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined) {
-            return;
-        }
-        USDX().allocateTo(this.web3.eth.accounts[0], this.web3.toWei(100, "ether"), (err, res) => { });
-    }
 
-    // 测试用 weth_faucet
-    allocateWETH = () => {
-        if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined) {
-            return;
-        }
-        WETH().allocateTo(this.web3.eth.accounts[0], this.web3.toWei(100, "ether"), (err, res) => { });
-    }
+
 
     render = () => {
         let NetworkName = window.web3 !== undefined ? findNetwork(this.state.NetworkName) : null;

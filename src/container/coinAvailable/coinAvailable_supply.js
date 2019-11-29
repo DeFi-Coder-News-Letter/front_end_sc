@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import CoinInfo from '../../component/coinInfo/coinInfo';
 import Network from '../../constant.json';
 import WETH from '../../ABIs/WETH';
-import USDX from "./../../ABIs/USDX.js";
+
 import { toFormatShowNumber, toNonExponential, findNetwork, formatBigNumber } from '../../util.js';
 import './coinAvailable.scss';
 
@@ -42,69 +42,6 @@ class CoinAvailable extends Component {
     // });
   }
 
-  // ******************* max_Withdraw_USDX_Amount
-  getmaxWithdrawUSDXAmount = () => {
-    if (typeof web3 !== 'undefined' && this.web3.eth.accounts[0] !== undefined) {
-      MoneyMarket().calculateAccountValues(
-        this.web3.eth.accounts[0],
-        (err, res) => {
-          if (res !== undefined || res !== null) {
-            MoneyMarket().collateralRatio((err, res1) => {
-              if (res1 !== undefined && res1 !== null) {
-                let sumofSupplies = this.web3.fromWei(this.web3.fromWei(res[1].toNumber(), "ether"), "ether");
-                let sumofBorrow = this.web3.fromWei(this.web3.fromWei(res[2].toNumber(), "ether"), "ether") * this.web3.fromWei(res1.toNumber(), "ether");
-                let wethAddress = '';
-                let NetworkName = findNetwork(this.state.NetworkName);
-                if (NetworkName === 'Main') {
-                  wethAddress = Network.Main.WETH;
-                } else if (NetworkName === 'Rinkeby') {
-                  wethAddress = Network.Rinkeby.WETH;
-                }
-                MoneyMarket().assetPrices(wethAddress, (err, res2) => {
-                  let usdxAddress = '';
-                  if (NetworkName === 'Main') {
-                    usdxAddress = Network.Main.USDx;
-                  } else if (NetworkName === 'Rinkeby') {
-                    usdxAddress = Network.Rinkeby.USDx;
-                  }
-                  MoneyMarket().assetPrices(usdxAddress, (err, res3) => {
-                    if (res3 !== undefined && res3 !== null) {
-                      sumofSupplies = sumofSupplies * (this.web3.fromWei(res2.toNumber(), "ether") / this.web3.fromWei(res3.toNumber(), "ether")) / 1;
-                      sumofBorrow = sumofBorrow * (this.web3.fromWei(res2.toNumber(), "ether") / this.web3.fromWei(res3.toNumber(), "ether")) / 1;
-                      MoneyMarket().getSupplyBalance(this.web3.eth.accounts[0], usdxAddress, (err, res5) => {
-                        if (res5 !== undefined && res5 !== null) {
-                          let mmAddress = '';
-                          if (NetworkName === 'Main') {
-                            mmAddress = Network.Main.MoneyMarket;
-                          } else if (NetworkName === 'Rinkeby') {
-                            mmAddress = Network.Rinkeby.MoneyMarket;
-                          }
-                          USDX().balanceOf(mmAddress, (err, res6) => {
-                            if (res6 !== undefined && res6 !== null) {
-                              let max = Math.min((sumofSupplies - sumofBorrow), this.web3.fromWei(res5.toNumber(), "ether"), this.web3.fromWei(res6.toNumber(), "ether"));
-                              if (Number(max) < 0) {
-                                max = 0;
-                              }
-                              // let testMax = 0.000000005163079378;
-                              // console.log('lend........withdraw....testMax:' + testMax + ' / toDoubleThousands:' + toDoubleThousands(toNonExponential(testMax)));
-                              this.setState({ maxWithdrawUSDXAmount: toNonExponential(max) }, () => {
-                                // console.log(this.state.maxWithdrawUSDXAmount);
-                              });
-                            }
-                          });
-                        }
-                      }
-                      );
-                    }
-                  });
-                });
-              }
-            });
-          }
-        }
-      );
-    }
-  };
 
 
   // componentDidMount_temp = () => {

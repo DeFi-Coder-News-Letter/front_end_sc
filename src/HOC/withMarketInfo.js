@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import Network from './../constant.json';
 import { toDoubleThousands, findNetwork, formatBigNumber } from './../util';
-import USDX from "./../ABIs/USDX.js";
-import WETH from './../ABIs/WETH.js';
+
+
 
 export function withMarketInfo(Header) {
   return class extends Component {
@@ -56,46 +56,8 @@ export function withMarketInfo(Header) {
       });
     }
 
-    getAccountUSDXBalanceByAddress = () => {
-      if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined || !this.props.login) {
-        this.setState({ USDXPersonalBalance: '-' })
-        return;
-      }
-      USDX().balanceOf(this.web3.eth.accounts[0],
-        (err, res) => {
-          if (window.ethereum.isImToken !== undefined && window.ethereum.isImToken === true) {
-            console.log('===>usdxBalance res:' + res + ' USDX():' + USDX())
-          }
-          if (res === undefined || res === null) {
-            return;
-          }
-          let usdxBalance = 0;
-          usdxBalance = toDoubleThousands(this.web3.fromWei(res.toNumber(), "ether"));
-          this.setState({ USDXPersonalBalance: usdxBalance });
-        }
-      );
+    
 
-    }
-
-    getAccountWETHBalanceByAddress = () => {
-      if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || WETH() === undefined || !this.props.login) {
-        this.setState({ WETHPersonalBalance: '-' })
-        return;
-      }
-      WETH().balanceOf(this.web3.eth.accounts[0],
-        (err, res) => {
-          if (window.ethereum.isImToken !== undefined && window.ethereum.isImToken === true) {
-            console.log('===>wethBalance res:' + res + ' WETH():' + WETH())
-          }
-          if (res === undefined || res === null) {
-            return;
-          }
-          let wethBalance = 0;
-          wethBalance = toDoubleThousands(this.web3.fromWei(res.toNumber(), "ether"));
-          this.setState({ WETHPersonalBalance: wethBalance })
-        }
-      );
-    }
 
 
 

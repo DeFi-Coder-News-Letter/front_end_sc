@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tabs } from 'antd'
 import Approve from '../../component/approve/approve';
 import InputUnit from '../../component/inputUnit/inputUnit';
-import USDX from "./../../ABIs/USDX.js";
+
 
 import { toFormatShowNumber, saveTransaction, getTxnHashHref, toDoubleThousands, validNumber, toFormat4Number, getTransactionHistoryKey, findNetwork, diffMin, formatBigNumber } from '../../util.js'
 import './borrowInput.scss';
@@ -134,81 +134,6 @@ class BorrowInput extends Component {
     );
   }
 
-  // 获得最大 可以借的数额
-  getMaxBorrowAmount = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
-      return;
-    }
-    MoneyMarket().calculateAccountValues(
-      this.web3.eth.accounts[0],
-      (err, res) => {
-        if (res === undefined || res === null) {
-          return;
-        }
-        let sumofSupplies = this.web3.fromWei(this.web3.fromWei(res[1].toNumber(), "ether"), "ether");
-        let sumofBorrow = this.web3.fromWei(this.web3.fromWei(res[2].toNumber(), "ether"), "ether");
-
-        let wethAddress = '';
-        let NetworkName = findNetwork(this.state.NetworkName);
-        if (NetworkName === 'Main') {
-          wethAddress = Network.Main.WETH;
-        } else if (NetworkName === 'Rinkeby') {
-          wethAddress = Network.Rinkeby.WETH;
-        }
-        MoneyMarket().assetPrices(
-          wethAddress,
-          (err, res1) => {
-            if (res1 !== undefined && res1 !== null) {
-              let usdxAddress = '';
-              let NetworkName = findNetwork(this.state.NetworkName);
-              if (NetworkName === 'Main') {
-                usdxAddress = Network.Main.USDx;
-              } else if (NetworkName === 'Rinkeby') {
-                usdxAddress = Network.Rinkeby.USDx;
-              }
-              MoneyMarket().assetPrices(
-                usdxAddress,
-                (err, res2) => {
-                  //weth价格修改 增加了下面两行
-                  sumofSupplies = sumofSupplies * (this.web3.fromWei(res1.toNumber(), "ether") / (this.web3.fromWei(res2.toNumber(), "ether"))) / 1;
-                  sumofBorrow = sumofBorrow * (this.web3.fromWei(res1.toNumber(), "ether") / (this.web3.fromWei(res2.toNumber(), "ether"))) / 1;
-                  MoneyMarket().collateralRatio((err, res3) => {
-                    let mmAddress = '';
-                    let NetworkName = findNetwork(this.state.NetworkName);
-                    if (NetworkName === 'Main') {
-                      mmAddress = Network.Main.MoneyMarket;
-                    } else if (NetworkName === 'Rinkeby') {
-                      mmAddress = Network.Rinkeby.MoneyMarket;
-                    }
-                    USDX().balanceOf(
-                      mmAddress,
-                      (err, res5) => {
-                        if (res5 !== undefined && res5 !== null) {
-                          MoneyMarket().originationFee((err, res6) => {
-                            if (res6 !== undefined || res6 !== null) {
-                              let safeMax = Math.min((sumofSupplies / this.web3.fromWei(res3.toNumber(), "ether")) * 0.8 - sumofBorrow, toFormatShowNumber(this.web3.fromWei(res5.toNumber(), "ether")));
-                              if (Number(safeMax) < 0) {
-                                safeMax = 0;
-                              }
-                              if (Number(safeMax) !== Number(toFormatShowNumber(this.web3.fromWei(res5.toNumber(), "ether")))) {
-                                safeMax = safeMax / (1 + Number(formatBigNumber(res6)));
-                              }
-                              if (this.state.maxBorrowAmount !== toFormat4Number(safeMax)) {
-                                this.setState({ maxBorrowAmount: toFormat4Number(safeMax) }, () => {
-                                  // console.log(this.state.maxBorrowAmount);
-                                });
-                              }
-                            }
-                          });
-                        }
-                      });
-                  });
-                });
-            }
-          });
-      }
-    );
-  };
 
   getBorrowMarketInfo = (asset) => {
     if (MoneyMarket() === undefined) {
@@ -235,109 +160,6 @@ class BorrowInput extends Component {
   }
 
 
-  // ***************** get_USDx_Allowance
-  getUSDxAllowance = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
-      return;
-    }
-    let mmAddress = '';
-    let NetworkName = findNetwork(this.state.NetworkName);
-    if (NetworkName === 'Main') {
-      mmAddress = Network.Main.MoneyMarket;
-    } else if (NetworkName === 'Rinkeby') {
-      mmAddress = Network.Rinkeby.MoneyMarket;
-    }
-    USDX().allowance(this.web3.eth.accounts[0], mmAddress, (err, res) => {
-      if (res !== undefined && res !== null) {
-        if (res.toNumber() > 0) {
-          this.setState({
-            usdxAllowance: res.toNumber(),
-            isApproved: true,
-            USDx_isApproved: 1
-          }, () => {
-            console.log(this.state.isApproved);
-          });
-        } else {
-          this.setState({ isApproved: false, USDx_isApproved: 1 });
-        }
-      }
-    });
-  }
-
-  getMyAddressUSDxBalance = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
-      return;
-    }
-    USDX().balanceOf(this.web3.eth.accounts[0], (err, res) => {
-      let usdxBalance = 0;
-      if (res !== undefined && res !== null) {
-        usdxBalance = res.toNumber();
-      }
-      if (this.state.myAddressUSDxBalance !== Number(this.web3.fromWei(usdxBalance, "ether"))) {
-        this.setState({
-          myAddressUSDxBalance: Number(this.web3.fromWei(usdxBalance, "ether")),
-          repayBorrowMax: false,
-          isRepayBorrowEnable: true,
-          repayBorrowAmount: '',
-          repayButtonText: this.props.repayButtonInfo
-        }, () => {
-          // repay USDx的余额
-          // console.log(this.state.myAddressUSDxBalance);
-        });
-      }
-    });
-  }
-
-  handleApprove = () => {
-    this.setState({ approveButtonInfo: 'ENABLEING USDx...', pendingApproval: true });
-    let mmAddress = '';
-    let NetworkName = findNetwork(this.state.NetworkName);
-    if (NetworkName === 'Main') {
-      mmAddress = Network.Main.MoneyMarket;
-    } else if (NetworkName === 'Rinkeby') {
-      mmAddress = Network.Rinkeby.MoneyMarket;
-    }
-    USDX().approve.estimateGas(mmAddress, -1, { from: this.web3.eth.accounts[0] }, (err, gasLimit) => {
-      this.web3.eth.getGasPrice((err, gasPrice) => {
-        console.log('gasLimit:' + gasLimit);
-        console.log('gasPrice:' + gasPrice);
-        USDX().approve(
-          mmAddress,
-          -1,
-          {
-            from: this.web3.eth.accounts[0],
-            gas: gasLimit,
-            gasPrice: gasPrice
-          },
-          (err, res) => {
-            if (res !== undefined && res !== null) {
-              let txId = res;
-              let txnHashHref = getTxnHashHref(this.state.NetworkName) + res;
-              this.setState({ getHash: true, hashNumber: res, pendingUSDxApproval: true });
-              saveTransaction(
-                'loading-borrow-approve',
-                this.web3.eth.accounts[0],
-                Asset['Asset'].USDx,
-                this.props.page,
-                this.state.NetworkName,
-                'Enable',
-                null,
-                'USDx',
-                txnHashHref,
-                txId,
-                0,
-                null,
-                false,
-                null
-              );
-            } else {
-              this.setState({ pendingApproval: false, approveButtonInfo: this.props.approveButtonInfo })
-            }
-          })
-      }
-      )
-    });
-  };
 
   handleBorrowClick = () => {
     let borrowAmount = this.state.borrowAmount;
@@ -577,49 +399,7 @@ class BorrowInput extends Component {
     }
   };
 
-  // USDx Available ( cash ) 
-  getUSDxBalance = () => {
-    if (USDX() === undefined) {
-      return;
-    }
-    let mmAddress = '';
-    let NetworkName = findNetwork(this.state.NetworkName);
-    if (NetworkName === 'Main') {
-      mmAddress = Network.Main.MoneyMarket;
-    } else if (NetworkName === 'Rinkeby') {
-      mmAddress = Network.Rinkeby.MoneyMarket;
-    }
-    USDX().balanceOf(
-      mmAddress,
-      (err, res) => {
-        let balance = 0;
-        if (res !== undefined && res !== null) {
-          balance = res.toNumber();
-        }
-        if (this.state.usdxBalance !== toFormatShowNumber(this.web3.fromWei(balance, "ether"))) {
-          this.setState({ usdxBalance: toFormatShowNumber(this.web3.fromWei(balance, "ether")) }, () => {
-            // console.log(this.state.usdxBalance);
-          });
-        }
-      });
-  }
 
-  getAccountUSDXBalanceByAddress = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || USDX() === undefined) {
-      return;
-    }
-    USDX().balanceOf(this.web3.eth.accounts[0],
-      (err, res) => {
-        let usdxBalance = 0;
-        if (res !== undefined && res !== null) {
-          usdxBalance = this.web3.fromWei(res.toNumber(), "ether");
-        }
-        if (this.state.USDXPersonalBalance !== usdxBalance) {
-          this.setState({ USDXPersonalBalance: usdxBalance })
-        }
-      }
-    );
-  }
 
   getOriginationFee = () => {
     if (MoneyMarket() === undefined) {
@@ -745,27 +525,6 @@ class BorrowInput extends Component {
     });
   }
 
-  getCash = () => {
-    if (USDX() === undefined) {
-      return;
-    }
-    let mmAddress = '';
-    let NetworkName = findNetwork(this.state.NetworkName);
-    if (NetworkName === 'Main') {
-      mmAddress = Network.Main.MoneyMarket;
-    } else if (NetworkName === 'Rinkeby') {
-      mmAddress = Network.Rinkeby.MoneyMarket;
-    }
-    USDX().balanceOf(mmAddress, (err, res) => {
-      let cash = 0;
-      if (res !== undefined && res !== null) {
-        cash = res.toNumber();
-      }
-      if (this.state.cash !== toFormatShowNumber(this.web3.fromWei(cash, "ether"))) {
-        this.setState({ cash: toFormatShowNumber(this.web3.fromWei(cash, "ether")) })
-      }
-    });
-  }
 
   refreshData = () => {
     this.getCollateralRatio();
@@ -966,62 +725,6 @@ class BorrowInput extends Component {
     });
   }
 
-  usdxEventMonitor = () => {
-    if (USDX() === undefined) {
-      return;
-    }
-    let that = this;
-    var approvalUSDXEvent = USDX().Approval();
-    approvalUSDXEvent.watch((error, result) => {
-      console.log('watch borrow-> approvalUSDXEvent:' + JSON.stringify(result));
-      if (error) {
-        console.log('watch borrow usdxEventMonitor approvalUSDXEvent error --> ' + JSON.stringify(error));
-        return;
-      }
-      var storage = null;
-      var results = null;
-      var key = null;
-      if (window.localStorage) {
-        if (typeof web3 === 'undefined') {
-          return;
-        }
-        storage = window.localStorage;
-        key = getTransactionHistoryKey(that.props.account, Asset['Asset'].USDx, that.props.page, that.state.NetworkName);
-        results = JSON.parse(`${storage.getItem(key)}`);
-      }
-      if (results === null) {
-        return;
-      }
-      let resultObj = JSON.parse(JSON.stringify(result));
-      var txId = resultObj.transactionHash;
-      that.getUSDxAllowance();
-      that.setState({ pendingApproval: false, isApproved: true });
-      // change icon and status = 1 by txId
-      storage.removeItem(key);
-      results = results.map(item => {
-        if (item.status === 0 && item.transactionType === 'Enable' && item.txId !== txId) {
-          let txnHashHref = getTxnHashHref(that.state.NetworkName) + txId;
-          return {
-            ...item,
-            icon: 'done',
-            status: 1,
-            txId: txId,
-            txnHashHref: txnHashHref
-          }
-        } else if (item.txId === txId) {
-          return {
-            ...item,
-            icon: 'done',
-            status: 1
-          }
-        }
-        return {
-          ...item
-        }
-      })
-      storage.setItem(key, JSON.stringify(results));
-    });
-  }
 
   //check
   checkWaitingUpdateTransactionRecords = () => {
