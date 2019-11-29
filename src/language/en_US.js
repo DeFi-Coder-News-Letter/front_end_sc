@@ -1,4 +1,11 @@
 const en_US = {
+    available_withdraw: "Available",
+    balance: "Balance",
+    supplied: "Supplied",
+
+
+
+
     Decentralized: "Earn Interest and Borrow Money at Ease with Lendf.Me",
     USDx_Supplied: "USDx Supplied",
     USDx_Supplied_home: "USDx Supplied",

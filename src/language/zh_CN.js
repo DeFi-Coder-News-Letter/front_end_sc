@@ -1,4 +1,11 @@
 const zh_CN = {
+    available_withdraw: "可取数量",
+    balance: "余额",
+    supplied: "已存数量",
+
+
+
+
     Decentralized: "随存随贷，你自己的银行",
     USDx_Supplied: "USDx已存数量",
     USDx_Supplied_home: "USDx存款总额",

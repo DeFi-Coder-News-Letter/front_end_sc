@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Tabs, Button, Input } from 'antd';
+import RecordBoard from '../../container/recordBoard/recordBoard';
 import Header from '../../component/header/header';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {
-  findNetwork,
-  getLoginStatusKey,
-  i_got_hash,
   format_bn,
   get_tokens_decimals,
   get_allowance,
@@ -19,17 +19,8 @@ import {
   handle_withdraw_click
 } from '../../util.js';
 
-import { Link } from "react-router-dom";
-
 import MediaQuery from 'react-responsive';
 import "./supply.scss";
-
-
-
-import RecordBoard from '../../container/recordBoard/recordBoard';
-
-
-import { Tabs, Button, InputNumber, Input } from 'antd';
 
 // add i18n.
 import { IntlProvider, FormattedMessage } from 'react-intl';
@@ -37,7 +28,6 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
-
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -51,7 +41,6 @@ let address = require('../../ABIs/address_map.json');
 let constant = require('../../ABIs/constant.json');
 
 const WithMarketInfoEnhanced = withMarketInfo(Header);
-
 
 class Supply_imbtc extends Component {
   constructor(props) {
@@ -80,9 +69,7 @@ class Supply_imbtc extends Component {
         let imBTC = new this.new_web3.eth.Contract(imBTC_abi, address[net_type]['address_imBTC']);
         let USDT = new this.new_web3.eth.Contract(USDT_abi, address[net_type]['address_USDT']);
         let mMarket = new this.new_web3.eth.Contract(mMarket_abi, address[net_type]['address_mMarket']);
-
         console.log(' *** init contract finished *** ');
-
         this.setState({ net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket }, () => {
           get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this);
           this.new_web3.givenProvider.enable().then(res_accounts => {
@@ -91,19 +78,16 @@ class Supply_imbtc extends Component {
               let is_approved = await get_allowance(this.state.imBTC, this.state.my_account, address[net_type]['address_mMarket'], this.bn);
               console.log('is_approved: ', is_approved)
               this.setState({ is_approved: is_approved })
-
               let timer_Next = setInterval(() => {
-                if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+                if (!this.state.imBTC_decimals) {
                   console.log('111111111: not get yet...');
                 } else {
                   console.log('2222222222: i got it...');
                   clearInterval(timer_Next);
                   this.setState({ i_am_ready: true })
-
                   // to do something...
-
-
-
+                  get_my_balance(this.state.imBTC, this.state.my_account, this);
+                  get_supplied__available_to_withdraw(this.state.mMarket, this.state.imBTC, this.state.my_account, address[this.state.net_type]['address_imBTC'], address[this.state.net_type]['address_mMarket'], this);
                 }
               }, 100)
             })
@@ -114,14 +98,7 @@ class Supply_imbtc extends Component {
   }
 
 
-
-
-
-
-
   componentDidMount = () => {
-    console.log('component-Did-Mount...')
-
     this.timer_get_data = setInterval(() => {
       if (!this.state.my_account) {
         console.log('account not available.')
@@ -130,15 +107,11 @@ class Supply_imbtc extends Component {
       console.log('update new data.')
       get_my_balance(this.state.imBTC, this.state.my_account, this);
       get_supplied__available_to_withdraw(this.state.mMarket, this.state.imBTC, this.state.my_account, address[this.state.net_type]['address_imBTC'], address[this.state.net_type]['address_mMarket'], this);
-    }, 3000)
-
+    }, 1000 * 5)
   }
 
 
   componentWillUnmount = () => {
-    if (this.timer_Next) {
-      clearInterval(this.timer_Next)
-    }
     clearInterval(this.timer_get_data)
   }
 
@@ -149,9 +122,7 @@ class Supply_imbtc extends Component {
         <MediaQuery maxWidth={768}>
           {(match) =>
             // <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
-
             <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
-              {/* <WithMarketInfoEnhanced login={true} /> */}
               <div className='redirect-button'>
                 <div className='go-back-button'>
                   <Link to={'/'}>
@@ -171,16 +142,13 @@ class Supply_imbtc extends Component {
                       <FormattedMessage id='SUPPLY' /></span>
                   </div>
                   <div className="supply-content">
-                    {/* <div className="supply-content" style={{ display: (this.state.isApproved_USDx == 1) || (this.state.not_approve_atfirst_USDX == 1) ? 'block' : 'none' }}> */}
-                    {/* <SupplyContent /> */}
-
-
                     <div className='supply-input'>
                       <div className='info-wrapper'>
                         <span className='balance-type'>
                           <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.svg`} alt="" />
                           &nbsp;
-                          <FormattedMessage id='USDx_Supplied' />
+                          {this.token_name}
+                          <FormattedMessage id='supplied' />
                         </span>
                         <span className='balance-amount'>
                           {this.state.my_supplied ? format_bn(this.state.my_supplied, this.state.imBTC_decimals, this.decimal_precision) : '-'}
@@ -195,12 +163,12 @@ class Supply_imbtc extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  <FormattedMessage id='USDx_Balance' />
+                                  {this.token_name}
+                                  <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
                                   {this.state.my_balance ? format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision) : '-'}
                                   &nbsp;
-                                {this.token_name}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
@@ -259,7 +227,8 @@ class Supply_imbtc extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  <FormattedMessage id='USDx_Available_supply' />
+                                  {this.token_name}
+                                  <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
                                   {this.state.available_to_withdraw ? format_bn(this.state.available_to_withdraw, this.state.imBTC_decimals, this.decimal_precision) : '-'}
