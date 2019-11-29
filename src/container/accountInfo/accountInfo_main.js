@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import InfoSection from '../../component/infoSection/infoSection';
 import Network from '../../constant.json';
-import MoneyMarket from './../../ABIs/MoneyMarket.js';
+
 import { getPercentageFormat, toDoubleThousands, findNetwork } from '../../util.js';
 
 import './accountInfo.scss';
@@ -14,69 +14,8 @@ class AccountInfo extends Component {
     this.web3 = window.web3;
   }
 
-  get_USDx_supply_borrow = () => {
-    if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
-      return;
-    }
-    let usdxAddress = '';
-    let NetworkName = findNetwork(this.state.NetworkName);
-    if (NetworkName === 'Main') {
-      usdxAddress = Network.Main.USDx;
-    } else if (NetworkName === 'Rinkeby') {
-      usdxAddress = Network.Rinkeby.USDx;
-    }
-    MoneyMarket().markets.call(usdxAddress, (err, res) => {
-      if (res !== undefined && res !== null) {
-        // USDx_supply: res[3]
-        // USDx_borrow: res[6]
-        // USDx_supply_APR: res[4]
-        // USDx_borrow_APR: res[7]
-        this.setState({
-          USDx_supply: this.web3.fromWei(res[3], "ether"),
-          USDx_borrow: this.web3.fromWei(res[6], "ether"),
-          USDx_supply_APR: getPercentageFormat(this.web3.fromWei(res[4].toNumber(), "ether") * 86400 * 365 / 15),
-          USDx_borrow_APR: getPercentageFormat(this.web3.fromWei(res[7].toNumber(), "ether") * 86400 * 365 / 15)
-        }, () => {
-          this.setState({
-            USDx_borrow_supply_rate: getPercentageFormat(this.state.USDx_borrow / this.state.USDx_supply)
-          })
-        });
-      }
-    })
-  }
 
 
-  componentDidMount = () => {
-    if (window.web3) {
-      window.web3.currentProvider.enable().then(
-        res => {
-          // this.componentDidMount_temp()
-          window.web3.version.getNetwork((e, r) => {
-            if (r) {
-              this.setState({
-                NetworkName: r
-              }, () => {
-                // this.componentDidMount_temp();
-                this.get_USDx_supply_borrow();
-              })
-            }
-          })
-        }
-      )
-    }
-
-    // this.get_USDx_supply_borrow();
-
-    this.timer_main = setInterval(() => {
-      this.get_USDx_supply_borrow();
-    }, 1000 * 15);
-
-    if (this.web3.currentProvider.isMetaMask) {
-      window.ethereum.on('accountsChanged', () => {
-        this.get_USDx_supply_borrow();
-      });
-    }
-  }
 
 
   componentWillUnmount = () => {

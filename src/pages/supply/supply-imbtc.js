@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Header from '../../component/header/header';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {
-  toFormatShowNumber,
   findNetwork,
   getLoginStatusKey,
   i_got_hash,

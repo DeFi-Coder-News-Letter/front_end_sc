@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MoneyMarket from './../ABIs/MoneyMarket.js';
+
 import Network from './../constant.json';
 import { toDoubleThousands, findNetwork, formatBigNumber } from './../util';
 import USDX from "./../ABIs/USDX.js";
@@ -97,37 +97,7 @@ export function withMarketInfo(Header) {
       );
     }
 
-    new_getETHAssetPrices = () => {
-      if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined || MoneyMarket() === undefined) {
-        this.setState({ ETHToUSD: '-' })
-        return;
-      }
-      let wethAddress = '';
-      let NetworkName = findNetwork(this.state.NetworkName);
-      if (NetworkName === 'Main') {
-        wethAddress = Network.Main.WETH;
-      } else if (NetworkName === 'Rinkeby') {
-        wethAddress = Network.Rinkeby.WETH;
-      }
-      MoneyMarket().assetPrices(wethAddress, (err1, res1) => {
-        if (res1 !== undefined || res1 !== null) {
-          MoneyMarket().assetPrices(
-            Network[NetworkName]['USDx'],
-            (err2, res2) => {
-              if (res2 !== undefined && res2 !== null) {
-                let ETHToUSDBalance = 0;
-                if (Number(this.web3.fromWei(res2.toNumber(), "ether")) !== 0) {
-                  ETHToUSDBalance = toDoubleThousands(this.web3.fromWei(res1.toNumber(), "ether") / this.web3.fromWei(res2.toNumber(), "ether"));
-                }
-                this.setState({ ETHToUSD: ETHToUSDBalance }, () => {
-                  // console.log(this.state.ETHToUSD);
-                });
-              }
-            }
-          );
-        }
-      });
-    }
+
 
 
     componentDidMount_temp = () => {
@@ -135,7 +105,7 @@ export function withMarketInfo(Header) {
         this.getAccountETHBalanceByAddress();
         this.getAccountUSDXBalanceByAddress();
         this.getAccountWETHBalanceByAddress();
-        this.new_getETHAssetPrices();
+
       }, 2000);
 
       this.timerID = setInterval(() => {
@@ -144,7 +114,7 @@ export function withMarketInfo(Header) {
           this.getAccountETHBalanceByAddress();
           this.getAccountUSDXBalanceByAddress();
           this.getAccountWETHBalanceByAddress();
-          this.new_getETHAssetPrices();
+
         }
       }, 1000 * 15);
     }

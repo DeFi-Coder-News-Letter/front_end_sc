@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MoneyMarket from '../../ABIs/MoneyMarket.js';
+
 import Network from '../../constant.json';
 import './balanceInfoWithIcon.scss';
 import { findNetwork } from '../../util.js';

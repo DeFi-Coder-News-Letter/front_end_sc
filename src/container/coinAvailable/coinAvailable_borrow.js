@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MoneyMarket from '../../ABIs/MoneyMarket.js';
+
 import CoinInfo from '../../component/coinInfo/coinInfo';
 import Network from '../../constant.json';
 import WETH from '../../ABIs/WETH';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import InfoSection from '../../component/infoSection/infoSection';
 import Network from '../../constant.json';
-import MoneyMarket from './../../ABIs/MoneyMarket.js';
+
 import { getPercentageFormat, toDoubleThousands, findNetwork } from '../../util.js';
 import './accountInfo.scss';
 

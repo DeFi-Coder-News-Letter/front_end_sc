@@ -701,63 +701,6 @@ export const handle_repay_click = (that, decimals, token_address) => {
 }
 
 
-// export const handle_wrap_change = (value, that, decimals, balance) => {
-//   if (value.length > 18) {
-//     return;
-//   }
-
-//   that.setState({ i_will_wrap_max: false });
-
-//   if (value === null || value === '') {
-//     console.log("value === null || value === ''")
-//     that.setState({
-//       is_wrap_enable: true,
-//       borrow_amount: null
-//     });
-//     return false;
-//   } else {
-//     var amount_bn;
-//     var temp_value = value;
-//     if (temp_value.indexOf('.') > 0) {
-//       var sub_num = temp_value.length - temp_value.indexOf('.') - 1;// 3
-//       if (sub_num > decimals) {
-//         console.log(' --- decimals extent ---');
-//         that.setState({
-//           borrow_amount: value,
-//           is_borrow_enable: false
-//         });
-//         return false;
-//       }
-//       temp_value = temp_value.substr(0, temp_value.indexOf('.')) + temp_value.substr(value.indexOf('.') + 1);// '123456'
-//       amount_bn = that.bn(temp_value).mul(that.bn(10 ** (decimals - sub_num)));// bn_'123456'
-//     } else {
-//       amount_bn = that.bn(value).mul(that.bn(10 ** decimals));
-//     }
-
-//     console.log(amount_bn.toString());
-
-//     if (amount_bn.sub(that.bn(balance)) > 0) {
-//       console.log(' --- INSUFFICIENT BALANCE ---');
-//       that.setState({
-//         borrow_amount: value,
-//         is_borrow_enable: false
-//       });
-//       return false;
-//     }
-//   }
-
-//   that.setState({ borrow_amount: value });
-
-//   if ((Number(value)) === 0) {
-//     that.setState({ is_borrow_enable: false });
-//     return;
-//   } else {
-//     that.setState({ is_borrow_enable: true });
-//   }
-// }
-
-
-
 export const handle_borrow_max = (that, balance, decimals) => {
   var to_show;
   if (balance.length <= decimals) {

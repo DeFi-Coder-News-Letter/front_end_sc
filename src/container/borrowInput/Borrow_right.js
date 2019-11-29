@@ -3,7 +3,7 @@ import { Tabs } from 'antd'
 import Approve from '../../component/approve/approve';
 import InputUnit from '../../component/inputUnit/inputUnit';
 import USDX from "./../../ABIs/USDX.js";
-import MoneyMarket from './../../ABIs/MoneyMarket.js';
+
 import { toFormatShowNumber, saveTransaction, getTxnHashHref, toDoubleThousands, validNumber, toFormat4Number, getTransactionHistoryKey, findNetwork, diffMin, formatBigNumber } from '../../util.js'
 import './borrowInput.scss';
 import Asset from '../../constant.json';
