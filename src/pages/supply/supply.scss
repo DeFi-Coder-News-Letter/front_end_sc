@@ -1,15 +1,11 @@
 $button-color: #A55AFF;
+$button-color-borrow: #675CFF;
+
 
 
 
 .input-unit-wrapper {
-    .balance-info {
-        display: flex !important;
-        justify-content: space-between;
-        display: block;
-        width: auto;
-        margin-bottom: 10px;
-    }
+
 
     .input-wrapper {
         position: relative;
@@ -618,4 +614,88 @@ $button-color: #A55AFF;
 
 .balance-type {
     line-height: 21px;
+}
+
+
+// --- --- --- --- --- --- --- --- --- 分割线 --- --- --- --- --- --- --- --- --- ---
+
+.balance-info {
+    display: flex !important;
+    justify-content: space-between;
+    width: auto;
+    margin-bottom: 10px;
+}
+
+.wrap-input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    .input-wrapper {
+        position: relative;
+        width: 290px;
+    }
+
+    .button-wrapper {
+        margin-left: 10px;
+        display: inline-block;
+
+        button {
+            width: 80px !important;
+            border-color: $button-color !important;
+            background-color: $button-color !important;
+            color: #FFFFFF !important;
+
+            &:hover,
+            &:active {
+                background-color: $button-color;
+                border-color: $button-color;
+                color: #FFFFFF;
+            }
+        }
+
+        .disable-button {
+            background-color: #E9E7F0 !important;
+            border-color: #E9E7F0 !important;
+            color: #92909A !important;
+        }
+    }
+
+    .button-wrapper-borrow {
+        margin-left: 10px;
+        display: inline-block;
+
+        button {
+            width: 80px !important;
+            border-color: $button-color-borrow !important;
+            background-color: $button-color-borrow !important;
+            color: #FFFFFF !important;
+
+            &:hover,
+            &:active {
+                background-color: $button-color-borrow;
+                border-color: $button-color-borrow;
+                color: #FFFFFF;
+            }
+        }
+
+        .disable-button {
+            background-color: #E9E7F0 !important;
+            border-color: #E9E7F0 !important;
+            color: #92909A !important;
+        }
+    }
+}
+
+.ant-btn-lg,
+.ant-input-number-lg,
+.ant-input-number-input {
+    height: 32px !important;
+    line-height: 32px;
+}
+
+.ant-btn-lg,
+.ant-input-number-lg,
+.ant-input-number-input {
+    font-size: 12px !important;
 }

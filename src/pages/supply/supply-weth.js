@@ -216,13 +216,14 @@ class Supply_weth extends Component {
                                 </div>
                               </div>
                               <div className='input-unwrap-unit-wrapper'>
+                                <div className='wrap-input-wrapper'>
                                 <div className='input-wrapper'>
                                   <Input
                                     type='number'
                                     placeholder={'WETH to Unwrap'}
                                     min={0}
                                     value={this.state.unwrap_amount}
-                                    onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_WETH)}
+                                    onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
                                     className='input-number'
                                   />
                                   {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
@@ -237,13 +238,14 @@ class Supply_weth extends Component {
                                     {'unwrap'}
                                   </Button>
                                 </div>
+                                </div>
                               </div>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
                                   <FormattedMessage id='WETH_Balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_WETH ? format_bn(this.state.my_WETH, 18, 2) : '-'}
+                                  {this.state.my_balance ? format_bn(this.state.my_balance, 18, 2) : '-'}
                                   &nbsp;WETH
                                   </span>
                               </div>
@@ -254,7 +256,7 @@ class Supply_weth extends Component {
                                     placeholder={'Amount in WETH'}
                                     min={0}
                                     value={this.state.supply_amount}
-                                    onChange={(e) => handle_supply_change(e.target.value, this, this.state.WETH_decimals, this.state.my_WETH)}
+                                    onChange={(e) => handle_supply_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
                                     className='input-number'
                                     disabled={false}
                                   />

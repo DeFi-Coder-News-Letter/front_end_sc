@@ -219,7 +219,7 @@ class Borrow_weth extends Component {
                                       className='input-number'
                                     />
                                   </div>
-                                  <div className='button-wrapper'>
+                                  <div className='button-wrapper-borrow'>
                                     <Button
                                       size='large'
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
@@ -231,6 +231,7 @@ class Borrow_weth extends Component {
                                 </div>
                               </div>
                               <div className='input-unwrap-unit-wrapper'>
+                              <div className='wrap-input-wrapper'>
                                 <div className='input-wrapper'>
                                   <Input
                                     type='number'
@@ -242,7 +243,7 @@ class Borrow_weth extends Component {
                                   />
                                   {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
                                 </div>
-                                <div className='button-wrapper'>
+                                <div className='button-wrapper-borrow'>
                                   <Button
                                     size='large'
                                     className={this.state.is_unwrap_enable ? null : 'disable-button'}
@@ -251,6 +252,7 @@ class Borrow_weth extends Component {
                                   >
                                     unwrap
                                     </Button>
+                                </div>
                                 </div>
                               </div>
                               <div className='balance-info'>

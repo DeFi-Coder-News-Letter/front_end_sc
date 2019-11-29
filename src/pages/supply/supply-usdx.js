@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import SupplyContent from "../../container/supplyInput/SupplyContent";
-import USDX from "../../ABIs/USDX";
-import MoneyMarket from "../../ABIs/MoneyMarket.js";
 import Header from '../../component/header/header';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {

@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import Borrow_left from '../../container/supplyInput/Borrow_left';
-import Borrow_right from '../../container/borrowInput/Borrow_right';
-import USDX from '../../ABIs/USDX';
-import WETH from '../../ABIs/WETH';
-import MoneyMarket from "./../../ABIs/MoneyMarket.js";
 import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
