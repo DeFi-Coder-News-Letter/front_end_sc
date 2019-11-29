@@ -44,6 +44,7 @@ class App extends Component {
       my_borrow: null
     }
 
+    // return false; 
     this.new_web3 = window.new_web3 = new Web3(Web3.givenProvider || null);
     this.bn = this.new_web3.utils.toBN;
 
@@ -123,21 +124,21 @@ class App extends Component {
     // get usdx_price first.
     this.state.mMarket.methods.assetPrices(address[this.state.net_type]['address_USDx']).call().then(res_usdx_price => {
       this.setState({ usdx_price: res_usdx_price }, () => {
-        console.log('res_usdx_price: ', this.state.usdx_price);
+        // console.log('res_usdx_price: ', this.state.usdx_price);
 
 
         // get_usdx_status
         this.state.mMarket.methods.markets(address[this.state.net_type]['address_USDx']).call().then(res_usdx_markets => {
-          console.log(res_usdx_markets);
+          // console.log(res_usdx_markets);
           this.setState({
             usdx_total_supply: format_bn(this.bn(res_usdx_markets.totalSupply).toString(), this.state.USDx_decimals, this.decimal_precision),
-            usdx_supply_APR: format_bn(this.bn(res_usdx_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), this.state.USDx_decimals - 2, this.decimal_precision),
-            usdx_borrow_APR: format_bn(this.bn(res_usdx_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), this.state.USDx_decimals - 2, this.decimal_precision),
+            usdx_supply_APR: format_bn(this.bn(res_usdx_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+            usdx_borrow_APR: format_bn(this.bn(res_usdx_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
             usdx_u_rate: format_bn(this.bn(res_usdx_markets.totalBorrows).mul(this.bn(10 ** this.state.USDx_decimals)).div(this.bn(res_usdx_markets.totalSupply)).toString(), this.state.USDx_decimals - 2, this.decimal_precision)
           });
 
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDx']).call().then(res_my_supply_usdx => {
-            console.log(res_my_supply_usdx);
+            // console.log(res_my_supply_usdx);
             if (this.bn(res_my_supply_usdx).gt(this.bn('0'))) {
               this.setState({ i_have_supply_usdx: true });
               return false;
@@ -146,7 +147,7 @@ class App extends Component {
             }
 
             this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_USDx']).call().then(res_my_borrow_usdx => {
-              console.log(res_my_borrow_usdx);
+              // console.log(res_my_borrow_usdx);
               if (this.bn(res_my_borrow_usdx).gt(this.bn('0'))) {
                 this.setState({ i_have_borrow_usdx: true });
                 return false;
@@ -163,16 +164,16 @@ class App extends Component {
 
         // get_usdt_status
         this.state.mMarket.methods.markets(address[this.state.net_type]['address_USDT']).call().then(res_usdt_markets => {
-          console.log(res_usdt_markets);
+          // console.log('res_usdt_markets: ', res_usdt_markets);
           this.setState({
             usdt_total_supply: format_bn(this.bn(res_usdt_markets.totalSupply).toString(), this.state.USDT_decimals, this.decimal_precision),
-            usdt_supply_APR: format_bn(this.bn(res_usdt_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), this.state.USDT_decimals - 2, this.decimal_precision),
-            usdt_borrow_APR: format_bn(this.bn(res_usdt_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), this.state.USDT_decimals - 2, this.decimal_precision),
+            usdt_supply_APR: format_bn(this.bn(res_usdt_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+            usdt_borrow_APR: format_bn(this.bn(res_usdt_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
             usdt_u_rate: format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision)
           });
 
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDT']).call().then(res_my_supply_usdt => {
-            console.log(res_my_supply_usdt);
+            // console.log(res_my_supply_usdt);
             if (this.bn(res_my_supply_usdt).gt(this.bn('0'))) {
               this.setState({ i_have_supply_usdt: true });
               return false;
@@ -181,7 +182,7 @@ class App extends Component {
             }
 
             this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_USDT']).call().then(res_my_borrow_usdt => {
-              console.log(res_my_borrow_usdt);
+              // console.log(res_my_borrow_usdt);
               if (this.bn(res_my_borrow_usdt).gt(this.bn('0'))) {
                 this.setState({ i_have_borrow_usdt: true });
                 return false;
@@ -199,16 +200,16 @@ class App extends Component {
 
         // get_imbtc_status
         this.state.mMarket.methods.markets(address[this.state.net_type]['address_imBTC']).call().then(res_imbtc_markets => {
-          console.log(res_imbtc_markets);
+          // console.log(res_imbtc_markets);
           this.setState({
             imbtc_total_supply: format_bn(this.bn(res_imbtc_markets.totalSupply).toString(), this.state.imBTC_decimals, this.decimal_precision),
-            imbtc_supply_APR: format_bn(this.bn(res_imbtc_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), this.state.imBTC_decimals - 2, this.decimal_precision),
-            imbtc_borrow_APR: format_bn(this.bn(res_imbtc_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), this.state.imBTC_decimals - 2, this.decimal_precision),
+            imbtc_supply_APR: format_bn(this.bn(res_imbtc_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+            imbtc_borrow_APR: format_bn(this.bn(res_imbtc_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
             imbtc_u_rate: format_bn(this.bn(res_imbtc_markets.totalBorrows).mul(this.bn(10 ** this.state.imBTC_decimals)).div(this.bn(res_imbtc_markets.totalSupply)).toString(), this.state.imBTC_decimals - 2, this.decimal_precision)
           });
 
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_imBTC']).call().then(res_my_supply_imbtc => {
-            console.log(res_my_supply_imbtc);
+            // console.log(res_my_supply_imbtc);
             if (this.bn(res_my_supply_imbtc).gt(this.bn('0'))) {
               this.setState({ i_have_supply_imbtc: true });
               return false;
@@ -217,7 +218,7 @@ class App extends Component {
             }
 
             this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_imBTC']).call().then(res_my_borrow_imbtc => {
-              console.log(res_my_borrow_imbtc);
+              // console.log(res_my_borrow_imbtc);
               if (this.bn(res_my_borrow_imbtc).gt(this.bn('0'))) {
                 this.setState({ i_have_borrow_imbtc: true });
                 return false;
@@ -233,16 +234,16 @@ class App extends Component {
 
         // get_weth_status
         this.state.mMarket.methods.markets(address[this.state.net_type]['address_WETH']).call().then(res_weth_markets => {
-          console.log(res_weth_markets);
+          // console.log(res_weth_markets);
           this.setState({
             weth_total_supply: format_bn(this.bn(res_weth_markets.totalSupply).toString(), this.state.WETH_decimals, this.decimal_precision),
-            weth_supply_APR: format_bn(this.bn(res_weth_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), this.state.WETH_decimals - 2, this.decimal_precision),
-            weth_borrow_APR: format_bn(this.bn(res_weth_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), this.state.WETH_decimals - 2, this.decimal_precision),
+            weth_supply_APR: format_bn(this.bn(res_weth_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+            weth_borrow_APR: format_bn(this.bn(res_weth_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
             weth_u_rate: format_bn(this.bn(res_weth_markets.totalBorrows).mul(this.bn(10 ** this.state.WETH_decimals)).div(this.bn(res_weth_markets.totalSupply)).toString(), this.state.WETH_decimals - 2, this.decimal_precision)
           });
 
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_WETH']).call().then(res_my_supply_weth => {
-            console.log(res_my_supply_weth);
+            // console.log(res_my_supply_weth);
             if (this.bn(res_my_supply_weth).gt(this.bn('0'))) {
               this.setState({ i_have_supply_weth: true });
               return false;
@@ -251,7 +252,7 @@ class App extends Component {
             }
 
             this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_WETH']).call().then(res_my_borrow_weth => {
-              console.log(res_my_borrow_weth);
+              // console.log(res_my_borrow_weth);
               if (this.bn(res_my_borrow_weth).gt(this.bn('0'))) {
                 this.setState({ i_have_borrow_weth: true });
                 return false;
@@ -267,155 +268,6 @@ class App extends Component {
       })
     })
   }
-
-
-
-
-  // 0x08F12aabc699bBaf57d135BA56F44D00e9663951 0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2
-  get_usdx_status = () => {
-    this.state.mMarket.methods.markets('0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2').call().then(res_markets => {
-      console.log(res_markets)
-
-      console.log(res_markets.totalSupply)
-      console.log(res_markets.totalBorrows)
-
-      // supply APR
-      console.log(format_bn(this.bn(res_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, 2))
-
-      // borrow APR
-      console.log(format_bn(this.bn(res_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, 2))
-
-
-
-      // U rate
-      console.log(format_bn(this.bn(res_markets.totalBorrows).mul(this.bn(10 ** 18)).div(this.bn(res_markets.totalSupply)).toString(), 16, 2))
-      // console.log(getPercentageFormat(this.new_web3.utils.fromWei(res_markets[4].toNumber(), "ether") * 86400 * 365 / 15))
-
-
-
-      // 获取USDx价格
-
-
-
-
-    })
-  }
-
-
-
-
-  // address-usdt: 0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848
-  get_usdt_status = () => {
-    this.state.mMarket.methods.markets('0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848').call().then(res_markets => {
-      console.log('usdt: ', res_markets)
-      console.log(res_markets.totalSupply)
-      console.log(res_markets.totalBorrows)
-
-      // supply APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.supplyRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-
-      // borrow APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.borrowRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-      // U rate
-      // console.log(format_bn(this.new_web3.utils.toBN(res_markets.totalBorrows).mul(this.new_web3.utils.toBN(10 ** 18)).div(this.new_web3.utils.toBN(res_markets.totalSupply)).toString(), 16,2))
-      // console.log(getPercentageFormat(this.new_web3.utils.fromWei(res_markets[4].toNumber(), "ether") * 86400 * 365 / 15))
-      // 获取USDT价格
-      this.state.mMarket.methods.assetPrices('0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848').call().then(res_usdt_price => {
-
-
-        console.log(res_usdt_price);
-
-        // let totalS = this.new_web3.utils.toBN(res_markets.totalSupply).mul(this.new_web3.utils.toBN((10 ** ((18 - this.state.USDT_decimals) * 2)).toLocaleString().replace(/,/g, ''))).div(this.new_web3.utils.toBN(res_usdt_price))
-
-        this.state.mMarket.methods.assetPrices('0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2').call().then(res_usdx_price => {
-
-
-          console.log('res_usdx_price: ', res_usdx_price);
-          let totalS = this.bn(res_markets.totalSupply).mul(this.bn(res_usdt_price)).div(this.bn(res_usdx_price)).div(this.bn(10 ** 18))
-          console.log(totalS);
-          console.log(totalS.toString());
-        })
-      })
-    })
-  }
-
-
-
-  // address-imbtc: 0x7b054ebe1d7e003afda8e717daeab05d56d5836a
-  get_imbtc_status = () => {
-    this.state.mMarket.methods.markets('0x7b054ebe1d7e003afda8e717daeab05d56d5836a').call().then(res_markets => {
-      console.log('imbtc: ', res_markets)
-      console.log(res_markets.totalSupply)
-      console.log(res_markets.totalBorrows)
-
-      // supply APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.supplyRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-
-      // borrow APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.borrowRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-      // U rate
-      // console.log(format_bn(this.new_web3.utils.toBN(res_markets.totalBorrows).mul(this.new_web3.utils.toBN(10 ** 18)).div(this.new_web3.utils.toBN(res_markets.totalSupply)).toString(), 16,2))
-      // console.log(getPercentageFormat(this.new_web3.utils.fromWei(res_markets[4].toNumber(), "ether") * 86400 * 365 / 15))
-      // 获取USDT价格
-      this.state.mMarket.methods.assetPrices('0x7b054ebe1d7e003afda8e717daeab05d56d5836a').call().then(res_imbtc_price => {
-
-
-        console.log('res_imbtc_price: ', res_imbtc_price);
-
-        // let totalS = this.new_web3.utils.toBN(res_markets.totalSupply).mul(this.new_web3.utils.toBN((10 ** ((18 - this.state.USDT_decimals) * 2)).toLocaleString().replace(/,/g, ''))).div(this.new_web3.utils.toBN(res_usdt_price))
-
-        this.state.mMarket.methods.assetPrices('0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2').call().then(res_usdx_price => {
-
-
-          console.log('res_usdx_price: ', res_usdx_price);
-          let totalS = this.bn(res_markets.totalSupply).mul(this.bn(res_imbtc_price)).div(this.bn(res_usdx_price)).div(this.bn(10 ** 18))
-          console.log(totalS);
-          console.log(totalS.toString());
-        })
-      })
-    })
-  }
-
-
-
-
-  // address-weth: 0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e
-  get_weth_status = () => {
-    this.state.mMarket.methods.markets('0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e').call().then(res_markets => {
-      console.log('weth: ', res_markets)
-      console.log(res_markets.totalSupply)
-      console.log(res_markets.totalBorrows)
-
-      // supply APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.supplyRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-
-      // borrow APR
-      console.log(format_bn(this.new_web3.utils.toBN(res_markets.borrowRateMantissa).mul(this.new_web3.utils.toBN(2102400)).toString(), 16, 2))
-      // U rate
-      // console.log(format_bn(this.new_web3.utils.toBN(res_markets.totalBorrows).mul(this.new_web3.utils.toBN(10 ** 18)).div(this.new_web3.utils.toBN(res_markets.totalSupply)).toString(), 16,2))
-      // console.log(getPercentageFormat(this.new_web3.utils.fromWei(res_markets[4].toNumber(), "ether") * 86400 * 365 / 15))
-      // 获取USDT价格
-      this.state.mMarket.methods.assetPrices('0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e').call().then(res_weth_price => {
-
-
-        console.log('res_weth_price: ', res_weth_price);
-
-        // let totalS = this.new_web3.utils.toBN(res_markets.totalSupply).mul(this.new_web3.utils.toBN((10 ** ((18 - this.state.USDT_decimals) * 2)).toLocaleString().replace(/,/g, ''))).div(this.new_web3.utils.toBN(res_usdt_price))
-
-        this.state.mMarket.methods.assetPrices('0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2').call().then(res_usdx_price => {
-
-
-          console.log('res_usdx_price: ', res_usdx_price);
-          let totalS = this.bn(res_markets.totalSupply).mul(this.bn(res_weth_price)).div(this.bn(res_usdx_price)).div(this.bn(10 ** 18))
-          console.log(totalS);
-          console.log(totalS.toString());
-        })
-      })
-    })
-  }
-
-
-
 
 
 
@@ -448,52 +300,15 @@ class App extends Component {
 
                   <Route exact path="/" render={() => <Home data={this.state} />} />
 
-
                   <Route path="/supply-usdx" render={() => <Supply_usdx />} />
                   <Route path="/supply-usdt" render={() => <Supply_usdt />} />
                   <Route path="/supply-imbtc" render={() => <Supply_imbtc />} />
                   <Route path="/supply-weth" render={() => <Supply_weth />} />
 
-
                   <Route path="/borrow-usdx" render={() => <Borrow_usdx />} />
                   <Route path="/borrow-usdt" render={() => <Borrow_usdt />} />
                   <Route path="/borrow-imbtc" render={() => <Borrow_imbtc />} />
                   <Route path="/borrow-weth" render={() => <Borrow_weth />} />
-
-                  {/* <div>
-                    <button onClick={this.get_market_status}>get balance</button>
-
-                    <hr style={{ margin: '20px' }}></hr>
-
-                    <span>supply: </span>
-                    <input value={this.state.my_supply_balance ? this.state.my_supply_balance : ''} style={{ width: '300px' }} readOnly={true} />
-
-                    <hr style={{ margin: '20px' }}></hr>
-
-                    <span>borrow: </span>
-                    <input value={this.state.my_borrow_balance ? this.state.my_borrow_balance : ''} style={{ width: '300px' }} readOnly={true} />
-
-                    <hr style={{ margin: '20px' }}></hr>
-
-                    <button onClick={this.get_usdx_status}>get usdx status</button>
-
-                    <hr style={{ margin: '20px' }}></hr>
-                    <button onClick={this.get_usdt_status}>get usdt status</button>
-
-                    <hr style={{ margin: '20px' }}></hr>
-                    <button onClick={this.get_imbtc_status}>get imbtc status</button>
-
-                    <hr style={{ margin: '20px' }}></hr>
-                    <button onClick={this.get_weth_status}>get weth status</button>
-
-                    <hr style={{ margin: '20px' }}></hr>
-                    <button onClick={this.get_tokens_status}>get_tokens_status</button>
-
-
-                  </div> */}
-                  {/* <Route exact path="/" render={() => <Main checkLogIn={this.checkLogIn} isSMView={!!match} />} /> */}
-                  {/* <Route path="/supply" render={() => <Lend checkLogIn={this.checkLogIn} isSMView={!!match} />} /> */}
-                  {/* <Route path="/borrow" render={() => <Borrow checkLogIn={this.checkLogIn} isSMView={!!match} />} /> */}
                 </div>
               </div>
             </React.Fragment>
