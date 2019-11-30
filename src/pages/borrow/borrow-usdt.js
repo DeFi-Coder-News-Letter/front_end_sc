@@ -210,7 +210,7 @@ class Borrow_usdt extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                                <FormattedMessage id='before_borrowing_usdt' />
                               </div>
                               <div className={'button-wrapper'}>
                                 <Button
@@ -277,7 +277,7 @@ class Borrow_usdt extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                                <FormattedMessage id='before_borrowing_usdt' />
                               </div>
                               <div className={'button-wrapper'}>
                                 <Button

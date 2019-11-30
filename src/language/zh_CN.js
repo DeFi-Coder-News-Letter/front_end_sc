@@ -5,6 +5,18 @@ const zh_CN = {
     borrowed: "已借数量",
     supplied: "已存数量",
 
+    before_supplying_usdx: "授权首次USDx存款",
+    before_borrowing_usdx: "授权首次USDx借款",
+
+    before_supplying_usdt: "授权首次USDT存款",
+    before_borrowing_usdt: "授权首次USDT借款",
+
+    before_supplying_weth: "授权首次WETH存款",
+    before_borrowing_weth: "授权首次WETH借款",
+
+    before_supplying_imbtc: "授权首次imBTC存款",
+    before_borrowing_imbtc: "授权首次imBTC借款",
+
 
 
 

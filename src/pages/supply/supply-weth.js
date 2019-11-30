@@ -259,7 +259,7 @@ class Supply_weth extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                                <FormattedMessage id='before_supplying_weth' />
                               </div>
                               <div className={'button-wrapper'}>
                                 <Button
@@ -326,7 +326,7 @@ class Supply_weth extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                                <FormattedMessage id='before_supplying_weth' />
                               </div>
                               <div className={'button-wrapper'}>
                                 <Button

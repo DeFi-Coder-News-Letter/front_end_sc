@@ -5,6 +5,18 @@ const en_US = {
     borrowed: " Borrowed",
     supplied: " Supplied",
 
+    before_supplying_usdx: "Before supplying USDx for the first time, you must enable USDx.",
+    before_borrowing_usdx: "Before borrowing USDx for the first time, you must enable USDx.",
+
+    before_supplying_usdt: "Before supplying USDT for the first time, you must enable USDT.",
+    before_borrowing_usdt: "Before borrowing USDT for the first time, you must enable USDT.",
+
+    before_supplying_weth: "Before supplying WETH for the first time, you must enable WETH.",
+    before_borrowing_weth: "Before borrowing WETH for the first time, you must enable WETH.",
+
+    before_supplying_imbtc: "Before supplying imBTC for the first time, you must enable imBTC.",
+    before_borrowing_imbtc: "Before borrowing imBTC for the first time, you must enable imBTC.",
+
 
 
 
