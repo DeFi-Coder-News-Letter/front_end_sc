@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import { findNetwork, saveLoginStatus, getLoginStatusKey } from './../../util.js';
 import './header.scss';
 
 // add i18n.
@@ -11,124 +9,21 @@ import zh_CN from '../../language/zh_CN';
 class Header extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            isLogIn: false,
-            ETHToUSD: '-',
-        }
-        this.web3 = window.web3;
 
-        // this.componentDidMount_temp();
-        window.web3.version.getNetwork((e, r) => {
-            if (r) {
-                this.setState({
-                    NetworkName: r
-                }, () => {
-                    this.componentDidMount_temp();
-                })
-            }
-        })
-
-        if (window.web3.currentProvider.isMetaMask) {
-            window.ethereum.on('accountsChanged', () => {
-                this.componentDidMount_temp();
-            });
-        }
-    }
-
-    checkLogIn = (isLogin) => {
-        // save to local storage
-        if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined) {
-            return;
-        }
-        var storage = null;
-        var results = null;
-        var key = getLoginStatusKey(this.web3.eth.accounts[0]);
-        if (window.localStorage) {
-            storage = window.localStorage;
-            results = JSON.parse(`${storage.getItem(key)}`);
-        }
-        if (results === null) {
-            saveLoginStatus(this.web3.eth.accounts[0], isLogin);
-            return;
-        }
-        storage.removeItem(key);
-        results = results.map(item => {
-            if (item.account === this.web3.eth.accounts[0]) {
-                return {
-                    ...item,
-                    isLogin: isLogin
-                }
-            }
-            return {
-                ...item
-            }
-        })
-        storage.setItem(key, JSON.stringify(results));
-    }
-
-    connectMetamask = () => {
-        if (typeof web3 === 'undefined') {
-            return;
-        }
-        window.web3.currentProvider.enable().then(
-            res => {
-                this.setState({ isLogIn: true });
-            }
-        )
-        this.checkLogIn(true);
-    }
-
-    unConnectMetamask = () => {
-        this.setState({ isLogIn: false });
-        this.checkLogIn(false);
-    }
-
-    componentDidMount_temp = () => {
-        // this.connectMetamask();
-        // this.getETHAssetPrices();
-
-        setTimeout(() => {
-            this.connectMetamask();
-            // this.getETHAssetPrices();
-        }, 2000);
-
-        this.timerID = setInterval(() => {
-            // this.getETHAssetPrices();
-            var storage = null;
-            var results = null;
-            if (typeof web3 === 'undefined' || this.web3.eth.accounts[0] === undefined) {
-                return;
-            }
-            var key = getLoginStatusKey(this.web3.eth.accounts[0]);
-            if (window.localStorage) {
-                storage = window.localStorage;
-                results = JSON.parse(`${storage.getItem(key)}`);
-            }
-            if (results === null) {
-                return;
-            }
-            // console.log('header --- is login.');
-            results = results.map(item => {
-                if (item.account === this.web3.eth.accounts[0] && this.state.isLogIn !== item.isLogin) {
-                    this.setState({ isLogIn: item.isLogin });
-                }
-                return item.id;
-            })
-        }, 1000 * 15)
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerID);
+        this.state = {        }
     }
 
 
+    componentDidMount_temp = () => {    }
+
+
+    componentWillUnmount() {    }
 
 
     render = () => {
-        let NetworkName = window.web3 !== undefined ? findNetwork(this.state.NetworkName) : null;
         return (
             <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
-                <div className={'header ' + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
+                <div className={'header ' + ('without-banner')}>
                     <div className='header-content'>
                         <div className='left'>
                             <img className='header-logo' style={{ margin: 'auto' }} src={'images/h_logo@2x.svg'} alt="HEADER" />
@@ -137,7 +32,7 @@ class Header extends Component {
                                 <span className='market-info-title'>
                                     USDx
                                     <FormattedMessage id='Balance' />
-                                    {window.web3 !== undefined && findNetwork(this.state.NetworkName) === 'Rinkeby' ? <a className='usdx-faucet' onClick={this.allocateUSDx}>Faucet</a> : ''}</span>
+                                    </span>
                                 <span className='market-info-digits'>{this.props.USDxBalance}</span>
                             </div>
 

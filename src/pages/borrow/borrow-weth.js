@@ -150,7 +150,7 @@ class Borrow_weth extends Component {
                       <FormattedMessage id='BORROW' />
                     </span>
                   </div>
-                  <div className='borrow-content' style={{}}>
+                  <div className='borrow-content'>
                     <div className='borrow-input'>
                       <div className='info-wrapper'>
                         <span className='balance-type'>

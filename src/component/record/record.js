@@ -1,6 +1,6 @@
 import React from 'react';
 import { Popover } from 'antd';
-import { formatTransactionTime } from '../../util';
+// import { formatTransactionTime } from '../../util';
 import './record.scss';
 
 const Record = (props) => {
@@ -18,7 +18,7 @@ const Record = (props) => {
                     <span style={{ marginLeft: '5px' }}>{props.transactionDetail}</span>
                 </div>
                 <div className='transaction-time'>
-                    <span>{formatTransactionTime(props.transactionTime)}</span>
+                    {/* <span>{formatTransactionTime(props.transactionTime)}</span> */}
                 </div>
             </div>
         </Popover>

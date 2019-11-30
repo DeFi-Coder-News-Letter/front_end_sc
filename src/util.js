@@ -1,5 +1,4 @@
-import moment from 'moment';
-import Asset from './constant.json';
+
 
 
 export const get_allowance = async (contractInstance, my_account, address_mMarket, bn) => {
@@ -14,6 +13,122 @@ export const get_allowance = async (contractInstance, my_account, address_mMarke
     });
   })
 }
+
+
+export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, that) => {
+  USDx.methods.decimals().call().then(res_usdx_decimals => {
+    console.log('usdx: ', res_usdx_decimals);
+    that.setState({ USDx_decimals: Number(res_usdx_decimals) })
+  })
+
+  WETH.methods.decimals().call().then(res_weth_decimals => {
+    console.log('weth: ', res_weth_decimals);
+    that.setState({ WETH_decimals: Number(res_weth_decimals) })
+  })
+
+  imBTC.methods.decimals().call().then(res_imBTC_decimals => {
+    console.log('imbtc: ', res_imBTC_decimals);
+    that.setState({ imBTC_decimals: Number(res_imBTC_decimals) })
+  })
+
+  USDT.methods.decimals().call().then(res_usdt_decimals => {
+    console.log('usdt: ', res_usdt_decimals);
+    that.setState({ USDT_decimals: Number(res_usdt_decimals) })
+  })
+}
+
+
+export const get_my_balance = (tokenContract, account, that) => {
+  tokenContract.methods.balanceOf(account).call((err, res_balance) => {
+    if (res_balance) {
+      that.setState({
+        my_balance: res_balance
+      }, () => {
+        // console.log(that.state.my_balance)
+        // console.log(typeof (res_balance))
+      })
+    }
+  });
+}
+
+
+export const get_supplied__available_to_withdraw = (mContract, tokenContract, account, token_address, m_address, that) => {
+  mContract.methods.getSupplyBalance(account, token_address).call((err, res_supplied) => {
+
+    that.setState({ my_supplied: res_supplied }, () => {
+
+      mContract.methods.calculateAccountValues(account).call((err, res_account_values) => {
+        mContract.methods.assetPrices(token_address).call((err, res_price) => {
+          tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
+
+            var m_supply = that.bn(res_account_values[1]);
+            if (that.bn(res_account_values[2]).gt(that.bn('0'))) {
+              var m_borrow = that.bn(res_account_values[2]).mul(that.bn(that.collateral_rate)).add(that.bn(5 ** 17)).div(that.bn(10 ** 18));
+              if (that.bn(res_account_values[1]).gt(m_borrow)) {
+                m_supply = that.bn(res_account_values[1]).sub(m_borrow);
+              }
+            }
+            // console.log('res_supplied: ', res_supplied)
+            // console.log('res_account_values: ', res_account_values)
+            // console.log('res_price: ', res_price)
+            // console.log('res_cash: ', res_cash)
+            var liquidity_bn = m_supply.div(that.bn(res_price));
+            var SmallNum_bn = liquidity_bn.lt(that.bn(res_supplied)) ? liquidity_bn : that.bn(res_supplied);
+            var SmallNum_est = SmallNum_bn.lt(that.bn(res_cash)) ? SmallNum_bn.toString() : res_cash;
+            // console.log('SmallNum_est: ', SmallNum_est)
+            // console.log('-------------------------------------------')
+
+            that.setState({ available_to_withdraw: SmallNum_est })
+
+          })
+        })
+      })
+    })
+  })
+}
+
+
+export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
+  console.log('*********');
+  mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
+    // console.log(res_liquidity);
+
+    if (!(that.bn(res_liquidity).gt('0'))) {
+      that.setState({ available_to_borrow: 0 });
+      return false;
+    } else {
+
+      tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
+        mContract.methods.assetPrices(token_address).call((err, res_price) => {
+          // console.log('res_cash: ', res_cash);
+          // console.log('res_price: ', res_price);
+
+          var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
+          var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
+
+          console.log('available_to_borrow: ', to_borrow_bn.toString());
+          that.setState({ available_to_borrow: to_borrow_bn.toString() });
+        })
+      })
+    }
+  })
+}
+
+
+export const get_borrow_balance = (mContract, account, token_address, that) => {
+  mContract.methods.getBorrowBalance(account, token_address).call((err, res_borrowed) => {
+    if (res_borrowed) {
+      that.setState({
+        my_borrowed: res_borrowed
+      }, () => {
+        // console.log(that.state.my_borrowed)
+      })
+    }
+  });
+}
+
+
+// ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 ***** ***** 分割线 ***** 
 
 
 export const handle_supply_max = (that, balance, decimals) => {
@@ -154,126 +269,6 @@ export const handle_withdraw_change = (value, that, decimals, balance) => {
     return;
   } else {
     that.setState({ is_withdraw_enable: true });
-  }
-}
-
-
-export const format_bn = (numStr, decimals, decimalPlace = decimals) => {
-  numStr = numStr.toLocaleString().replace(/,/g, '');
-  // decimals = decimals.toString();
-
-  var str = (10 ** decimals).toLocaleString().replace(/,/g, '').slice(1);
-
-  var res = (numStr.length > decimals ?
-    numStr.slice(0, numStr.length - decimals) + '.' + numStr.slice(numStr.length - decimals) :
-    '0.' + str.slice(0, str.length - numStr.length) + numStr).replace(/(0+)$/g, "");
-
-  res = res.slice(-1) == '.' ? res + '00' : res;
-
-  if (decimalPlace == 0)
-    return res.slice(0, res.indexOf('.'));
-
-  var length = res.indexOf('.') + 1 + decimalPlace;
-  return res.slice(0, length >= res.length ? res.length : length);
-  // return res.slice(-1) == '.' ? res + '00' : res;
-}
-
-
-export const get_my_balance = (tokenContract, account, that) => {
-  tokenContract.methods.balanceOf(account).call((err, res_balance) => {
-    if (res_balance) {
-      that.setState({
-        my_balance: res_balance
-      }, () => {
-        // console.log(that.state.my_balance)
-        // console.log(typeof (res_balance))
-      })
-    }
-  });
-}
-
-
-export const get_supplied__available_to_withdraw = (mContract, tokenContract, account, token_address, m_address, that) => {
-  mContract.methods.getSupplyBalance(account, token_address).call((err, res_supplied) => {
-
-    that.setState({ my_supplied: res_supplied }, () => {
-
-      mContract.methods.calculateAccountValues(account).call((err, res_account_values) => {
-        mContract.methods.assetPrices(token_address).call((err, res_price) => {
-          tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
-
-            var m_supply = that.bn(res_account_values[1]);
-            if (that.bn(res_account_values[2]).gt(that.bn('0'))) {
-              var m_borrow = that.bn(res_account_values[2]).mul(that.bn(that.collateral_rate)).add(that.bn(5 ** 17)).div(that.bn(10 ** 18));
-              if (that.bn(res_account_values[1]).gt(m_borrow)) {
-                m_supply = that.bn(res_account_values[1]).sub(m_borrow);
-              }
-            }
-            // console.log('res_supplied: ', res_supplied)
-            // console.log('res_account_values: ', res_account_values)
-            // console.log('res_price: ', res_price)
-            // console.log('res_cash: ', res_cash)
-            var liquidity_bn = m_supply.div(that.bn(res_price));
-            var SmallNum_bn = liquidity_bn.lt(that.bn(res_supplied)) ? liquidity_bn : that.bn(res_supplied);
-            var SmallNum_est = SmallNum_bn.lt(that.bn(res_cash)) ? SmallNum_bn.toString() : res_cash;
-            // console.log('SmallNum_est: ', SmallNum_est)
-            // console.log('-------------------------------------------')
-
-            that.setState({ available_to_withdraw: SmallNum_est })
-
-          })
-        })
-      })
-    })
-  })
-}
-
-
-export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
-  console.log('*********');
-  mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
-    // console.log(res_liquidity);
-
-    if (!(that.bn(res_liquidity).gt('0'))) {
-      that.setState({ available_to_borrow: 0 });
-      return false;
-    } else {
-
-      tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
-        mContract.methods.assetPrices(token_address).call((err, res_price) => {
-          // console.log('res_cash: ', res_cash);
-          // console.log('res_price: ', res_price);
-
-          var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
-          var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
-
-          console.log('available_to_borrow: ', to_borrow_bn.toString());
-          that.setState({ available_to_borrow: to_borrow_bn.toString() });
-        })
-      })
-    }
-  })
-}
-
-
-export const i_got_hash = (account, net_type, token, action, amount, hash, timestamp, status, that) => {
-  if (window.localStorage) {
-    let key = account + '-' + net_type;
-    let contractData = JSON.parse(window.localStorage.getItem(key)) || [];
-    contractData.push({
-      account: account,
-      net_type: net_type,
-      token: token,
-      action: action,
-      amount: amount,
-      hash: hash,
-      timestamp: timestamp,
-      status: status
-    });
-    window.localStorage.setItem(key, JSON.stringify(contractData));
-    console.log('got hash && setItem.');
-
-    that.setState({ load_new_history: Math.random() });
   }
 }
 
@@ -438,37 +433,6 @@ export const handle_withdraw_click = (that, decimals, token_address) => {
     })
   })
 }
-
-
-export const get_borrow_balance = (mContract, account, token_address, that) => {
-  mContract.methods.getBorrowBalance(account, token_address).call((err, res_borrowed) => {
-    if (res_borrowed) {
-      that.setState({
-        my_borrowed: res_borrowed
-      }, () => {
-        // console.log(that.state.my_borrowed)
-      })
-    }
-  });
-}
-
-
-
-// export const get_allowance = async (web) => {
-//   return new Promise(resolve => {
-//     web.givenProvider.enable().then(res_accounts => {
-//       setTimeout(() => { resolve(res_accounts) }, 15000)
-
-//     })
-//   })
-//   // await web.givenProvider.enable().then(res_accounts => {
-//   //   console.log(res_accounts);
-//   //   return res_accounts;
-//   // })
-// }
-
-
-// ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 ***** ***** 分割线 *****  ***** 分割线 ***** 
 
 
 export const handle_borrow_change = (value, that, decimals, balance) => {
@@ -740,143 +704,57 @@ export const handle_repay_max = (that, balance, borrowed, decimals) => {
 }
 
 
+// ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 ***** ***** 分割线 ***** 
 
 
+export const format_bn = (numStr, decimals, decimalPlace = decimals) => {
+  numStr = numStr.toLocaleString().replace(/,/g, '');
+  // decimals = decimals.toString();
 
+  var str = (10 ** decimals).toLocaleString().replace(/,/g, '').slice(1);
 
+  var res = (numStr.length > decimals ?
+    numStr.slice(0, numStr.length - decimals) + '.' + numStr.slice(numStr.length - decimals) :
+    '0.' + str.slice(0, str.length - numStr.length) + numStr).replace(/(0+)$/g, "");
 
-export const validNumber = (number) => {
-  let reg = /^(\+)?\d+(\.\d+)?$/;
-  return reg.test(number);
+  res = res.slice(-1) == '.' ? res + '00' : res;
+
+  if (decimalPlace == 0)
+    return res.slice(0, res.indexOf('.'));
+
+  var length = res.indexOf('.') + 1 + decimalPlace;
+  return res.slice(0, length >= res.length ? res.length : length);
+  // return res.slice(-1) == '.' ? res + '00' : res;
 }
 
-export const toFormatShowNumber = (value) => {
-  return String(value).replace(/^(.*\..{2}).*$/, "$1");
-  // let val = String(value).replace(/^(.*\..{2}).*$/, "$1");
-  // if (val.split(".")[1] === undefined) {
-  //   val = val + '.00'
-  // } else if (val.split(".")[1].length < 2) {
-  //   val = val + '0'
-  // }
-  // return val;
-}
 
-export const toFormat4Number = (value) => {
-  // console.log(value)
-  let val = String(value).replace(/^(.*\..{4}).*$/, "$1");
-  if (val.split(".")[1] === undefined) {
-    val = val + '.00'
-  } else if (val.split(".")[1].length < 4) {
-    val = val + '0'
-  }
-  // console.log(val)
-  return val;
-}
-
-export const toFormat10Number = (value) => {
-  // console.log(value)
-  let val = String(value).replace(/^(.*\..{10}).*$/, "$1");
-  if (val.split(".")[1] === undefined) {
-    val = val + '.00'
-  } else if (val.split(".")[1].length < 4) {
-    val = val + '0'
-  }
-  // console.log(val)
-  return val;
-}
-
-export const getPercentageFormat = (value) => {
-  return (value * 100).toFixed(2);
-}
-
-export const toNonExponential = (num) => {
-  var m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
-  return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
-}
-
-export const toDoubleThousands = (s) => {
-  if (s == null || s === '') {
-    return '0.00';
-  }
-  s = toFormatShowNumber(s);
-  let l = s.split(".")[0].split("").reverse(),
-    r = s.split(".")[1];
-  // console.log('s:' + s + ' / l:' +l + ' / r:' + r)
-  if (r === undefined) {
-    r = '00';
-  } else if (r.length < 2) {
-    r = r + '0';
-  }
-  let t = "";
-  for (let i = 0; i < l.length; i++) {
-    t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
-  }
-  return t.split("").reverse().join("") + "." + r;
-}
-
-export const getTransactionHistoryKey = (account, coinType, page, networkId) => {
-  return account + '-' + Asset['Asset'][coinType] + '-' + page + '-' + networkId;
-}
-
-export const saveTransaction = (icon, account, coinType, page, networkId, transactionType,
-  transactionAmount, coinType2, txnHashHref, txId, status, realAmount, failed, failedInfo) => {
-  if (status === undefined || status === null || status === '') {
-    status = 0;// 0:pending 1:done
-  }
-  if (transactionAmount === null) {
-    transactionAmount = ' ';
-  } else {
-    transactionAmount = ' ' + transactionAmount + ' ';
-  }
+export const i_got_hash = (account, net_type, token, action, amount, hash, timestamp, status, that) => {
   if (window.localStorage) {
-    let storage = window.localStorage;
-    // storage.clear();
-    // let dateTime = moment().format('MMMM Do, h:mm a');
-    let dateTime = moment().format('MMM. DD,HH:mm');
-    let key = getTransactionHistoryKey(account, coinType, page, networkId);
-    let contractData = JSON.parse(storage.getItem(key)) || [];
+    let key = account + '-' + net_type;
+    let contractData = JSON.parse(window.localStorage.getItem(key)) || [];
     contractData.push({
-      icon: icon,
-      transactionDetail: transactionType + transactionAmount + coinType2,
-      transactionTime: dateTime,
-      txnHashHref: txnHashHref,
-      txId: txId,
-      status: status,
-      transactionType: transactionType,
-      realAmount: realAmount,
-      failed: failed,
-      failedInfo: failedInfo,
-      //超时则取消控件限制
-      timestamp: moment().valueOf(),
-      timeOutFlag: -1
+      account: account,
+      net_type: net_type,
+      token: token,
+      action: action,
+      amount: amount,
+      hash: hash,
+      timestamp: timestamp,
+      status: status
     });
-    storage.setItem(key, JSON.stringify(contractData));
-    // save txId key
-    let txIdKey = 'txId-' + txId;
-    storage.setItem(txIdKey, txId)
-    // console.log('========>key:' + key + ' / value:' + storage.getItem(key));
-  }
-}
-export const txIdExist = (txId) => {
-  if (window.localStorage) {
-    let key = 'txId-' + txId;
-    let storage = window.localStorage;
-    return storage.getItem(key) !== null;
+    window.localStorage.setItem(key, JSON.stringify(contractData));
+    console.log('got hash && setItem.');
+
+    that.setState({ load_new_history: Math.random() });
   }
 }
 
-export const blockHashExist = (blockHash) => {
-  if (window.localStorage) {
-    let key = 'blockHash-' + blockHash;
-    let storage = window.localStorage;
-    if (storage.getItem(key) !== null) {
-      return true;
-    } else {
-      storage.setItem(key, blockHash);
-      return false;
-    }
-  }
-}
+
+
+
+
+
+
 
 export const getTxnHashHref = (networkId) => {
   let txnHashHref;
@@ -926,82 +804,6 @@ export const findNetwork = (networkId) => {
   return networkName;
 }
 
-export const getLoginStatusKey = (account) => {
-  return account + '-LoginStatus';
-}
-
-export const saveLoginStatus = (account, isLogin) => {
-  if (account === undefined || isLogin === null) {
-    return;
-  }
-  if (window.localStorage) {
-    let storage = window.localStorage;
-    let key = getLoginStatusKey(account);
-    let contractData = JSON.parse(storage.getItem(key)) || [];
-    contractData.push({
-      account: account,
-      isLogin: isLogin
-    });
-    storage.setItem(key, JSON.stringify(contractData));
-  }
-}
-
-export const formatTransactionTime = (time) => {
-  return time.substr(0, time.indexOf(' ')).substr(0, 3) + '.' + ' ' + time.substr(time.indexOf(' ') + 1);
-}
-
-//超时则取消控件限制
-export const diffMin = (eTime) => {
-  let date1 = moment(moment().valueOf());
-  let date2 = moment(eTime);
-  let minutes = date1.diff(date2, 'minute');
-  return minutes;
-}
-
-//bignumber
-export const formatBigNumber = (bigNumber) => {
-  let NumStr = Number(bigNumber).toLocaleString().replace(/,/g, '')
-  const str = '000000000000000000';
-  if (NumStr.length < 18) {
-    bigNumber = '0.' + str.slice(0, str.length - NumStr.length) + NumStr.replace(/(0+)$/g, "");
-  } else {
-    bigNumber = (NumStr.slice(0, NumStr.length - 18) === '' ? 0 : NumStr.slice(0, NumStr.length - 18)) + '.' + NumStr.slice(NumStr.length - 18, NumStr.length - 10);
-  }
-  return bigNumber;
-}
-
-
-
-
-
-
-
-
-
-
-export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, that) => {
-  USDx.methods.decimals().call().then(res_usdx_decimals => {
-    console.log('usdx: ', res_usdx_decimals);
-    that.setState({ USDx_decimals: Number(res_usdx_decimals) })
-  })
-
-  WETH.methods.decimals().call().then(res_weth_decimals => {
-    console.log('weth: ', res_weth_decimals);
-    that.setState({ WETH_decimals: Number(res_weth_decimals) })
-  })
-
-  imBTC.methods.decimals().call().then(res_imBTC_decimals => {
-    console.log('imbtc: ', res_imBTC_decimals);
-    that.setState({ imBTC_decimals: Number(res_imBTC_decimals) })
-  })
-
-  USDT.methods.decimals().call().then(res_usdt_decimals => {
-    console.log('usdt: ', res_usdt_decimals);
-    that.setState({ USDT_decimals: Number(res_usdt_decimals) })
-  })
-}
-
-
 
 
 // export const get_allowance = async (web) => {
@@ -1011,13 +813,8 @@ export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, that) => {
 
 //     })
 //   })
-//   // await web.givenProvider.enable().then(res_accounts => {
-//   //   console.log(res_accounts);
-//   //   return res_accounts;
-//   // })
+//   await web.givenProvider.enable().then(res_accounts => {
+//     console.log(res_accounts);
+//     return res_accounts;
+//   })
 // }
-
-
-
-
-

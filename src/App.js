@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.scss';
 import { Alert } from 'antd';
 import { Route, Switch } from "react-router-dom";
-import Main from './pages/main/main';
 import MediaQuery from 'react-responsive';
 
 
