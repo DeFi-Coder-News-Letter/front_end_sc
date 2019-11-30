@@ -268,7 +268,7 @@ class Borrow_weth extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_weth' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}
@@ -334,7 +334,7 @@ class Borrow_weth extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_weth' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}

@@ -210,7 +210,7 @@ class Borrow_imbtc extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_imbtc' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}
@@ -277,7 +277,7 @@ class Borrow_imbtc extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_imbtc' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}

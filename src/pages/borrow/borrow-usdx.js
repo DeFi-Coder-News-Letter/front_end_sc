@@ -213,7 +213,7 @@ class Borrow_usdx extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_usdx' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}
@@ -280,7 +280,7 @@ class Borrow_usdx extends Component {
                               <div className='enable-message'>
                                 <FormattedMessage id='before_borrowing_usdx' />
                               </div>
-                              <div className={'button-wrapper'}>
+                              <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={''}
