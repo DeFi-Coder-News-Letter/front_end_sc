@@ -110,7 +110,7 @@ class Supply_weth extends Component {
       get_my_ETH(this);
       get_my_WETH(this);
       get_WETH_supplied__available_to_withdraw(this, address[this.state.net_type]['address_WETH'], address[this.state.net_type]['address_mMarket']);
-    }, 3000)
+    }, 1000 * 5)
   }
 
 
@@ -146,7 +146,7 @@ class Supply_weth extends Component {
                     <div className='supply-input'>
                       <div className='info-wrapper'>
                         <span className='balance-type'>
-                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/WETH@2x.png`} alt="" />
+                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.png`} alt="" />
                           &nbsp;
                           {this.token_name}
                           <FormattedMessage id='supplied' />

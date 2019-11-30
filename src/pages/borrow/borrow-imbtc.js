@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
-import AccountInfo from '../../container/accountInfo/accountInfo_borrow';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
-
 import './borrow.scss';
-
 import { Tabs, Input, Button } from 'antd';
 import {
   get_tokens_decimals,
@@ -42,30 +39,28 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-
 const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 class Borrow_imbtc extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       is_borrow_enable: true,
       is_repay_enable: true
     };
 
-
     this.new_web3 = window.new_web3 = new Web3(Web3.givenProvider || null);
     this.bn = this.new_web3.utils.toBN;
+
     this.decimal_precision = constant.decimal_precision;
     this.gas_limit_coefficient = constant.gas_limit_coefficient;
     this.collateral_rate = constant.collateral_rate;
-
     this.originationFee = constant.originationFee;
 
     this.placeholder = 'Amount in imBTC';
     this.img_src = 'imBTC';
     this.token_name = 'imBTC';
-
 
     this.new_web3.eth.net.getNetworkType().then(
       (net_type) => {
@@ -74,9 +69,7 @@ class Borrow_imbtc extends Component {
         let imBTC = new this.new_web3.eth.Contract(imBTC_abi, address[net_type]['address_imBTC']);
         let USDT = new this.new_web3.eth.Contract(USDT_abi, address[net_type]['address_USDT']);
         let mMarket = new this.new_web3.eth.Contract(mMarket_abi, address[net_type]['address_mMarket']);
-
         console.log(' *** init contract finished *** ');
-
         this.setState({ net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket }, () => {
           get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this);
           this.new_web3.givenProvider.enable().then(res_accounts => {
@@ -85,19 +78,17 @@ class Borrow_imbtc extends Component {
               let is_approved = await get_allowance(this.state.imBTC, this.state.my_account, address[net_type]['address_mMarket'], this.bn);
               console.log('is_approved: ', is_approved)
               this.setState({ is_approved: is_approved })
-
               let timer_Next = setInterval(() => {
-                if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+                if (!this.state.imBTC_decimals) {
                   console.log('111111111: not get yet...');
                 } else {
                   console.log('2222222222: i got it...');
                   clearInterval(timer_Next);
                   this.setState({ i_am_ready: true })
-
                   // to do something...
-
-
-
+                  get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
+                  get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
+                  get_my_balance(this.state.imBTC, this.state.my_account, this);
                 }
               }, 100)
             })
@@ -105,7 +96,6 @@ class Borrow_imbtc extends Component {
         })
       }
     )
-
   }
 
 
@@ -119,12 +109,11 @@ class Borrow_imbtc extends Component {
       get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
       get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
       get_my_balance(this.state.imBTC, this.state.my_account, this);
-    }, 3000)
+    }, 1000 * 5)
   }
 
 
   componentWillUnmount() {
-    clearInterval(this.accountInterval);
     clearInterval(this.timer_get_data);
   }
 
@@ -135,9 +124,7 @@ class Borrow_imbtc extends Component {
         <MediaQuery maxWidth={768}>
           {(match) =>
             <div className={'borrow-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
-
               {/* <WithMarketInfoEnhanced networkName={findNetwork(this.state.NetworkName)} account={window.web3.eth.accounts[0]} login={window.web3.eth.accounts[0]} /> */}
-
               <div className='redirect-button'>
                 <div className='go-back-button'>
                   <Link to={'/'}>
@@ -151,226 +138,176 @@ class Borrow_imbtc extends Component {
 
               {/* <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} /> */}
 
-              {
-                // match && <label className='input-unit-switch'>
-                //   <input type='checkbox' checked={this.state.borrowgroup} onChange={() => this.setState({ borrowgroup: !this.state.borrowgroup })} />
-                //   <span className="slider round"></span>
-                //   <span className="supply">
-                //     <FormattedMessage id='Supply' />
-                //   </span>
-                //   <span className="borrow">
-                //     <FormattedMessage id='Borrow' />
-                //   </span>
-                // </label>
-              }
-
               <div className='lend-page-wrapper'>
-                {
-                  // (!this.state.borrowgroup || !match) && <div className='supply-group'>
-                  //   <div className='supply-title'>
-                  //     <span className='title-font'>
-                  //       <FormattedMessage id='SUPPLY' />
-                  //     </span>
-                  //   </div>
-                  //   <div className='supply-content' style={{ display: (this.state.isApproved_WETH === 1) || (this.state.not_approve_atfirst_WETH === 1) ? 'block' : 'none' }}>
-                  //     {/* <Borrow_left {...wethProps} father_approve_WETH={this.state.isApproved_WETH} /> */}
-                  //     {/* <RecordBoard coinType={'WETH'} account={currentAccount} page={'borrow'} /> */}
-                  //   </div>
-                  // </div>
-                }
+                <div className='borrow-group'>
+                  <div className='borrow-title-borrow'>
+                    <span className='title-font'>
+                      <FormattedMessage id='BORROW' />
+                    </span>
+                  </div>
 
-                {
-
-                  <div className='borrow-group'>
-                    <div className='borrow-title-borrow'>
-                      <span className='title-font'>
-                        <FormattedMessage id='BORROW' />
-                      </span>
-                    </div>
-
-                    <div className='borrow-content'>
-                      {/* <Borrow_right {...borrowProps} father_approve_USDx={this.state.isApproved_USDx} /> */}
+                  <div className='borrow-content'>
+                    <div className='borrow-input'>
+                      <div className='info-wrapper'>
+                        <span className='balance-type'>
+                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.svg`} alt="" />
+                          &nbsp;
+                          {this.token_name}
+                          <FormattedMessage id='borrowed' />
+                        </span>
+                        <span className='balance-amount'>
+                          {this.state.my_borrowed ? format_bn(this.state.my_borrowed, this.state.imBTC_decimals, this.decimal_precision) : '-'}
+                        </span>
+                      </div>
 
 
-
-
-
-
-
-                      <div className='borrow-input'>
-                        {/* <BalanceInfoWithIcon coin={'USDx'} action={'Borrowed'} login={this.props.login} /> */}
-
-                        <div className='info-wrapper'>
-                          <span className='balance-type'>
-                            <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/USDx@2x.png`} alt="" />
-                            &nbsp;
-                          <FormattedMessage id='USDx_Borrowed_borrow' />
-                          </span>
-                          <span className='balance-amount'>
-                            {this.state.my_borrowed ? format_bn(this.state.my_borrowed, this.state.imBTC_decimals, this.decimal_precision) : '-'}
-                          </span>
-                        </div>
-
-
-                        <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
-                          <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '借款' : 'BORROW'} key="1" className='tab-content'>
-                            {
-                              (this.state.i_am_ready && this.state.is_approved) &&
-                              <React.Fragment>
-                                <div className='balance-info'>
-                                  <span className='balance-desc'>
-                                    <FormattedMessage id='USDx_Available_borrow' />
-                                  </span>
-                                  <span className='balance-amount'>
-                                    {this.state.available_to_borrow ? format_bn(this.state.available_to_borrow, this.state.imBTC_decimals, this.decimal_precision) : '-'}
-                                    &nbsp;
-                                    {'USDx'}
-                                  </span>
-                                </div>
-                                <div className='input-unit-wrapper'>
-                                  {
-                                    <div className='input-wrapper'>
-                                      <Input
-                                        type='number'
-                                        placeholder={this.placeholder}
-                                        min={0}
-                                        onChange={(e) => handle_borrow_change(e.target.value, this, this.state.imBTC_decimals, this.state.available_to_borrow)}
-                                        className='input-number'
-                                        value={this.state.borrow_amount}
-                                      />
-                                      <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow, this.state.imBTC_decimals) }}>
-                                        {'SAFE MAX'}
-                                      </span>
-                                    </div>
-                                  }
-                                  <div className='button-wrapper-borrow'>
-                                    <Button
-                                      size='large'
-                                      className={this.state.is_borrow_enable ? null : 'disable-button'}
-                                      disabled={false}
-                                      onClick={() => { handle_borrow_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
-                                    >
-                                      {'borrow'}
-                                    </Button>
-                                  </div>
-                                </div>
-                              </React.Fragment>
-                            }
-                            {
-                              (this.state.i_am_ready && !this.state.is_approved) &&
-                              <div className='approve-section'>
-                                <div className='enable-message'>
-                                  {'Before supplying USDT for the first time, you must enable USDT.'}
-                                </div>
-                                <div className={'button-wrapper'}>
-                                  <Button
-                                    size='large'
-                                    className={''}
-                                    disabled={false}
-                                    onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
-                                  >
-                                    {'ENABLE'}
-                                  </Button>
-                                </div>
+                      <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
+                        <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '借款' : 'BORROW'} key="1" className='tab-content'>
+                          {
+                            (this.state.i_am_ready && this.state.is_approved) &&
+                            <React.Fragment>
+                              <div className='balance-info'>
+                                <span className='balance-desc'>
+                                  {this.token_name}
+                                  <FormattedMessage id='available_borrow' />
+                                </span>
+                                <span className='balance-amount'>
+                                  {this.state.available_to_borrow ? format_bn(this.state.available_to_borrow, this.state.imBTC_decimals, this.decimal_precision) : '-'}
+                                </span>
                               </div>
-                            }
-                          </Tabs.TabPane>
-
-
-
-
-
-
-                          <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '偿还' : 'REPAY'} key="2" className='tab-content'>
-                            {
-                              (this.state.i_am_ready && this.state.is_approved) &&
-                              <React.Fragment>
-                                <div className='balance-info'>
-                                  <span className='balance-desc'>
-                                    <FormattedMessage id='USDx_Balance' />
-                                  </span>
-                                  <span className='balance-amount'>
-                                    {this.state.my_balance ? format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision) : '-'}
-                                    &nbsp;
-                                {'USDx'}
-                                  </span>
-                                </div>
-
-                                <div className='input-unit-wrapper'>
+                              <div className='input-unit-wrapper'>
+                                {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
                                       placeholder={this.placeholder}
                                       min={0}
-                                      onChange={(e) => handle_repay_change(e.target.value, this, this.state.imBTC_decimals, this.state.my_balance)}
+                                      onChange={(e) => handle_borrow_change(e.target.value, this, this.state.imBTC_decimals, this.state.available_to_borrow)}
                                       className='input-number'
-                                      value={this.state.repay_amount}
+                                      value={this.state.borrow_amount}
                                     />
-                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.imBTC_decimals) }}>
-                                      {'MAX'}
+                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow, this.state.imBTC_decimals) }}>
+                                      {'SAFE MAX'}
                                     </span>
                                   </div>
-
-                                  <div className={'button-wrapper-borrow'}>
-                                    <Button
-                                      size='large'
-                                      className={this.state.is_repay_enable ? null : 'disable-button'}
-                                      disabled={false}
-                                      onClick={() => { handle_repay_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
-                                    >
-                                      {'repay'}
-                                    </Button>
-                                  </div>
-                                </div>
-                              </React.Fragment>
-                            }
-                            {
-                              (this.state.i_am_ready && !this.state.is_approved) &&
-                              <div className='approve-section'>
-                                <div className='enable-message'>
-                                  {'Before supplying USDT for the first time, you must enable USDT.'}
-                                </div>
-                                <div className={'button-wrapper'}>
+                                }
+                                <div className='button-wrapper-borrow'>
                                   <Button
                                     size='large'
-                                    className={''}
+                                    className={this.state.is_borrow_enable ? null : 'disable-button'}
                                     disabled={false}
-                                    onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
+                                    onClick={() => { handle_borrow_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                   >
-                                    {'ENABLE'}
+                                    {'borrow'}
                                   </Button>
                                 </div>
                               </div>
-                            }
-                          </Tabs.TabPane>
-                        </Tabs>
-                      </div>
+                            </React.Fragment>
+                          }
+                          {
+                            (this.state.i_am_ready && !this.state.is_approved) &&
+                            <div className='approve-section'>
+                              <div className='enable-message'>
+                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                              </div>
+                              <div className={'button-wrapper'}>
+                                <Button
+                                  size='large'
+                                  className={''}
+                                  disabled={false}
+                                  onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
+                                >
+                                  {'ENABLE'}
+                                </Button>
+                              </div>
+                            </div>
+                          }
+                        </Tabs.TabPane>
 
 
 
 
 
 
+                        <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '偿还' : 'REPAY'} key="2" className='tab-content'>
+                          {
+                            (this.state.i_am_ready && this.state.is_approved) &&
+                            <React.Fragment>
+                              <div className='balance-info'>
+                                <span className='balance-desc'>
+                                  {this.token_name}
+                                  <FormattedMessage id='balance' />
+                                </span>
+                                <span className='balance-amount'>
+                                  {this.state.my_balance ? format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision) : '-'}
+                                </span>
+                              </div>
 
+                              <div className='input-unit-wrapper'>
+                                <div className='input-wrapper'>
+                                  <Input
+                                    type='number'
+                                    placeholder={this.placeholder}
+                                    min={0}
+                                    onChange={(e) => handle_repay_change(e.target.value, this, this.state.imBTC_decimals, this.state.my_balance)}
+                                    className='input-number'
+                                    value={this.state.repay_amount}
+                                  />
+                                  <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.imBTC_decimals) }}>
+                                    {'MAX'}
+                                  </span>
+                                </div>
 
-                      {
-                        // <RecordBoard coinType={'USDx'} account={currentAccount} page={'borrow'} />
-                      }
-                      {/* ***** ***** ***** RecordBoard ***** ***** ***** */}
-                      {
-                        this.state.i_am_ready &&
-                        <RecordBoard
-                          account={this.state.my_account}
-                          net_type={this.state.net_type}
-                          decimal={this.state.imBTC_decimals}
-                          token={this.token_name}
-                          load_new_history={this.state.load_new_history}
-                          new_web3={this.new_web3}
-                        />
-                      }
+                                <div className={'button-wrapper-borrow'}>
+                                  <Button
+                                    size='large'
+                                    className={this.state.is_repay_enable ? null : 'disable-button'}
+                                    disabled={false}
+                                    onClick={() => { handle_repay_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                  >
+                                    {'repay'}
+                                  </Button>
+                                </div>
+                              </div>
+                            </React.Fragment>
+                          }
+                          {
+                            (this.state.i_am_ready && !this.state.is_approved) &&
+                            <div className='approve-section'>
+                              <div className='enable-message'>
+                                {'Before supplying USDT for the first time, you must enable USDT.'}
+                              </div>
+                              <div className={'button-wrapper'}>
+                                <Button
+                                  size='large'
+                                  className={''}
+                                  disabled={false}
+                                  onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
+                                >
+                                  {'ENABLE'}
+                                </Button>
+                              </div>
+                            </div>
+                          }
+                        </Tabs.TabPane>
+                      </Tabs>
                     </div>
+
+
+                    {/* ***** ***** ***** RecordBoard ***** ***** ***** */}
+                    {
+                      this.state.i_am_ready &&
+                      <RecordBoard
+                        account={this.state.my_account}
+                        net_type={this.state.net_type}
+                        decimal={this.state.imBTC_decimals}
+                        token={this.token_name}
+                        load_new_history={this.state.load_new_history}
+                        new_web3={this.new_web3}
+                      />
+                    }
                   </div>
-                }
+                </div>
               </div>
             </div>
           }

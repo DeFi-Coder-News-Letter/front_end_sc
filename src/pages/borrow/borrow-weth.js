@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import { withMarketInfo } from '../../HOC/withMarketInfo';
-import AccountInfo from '../../container/accountInfo/accountInfo_borrow';
 import { Link } from "react-router-dom";
-import Network from '../../constant.json';
 import MediaQuery from 'react-responsive';
 import './borrow.scss';
-
+import { Tabs, Button, Input } from 'antd';
 
 import {
-  findNetwork,
-  getLoginStatusKey,
   get_tokens_decimals,
   format_bn,
   get_available_to_borrow,
@@ -34,17 +29,12 @@ import {
   handle_unwrap_click
 } from '../../util-weth';
 
-
 // add i18n.
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
-import { Tabs, Button, InputNumber, Input } from 'antd';
-
-
 import Web3 from 'web3';
-
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -57,10 +47,10 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-
 class Borrow_weth extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       is_borrow_enable: true,
       is_repay_enable: true,
@@ -87,34 +77,27 @@ class Borrow_weth extends Component {
         let imBTC = new this.new_web3.eth.Contract(imBTC_abi, address[net_type]['address_imBTC']);
         let USDT = new this.new_web3.eth.Contract(USDT_abi, address[net_type]['address_USDT']);
         let mMarket = new this.new_web3.eth.Contract(mMarket_abi, address[net_type]['address_mMarket']);
-
         console.log(' *** init contract finished *** ');
-
-        this.setState({
-          net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket
-        }, () => {
+        this.setState({ net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket }, () => {
           get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this);
           this.new_web3.givenProvider.enable().then(res_accounts => {
             this.setState({ my_account: res_accounts[0] }, async () => {
-
               console.log('connected: ', this.state.my_account)
               let is_approved = await get_allowance(this.state.WETH, this.state.my_account, address[net_type]['address_mMarket'], this.bn);
               console.log('is_approved: ', is_approved)
-
               this.setState({ is_approved: is_approved })
-
               let timer_Next = setInterval(() => {
-                if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+                if (!this.state.WETH_decimals) {
                   console.log('111111111: not get yet...');
                 } else {
                   console.log('2222222222: i got it...');
                   clearInterval(timer_Next);
                   this.setState({ i_am_ready: true })
-
                   // to do something...
-
-
-
+                  get_my_ETH(this);
+                  get_my_WETH(this);
+                  get_available_to_borrow(this.state.mMarket, this.state.WETH, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_WETH'], this.state.my_account, this.collateral_rate, this.originationFee, this);
+                  get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_WETH'], this);
                 }
               }, 100)
             })
@@ -125,27 +108,21 @@ class Borrow_weth extends Component {
   }
 
 
-
   componentDidMount = () => {
     this.timer_get_data = setInterval(() => {
       if (!this.state.my_account) {
         console.log('account not ailableav')
         return false;
       }
-
-
       get_my_ETH(this);
       get_my_WETH(this);
       get_available_to_borrow(this.state.mMarket, this.state.WETH, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_WETH'], this.state.my_account, this.collateral_rate, this.originationFee, this);
       get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_WETH'], this);
-    }, 3000)
-
+    }, 1000 * 5)
   }
 
+
   componentWillUnmount = () => {
-    if (this.timer_Next) {
-      clearInterval(this.timer_Next)
-    }
     clearInterval(this.timer_get_data)
   }
 
@@ -156,8 +133,6 @@ class Borrow_weth extends Component {
         <MediaQuery maxWidth={768}>
           {(match) =>
             <div className={'borrow-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
-
-
               <div className='redirect-button'>
                 <div className='go-back-button'>
                   <Link to={'/'}>
@@ -166,11 +141,9 @@ class Borrow_weth extends Component {
                   </Link>
                 </div>
               </div>
-
               {/* <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} /> */}
 
               <div className='lend-page-wrapper'>
-
                 <div className='borrow-group'>
                   <div className='borrow-title-borrow'>
                     <span className='title-font'>
@@ -179,14 +152,13 @@ class Borrow_weth extends Component {
                   </div>
                   <div className='borrow-content' style={{}}>
                     <div className='borrow-input'>
-                      {/* <BalanceInfoWithIcon coin={'WETH'} action={'Supplied'} login={window.web3.eth.accounts[0] ? true : false} /> */}
                       <div className='info-wrapper'>
                         <span className='balance-type'>
-                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/WETH@2x.png`} alt="" />
+                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.png`} alt="" />
                           &nbsp;
-                            {/* <FormattedMessage id='WETH_Supplied' /> */}
-                          已经借款
-                          </span>
+                          {this.token_name}
+                          <FormattedMessage id='borrowed' />
+                        </span>
                         <span className='balance-amount'>
                           {this.state.my_borrowed ? format_bn(this.state.my_borrowed, this.state.WETH_decimals, 2) : '-'}
                         </span>
@@ -200,12 +172,12 @@ class Borrow_weth extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  <FormattedMessage id='ETH_Balance' />
+                                  {'ETH'}
+                                  <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
                                   {this.state.my_ETH ? format_bn(this.state.my_ETH, 18, 2) : '-'}
-                                  &nbsp;ETH
-                                  </span>
+                                </span>
                               </div>
                               <div className='input-wrap-unit-wrapper'>
                                 <div className='wrap-input-wrapper'>
@@ -231,39 +203,38 @@ class Borrow_weth extends Component {
                                 </div>
                               </div>
                               <div className='input-unwrap-unit-wrapper'>
-                              <div className='wrap-input-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={'WETH to Unwrap'}
-                                    min={0}
-                                    value={this.state.unwrap_amount}
-                                    onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
-                                    className='input-number'
-                                  />
-                                  {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
-                                </div>
-                                <div className='button-wrapper-borrow'>
-                                  <Button
-                                    size='large'
-                                    className={this.state.is_unwrap_enable ? null : 'disable-button'}
-                                    disabled={false}
-                                    onClick={() => handle_unwrap_click(this)}
-                                  >
-                                    unwrap
+                                <div className='wrap-input-wrapper'>
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={'WETH to Unwrap'}
+                                      min={0}
+                                      value={this.state.unwrap_amount}
+                                      onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
+                                      className='input-number'
+                                    />
+                                    {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
+                                  </div>
+                                  <div className='button-wrapper-borrow'>
+                                    <Button
+                                      size='large'
+                                      className={this.state.is_unwrap_enable ? null : 'disable-button'}
+                                      disabled={false}
+                                      onClick={() => handle_unwrap_click(this)}
+                                    >
+                                      unwrap
                                     </Button>
-                                </div>
+                                  </div>
                                 </div>
                               </div>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {/* <FormattedMessage id='WETH_Balance' /> */}
-                                  weth 可借数量
-                                  </span>
+                                  {this.token_name}
+                                  <FormattedMessage id='available_borrow' />
+                                </span>
                                 <span className='balance-amount'>
                                   {this.state.available_to_borrow ? format_bn(this.state.available_to_borrow, 18, 2) : '-'}
-                                  &nbsp;WETH
-                                  </span>
+                                </span>
                               </div>
                               <div className='input-unit-wrapper'>
                                 <div className='input-wrapper'>
@@ -322,13 +293,12 @@ class Borrow_weth extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {/* <FormattedMessage id='WETH_Available' /> */}
-                                  weth 余额
-                              </span>
+                                  {this.token_name}
+                                  <FormattedMessage id='balance' />
+                                </span>
                                 <span className='balance-amount'>
                                   {this.state.my_balance ? format_bn(this.state.my_balance, this.state.WETH_decimals, 2) : '-'}
-                                  &nbsp;WETH
-                              </span>
+                                </span>
                               </div>
                               <div className='input-unit-wrapper'>
                                 <div className='input-wrapper'>

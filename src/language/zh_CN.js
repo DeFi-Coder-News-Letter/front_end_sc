@@ -1,6 +1,8 @@
 const zh_CN = {
     available_withdraw: "可取数量",
+    available_borrow: "可借数量",
     balance: "余额",
+    borrowed: "已借数量",
     supplied: "已存数量",
 
 
