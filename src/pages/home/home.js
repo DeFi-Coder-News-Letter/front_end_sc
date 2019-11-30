@@ -79,7 +79,7 @@ class Home extends Component {
                         <div className='header-item collate-rate'>
                             <span className='item-title'>Collateralization ratio</span>
                             <span className='item-num item-num-ratio'>
-                                {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply / this.props.data.my_borrow) + '%'}
+                                {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2) + '%'}
                             </span>
                         </div>
                     </div>
@@ -118,8 +118,8 @@ class Home extends Component {
 
                         <div className='card-bottom'>
                             {
-                                (this.props.data.i_have_supply_usdx || (!this.props.data.i_have_supply_usdx && !this.props.data.i_have_borrow_usdx)) &&
-                                <div className={'button-wrap'}>
+                                this.props.data.i_have_supply_usdx &&
+                                <div className={'button-wrap-home-fall'}>
                                     <Link to={{ pathname: './supply-usdx' }}>
                                         <Button
                                             size='large'
@@ -132,14 +132,46 @@ class Home extends Component {
                                     </Link>
                                 </div>
                             }
-
                             {
-                                (this.props.data.i_have_borrow_usdx || (!this.props.data.i_have_supply_usdx && !this.props.data.i_have_borrow_usdx)) &&
-                                <div className={'button-wrap'}>
+                                (!this.props.data.i_have_supply_usdx && !this.props.data.i_have_borrow_usdx) &&
+                                <React.Fragment>
+                                    <div className={'button-wrap-home'}>
+                                        <Link to={{ pathname: './supply-usdx' }}>
+                                            <Button
+                                                size='large'
+                                                // className={'disable-button'}
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'SUPPLY'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+
+                                    <div className={'button-wrap-home-borrow'}>
+                                        <Link to={{ pathname: './borrow-usdx' }}>
+                                            <Button
+                                                size='large'
+                                                className={
+                                                    this.props.data.i_have_borrow_usdt || this.props.data.i_have_borrow_weth || this.props.data.i_have_borrow_imbtc ?
+                                                        null : 'disable-button'
+                                                }
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'BORROW'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {
+                                this.props.data.i_have_borrow_usdx &&
+                                <div className={'button-wrap-home-borrow-fall'}>
                                     <Link to={{ pathname: './borrow-usdx' }}>
                                         <Button
                                             size='large'
-                                            className={'disable-button'}
+                                            // className={'disable-button'}
                                             disabled={false}
                                         // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                         >
@@ -187,8 +219,8 @@ class Home extends Component {
 
                         <div className='card-bottom'>
                             {
-                                (this.props.data.i_have_supply_usdt || (!this.props.data.i_have_supply_usdt && !this.props.data.i_have_borrow_usdt)) &&
-                                <div className={'button-wrap'}>
+                                this.props.data.i_have_supply_usdt &&
+                                <div className={'button-wrap-home-fall'}>
                                     <Link to={{ pathname: './supply-usdt' }}>
                                         <Button
                                             size='large'
@@ -201,14 +233,46 @@ class Home extends Component {
                                     </Link>
                                 </div>
                             }
-
                             {
-                                (this.props.data.i_have_borrow_usdt || (!this.props.data.i_have_supply_usdt && !this.props.data.i_have_borrow_usdt)) &&
-                                <div className={'button-wrap'}>
+                                (!this.props.data.i_have_supply_usdt && !this.props.data.i_have_borrow_usdt) &&
+                                <React.Fragment>
+                                    <div className={'button-wrap-home'}>
+                                        <Link to={{ pathname: './supply-usdt' }}>
+                                            <Button
+                                                size='large'
+                                                // className={'disable-button'}
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'SUPPLY'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+
+                                    <div className={'button-wrap-home-borrow'}>
+                                        <Link to={{ pathname: './borrow-usdt' }}>
+                                            <Button
+                                                size='large'
+                                                className={
+                                                    this.props.data.i_have_borrow_usdx || this.props.data.i_have_borrow_weth || this.props.data.i_have_borrow_imbtc ?
+                                                        null : 'disable-button'
+                                                }
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'BORROW'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {
+                                this.props.data.i_have_borrow_usdt &&
+                                <div className={'button-wrap-home-borrow-fall'}>
                                     <Link to={{ pathname: './borrow-usdt' }}>
                                         <Button
                                             size='large'
-                                            className={'disable-button'}
+                                            // className={'disable-button'}
                                             disabled={false}
                                         // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                         >
@@ -256,8 +320,8 @@ class Home extends Component {
 
                         <div className='card-bottom'>
                             {
-                                (this.props.data.i_have_supply_weth || (!this.props.data.i_have_supply_weth && !this.props.data.i_have_borrow_weth)) &&
-                                <div className={'button-wrap'}>
+                                this.props.data.i_have_supply_weth &&
+                                <div className={'button-wrap-home-fall'}>
                                     <Link to={{ pathname: './supply-weth' }}>
                                         <Button
                                             size='large'
@@ -270,14 +334,46 @@ class Home extends Component {
                                     </Link>
                                 </div>
                             }
-
                             {
-                                (this.props.data.i_have_borrow_weth || (!this.props.data.i_have_supply_weth && !this.props.data.i_have_borrow_weth)) &&
-                                <div className={'button-wrap'}>
+                                (!this.props.data.i_have_supply_weth && !this.props.data.i_have_borrow_weth) &&
+                                <React.Fragment>
+                                    <div className={'button-wrap-home'}>
+                                        <Link to={{ pathname: './supply-weth' }}>
+                                            <Button
+                                                size='large'
+                                                // className={'disable-button'}
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'SUPPLY'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+
+                                    <div className={'button-wrap-home-borrow'}>
+                                        <Link to={{ pathname: './borrow-weth' }}>
+                                            <Button
+                                                size='large'
+                                                className={
+                                                    this.props.data.i_have_borrow_usdt || this.props.data.i_have_borrow_usdx || this.props.data.i_have_borrow_imbtc ?
+                                                        null : 'disable-button'
+                                                }
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'BORROW'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {
+                                this.props.data.i_have_borrow_weth &&
+                                <div className={'button-wrap-home-borrow-fall'}>
                                     <Link to={{ pathname: './borrow-weth' }}>
                                         <Button
                                             size='large'
-                                            className={'disable-button'}
+                                            // className={'disable-button'}
                                             disabled={false}
                                         // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                         >
@@ -324,8 +420,8 @@ class Home extends Component {
 
                         <div className='card-bottom'>
                             {
-                                (this.props.data.i_have_supply_imbtc || (!this.props.data.i_have_supply_imbtc && !this.props.data.i_have_borrow_imbtc)) &&
-                                <div className={'button-wrap'}>
+                                this.props.data.i_have_supply_imbtc &&
+                                <div className={'button-wrap-home-fall'}>
                                     <Link to={{ pathname: './supply-imbtc' }}>
                                         <Button
                                             size='large'
@@ -338,14 +434,46 @@ class Home extends Component {
                                     </Link>
                                 </div>
                             }
-
                             {
-                                (this.props.data.i_have_borrow_imbtc || (!this.props.data.i_have_supply_imbtc && !this.props.data.i_have_borrow_imbtc)) &&
-                                <div className={'button-wrap'}>
+                                (!this.props.data.i_have_supply_imbtc && !this.props.data.i_have_borrow_imbtc) &&
+                                <React.Fragment>
+                                    <div className={'button-wrap-home'}>
+                                        <Link to={{ pathname: './supply-imbtc' }}>
+                                            <Button
+                                                size='large'
+                                                // className={'disable-button'}
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'SUPPLY'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+
+                                    <div className={'button-wrap-home-borrow'}>
+                                        <Link to={{ pathname: './borrow-imbtc' }}>
+                                            <Button
+                                                size='large'
+                                                className={
+                                                    this.props.data.i_have_borrow_usdt || this.props.data.i_have_borrow_weth || this.props.data.i_have_borrow_usdx ?
+                                                        null : 'disable-button'
+                                                }
+                                                disabled={false}
+                                            // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                            >
+                                                {'BORROW'}
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {
+                                this.props.data.i_have_borrow_imbtc &&
+                                <div className={'button-wrap-home-borrow-fall'}>
                                     <Link to={{ pathname: './borrow-imbtc' }}>
                                         <Button
                                             size='large'
-                                            className={'disable-button'}
+                                            // className={'disable-button'}
                                             disabled={false}
                                         // onClick={() => { handle_supply_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                         >
