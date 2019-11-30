@@ -4,10 +4,8 @@ import { Alert } from 'antd';
 import { Route, Switch } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 
-
 import Home from './pages/home/home';
 import Web3 from 'web3';
-
 
 import Supply_usdx from './pages/supply/supply-usdx';
 import Supply_usdt from './pages/supply/supply-usdt';
@@ -19,7 +17,7 @@ import Borrow_usdt from './pages/borrow/borrow-usdt';
 import Borrow_weth from './pages/borrow/borrow-weth';
 import Borrow_imbtc from './pages/borrow/borrow-imbtc';
 
-import { findNetwork, saveLoginStatus, getLoginStatusKey, getPercentageFormat, get_tokens_decimals, format_bn } from './util.js';
+import { get_tokens_decimals, format_bn } from './util.js';
 
 const mainnetOrRinkebyIconAlert = <img style={{ margin: 'auto' }} src={`images/alert_icon.png`} alt="" />;
 const noteIconAlert = <img style={{ margin: 'auto' }} src={`images/note_alert.png`} alt="" />;
@@ -89,7 +87,6 @@ class App extends Component {
         })
       }
     )
-
   }
 
 
@@ -293,22 +290,23 @@ class App extends Component {
           <Switch>
             <React.Fragment>
               <div className="App">
-                <div className="App-header">
-                  {/* <Alert message="Lendf.me is currently only available on Mainnet or the Rinkeby Testnet." type="error" onClose='' icon={mainnetOrRinkebyIconAlert} showIcon /> */}
-                  {/* <Alert message="Note: You are currently connected to the Rinkeby Testnet" type="informational" onClose='' className='informational-banner' icon={noteIconAlert} showIcon /> */}
 
-                  <Route exact path="/" render={() => <Home data={this.state} />} />
+                {/* <div className="App-header"> */}
+                {/* <Alert message="Lendf.me is currently only available on Mainnet or the Rinkeby Testnet." type="error" onClose='' icon={mainnetOrRinkebyIconAlert} showIcon /> */}
+                {/* <Alert message="Note: You are currently connected to the Rinkeby Testnet" type="informational" onClose='' className='informational-banner' icon={noteIconAlert} showIcon /> */}
+                {/* </div> */}
 
-                  <Route path="/supply-usdx" render={() => <Supply_usdx />} />
-                  <Route path="/supply-usdt" render={() => <Supply_usdt />} />
-                  <Route path="/supply-imbtc" render={() => <Supply_imbtc />} />
-                  <Route path="/supply-weth" render={() => <Supply_weth />} />
+                <Route exact path="/" render={() => <Home data={this.state} />} />
 
-                  <Route path="/borrow-usdx" render={() => <Borrow_usdx />} />
-                  <Route path="/borrow-usdt" render={() => <Borrow_usdt />} />
-                  <Route path="/borrow-imbtc" render={() => <Borrow_imbtc />} />
-                  <Route path="/borrow-weth" render={() => <Borrow_weth />} />
-                </div>
+                <Route path="/supply-usdx" render={() => <Supply_usdx  data={this.state} />} />
+                <Route path="/supply-usdt" render={() => <Supply_usdt />} />
+                <Route path="/supply-imbtc" render={() => <Supply_imbtc />} />
+                <Route path="/supply-weth" render={() => <Supply_weth />} />
+
+                <Route path="/borrow-usdx" render={() => <Borrow_usdx />} />
+                <Route path="/borrow-usdt" render={() => <Borrow_usdt />} />
+                <Route path="/borrow-imbtc" render={() => <Borrow_imbtc />} />
+                <Route path="/borrow-weth" render={() => <Borrow_weth />} />
               </div>
             </React.Fragment>
           </Switch>

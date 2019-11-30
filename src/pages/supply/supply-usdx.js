@@ -51,15 +51,17 @@ class Supply_usdx extends Component {
       is_withdraw_enable: true
     }
 
-    this.new_web3 = window.new_web3 = new Web3(Web3.givenProvider || null);
-    this.bn = this.new_web3.utils.toBN;
+    this.placeholder = 'Amount in USDx';
+    this.img_src = 'USDx@2x';
+    this.token_name = 'USDx';
+
     this.decimal_precision = constant.decimal_precision;
     this.gas_limit_coefficient = constant.gas_limit_coefficient;
     this.collateral_rate = constant.collateral_rate;
 
-    this.placeholder = 'Amount in USDx';
-    this.img_src = 'USDx@2x';
-    this.token_name = 'USDx';
+    // console.log('this.props.data.i_am_ready: --- no ', this.props.data.i_am_ready);
+    this.new_web3 = window.new_web3 = new Web3(Web3.givenProvider || null);
+    this.bn = this.new_web3.utils.toBN;
 
     this.new_web3.eth.net.getNetworkType().then(
       (net_type) => {
