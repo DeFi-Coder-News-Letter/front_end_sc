@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
@@ -35,6 +34,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
+import My_status from '../../component/header/my-status';
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -141,7 +141,8 @@ class Borrow_weth extends Component {
                   </Link>
                 </div>
               </div>
-              {/* <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} /> */}
+
+              <My_status data={this.props.data} />
 
               <div className='lend-page-wrapper'>
                 <div className='borrow-group'>

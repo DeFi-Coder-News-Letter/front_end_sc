@@ -1,3 +1,6 @@
+$token-num: 24px;
+
+
 .CM {
     .header {
         position: fixed;
@@ -5,21 +8,27 @@
         z-index: 10;
         background: #222C3C;
     }
+
     .header-content {
         height: 100%;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
     }
-    .market-info-title, .market-ratio, .account-info{  
+
+    .market-info-title,
+    .market-ratio,
+    .account-info {
         color: #8B8F95;
         white-space: nowrap;
     }
+
     .market-info-digits {
         color: #FFFFFF;
         display: block;
         font-weight: medium;
     }
+
     .left {
         display: flex;
     }
@@ -29,25 +38,33 @@
     .header {
         height: 70px;
     }
+
     .with-banner {
         top: 40px;
     }
+
     .without-banner {
         top: 0px;
     }
+
     .header-content {
         width: 1138px;
     }
-    .market-info-title, .market-ratio, .account-info{  
+
+    .market-info-title,
+    .market-ratio,
+    .account-info {
         white-space: nowrap;
     }
+
     .market-info {
         height: auto;
         margin: auto 0;
         padding: 8px 27px;
         display: flex;
         flex-direction: column;
-        border-right: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+
         &:last-child {
             border-right: 0;
         }
@@ -58,6 +75,7 @@
             font-size: 12px;
             line-height: 27px;
         }
+
         .market-info-digits {
             align-self: center;
             font-size: 18px;
@@ -65,8 +83,9 @@
             padding-left: 10px;
         }
     }
-    
-    .market-ratio, .account-info {
+
+    .market-ratio,
+    .account-info {
         height: auto;
         margin: auto 0;
         padding: 0 27px;
@@ -74,8 +93,9 @@
         justify-content: center;
         flex-direction: column;
         font-size: 12px;
-        border-left: 1px solid rgba(255,255,255,0.1);
-        > div:not(.market-info-digits) {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        >div:not(.market-info-digits) {
             display: flex;
             justify-content: space-between;
         }
@@ -90,6 +110,7 @@
         padding: 3px 2px;
         font-size: 10px;
     }
+
     .header-logo {
         width: 62px;
         height: 44px,
@@ -101,7 +122,9 @@
         border-radius: 3px;
         cursor: pointer;
         color: #FFFFFF;
-        &:hover, &:active {
+
+        &:hover,
+        &:active {
             color: #FFFFFF;
         }
     }
@@ -187,6 +210,7 @@
         height: 66px;
         padding: 0 12px;
     }
+
     .market-info {
         height: auto;
         margin: auto 0;
@@ -194,39 +218,97 @@
         flex-direction: column;
         font-size: 9px;
         padding: 10px;
-        border-right: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+
         &:last-child {
             border-right: 0;
         }
     }
+
     .market-ratio {
         height: auto;
         margin: auto 0;
         display: flex;
         flex-direction: column;
         font-size: 10px;
-        border-left: 1px solid rgba(255,255,255,0.1);
-        > div:not(.market-info-digits) {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        >div:not(.market-info-digits) {
             display: flex;
             justify-content: space-between;
         }
     }
+
     .account-info {
         display: none;
     }
+
     .usdx-faucet {
         margin-left: 5px;
         padding: 3px 2px;
         font-size: 10px;
     }
+
     .header-logo {
         width: 32px;
         height: 22px,
     }
+
     .usdx-faucet {
         display: none;
     }
+
     .right {
         display: none;
+    }
+}
+
+
+
+
+
+
+.header-new {
+    width: 820px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 35px 0px rgba(67, 73, 118, 0.15);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+
+    .header-new-item {
+        border-right: 1px solid rgba(221, 221, 232, 0.5);
+        width: 33.3%;
+        padding: 0 20px;
+
+        .item-title {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(164, 167, 190, 1);
+        }
+
+        .item-num {
+            font-size: $token-num;
+            font-weight: bold;
+            color: rgba(112, 78, 244, 1);
+        }
+
+        .item-num-borrow {
+            color: #B542F7;
+        }
+
+        .item-num-ratio {
+            color: #00A577;
+        }
+    }
+
+    .collate-rate {
+        border-right: none;
     }
 }

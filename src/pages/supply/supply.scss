@@ -237,7 +237,8 @@ $button-borrow-color: #675CFF;
         }
 
         &.without-banner {
-            top: 70px;
+            // top: 70px;
+            top: 0px;
         }
 
         .lend-page-wrapper {

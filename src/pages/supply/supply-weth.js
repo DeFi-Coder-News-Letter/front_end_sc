@@ -5,6 +5,7 @@ import { Tabs, Button, Input } from 'antd';
 import MediaQuery from 'react-responsive';
 import './supply.scss';
 import Web3 from 'web3';
+import My_status from '../../component/header/my-status';
 
 import {
   get_tokens_decimals,
@@ -133,7 +134,8 @@ class Supply_weth extends Component {
                   </Link>
                 </div>
               </div>
-              {/* <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} /> */}
+
+              <My_status data={this.props.data} />
 
               <div className='lend-page-wrapper'>
                 <div className='supply-group'>

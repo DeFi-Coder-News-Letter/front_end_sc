@@ -306,14 +306,14 @@ class App extends Component {
                 <Route exact path="/" render={() => <Home data={this.state} />} />
 
                 <Route path="/supply-usdx" render={() => <Supply_usdx data={this.state} />} />
-                <Route path="/supply-usdt" render={() => <Supply_usdt />} />
-                <Route path="/supply-imbtc" render={() => <Supply_imbtc />} />
-                <Route path="/supply-weth" render={() => <Supply_weth />} />
+                <Route path="/supply-usdt" render={() => <Supply_usdt data={this.state} />} />
+                <Route path="/supply-imbtc" render={() => <Supply_imbtc data={this.state} />} />
+                <Route path="/supply-weth" render={() => <Supply_weth data={this.state} />} />
 
-                <Route path="/borrow-usdx" render={() => <Borrow_usdx />} />
-                <Route path="/borrow-usdt" render={() => <Borrow_usdt />} />
-                <Route path="/borrow-imbtc" render={() => <Borrow_imbtc />} />
-                <Route path="/borrow-weth" render={() => <Borrow_weth />} />
+                <Route path="/borrow-usdx" render={() => <Borrow_usdx data={this.state} />} />
+                <Route path="/borrow-usdt" render={() => <Borrow_usdt data={this.state} />} />
+                <Route path="/borrow-imbtc" render={() => <Borrow_imbtc data={this.state} />} />
+                <Route path="/borrow-weth" render={() => <Borrow_weth data={this.state} />} />
               </div>
             </React.Fragment>
           </Switch>

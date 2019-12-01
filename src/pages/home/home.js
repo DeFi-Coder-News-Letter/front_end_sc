@@ -61,22 +61,22 @@ class Home extends Component {
 
 
                 <div className='card-wrap'>
-                    <div className='header'>
-                        <div className='header-item supply-balance'>
+                    <div className='header-new'>
+                        <div className='header-new-item supply-balance'>
                             <span className='item-title'>Supply Balance</span>
                             <span className='item-num'>
                                 {this.props.data.my_supply ? '$' + this.props.data.my_supply : '···'}
                             </span>
                         </div>
 
-                        <div className='header-item borrow-balance'>
+                        <div className='header-new-item borrow-balance'>
                             <span className='item-title'>Borrow Balance</span>
                             <span className='item-num item-num-borrow'>
                                 {this.props.data.my_borrow ? '$' + this.props.data.my_borrow : '···'}
                             </span>
                         </div>
 
-                        <div className='header-item collate-rate'>
+                        <div className='header-new-item collate-rate'>
                             <span className='item-title'>Collateralization ratio</span>
                             <span className='item-num item-num-ratio'>
                                 {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2) + '%'}

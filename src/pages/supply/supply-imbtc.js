@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, Button, Input } from 'antd';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import Header from '../../component/header/header';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {
   format_bn,
@@ -28,6 +27,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
+import My_status from '../../component/header/my-status';
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -39,8 +39,6 @@ let mMarket_abi = require('../../ABIs/moneyMarket.json');
 let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
-
-const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 class Supply_imbtc extends Component {
   constructor(props) {
@@ -133,7 +131,8 @@ class Supply_imbtc extends Component {
                   </Link>
                 </div>
               </div>
-              {/* <AccountInfo currentPage={'lend'}  login={true} /> */}
+
+              <My_status data={this.props.data} />
 
               <div className="lend-page-wrapper">
                 <div className="supply-group">

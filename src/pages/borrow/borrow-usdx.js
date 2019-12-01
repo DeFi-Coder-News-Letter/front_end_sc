@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
 import { withMarketInfo } from '../../HOC/withMarketInfo';
 import { Link } from "react-router-dom";
@@ -28,6 +27,8 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
+import My_status from '../../component/header/my-status';
+
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
 let WETH_abi = require('../../ABIs/WETH_ABI.json');
@@ -39,7 +40,7 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-const WithMarketInfoEnhanced = withMarketInfo(Header);
+// const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 class Borrow_usdx extends Component {
   constructor(props) {
@@ -139,7 +140,7 @@ class Borrow_usdx extends Component {
                 </div>
               </div>
 
-              {/* <AccountInfo networkName={NetworkName} currentPage={'borrow'} account={currentAccount} login={window.web3.eth.accounts[0] ? true : false} /> */}
+              <My_status data={this.props.data} />
 
               <div className='lend-page-wrapper'>
                 <div className='borrow-group'>
