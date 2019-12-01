@@ -143,6 +143,12 @@ export const handle_supply_max = (that, balance, decimals) => {
     supply_amount: to_show,
     i_will_supply_max: true
   });
+
+  if (that.bn(balance).toString() === that.bn('0').toString()) {
+    that.setState({ is_supply_enable: false });
+  } else {
+    that.setState({ is_supply_enable: true });
+  }
 }
 
 
@@ -158,6 +164,12 @@ export const handle_withdraw_max = (that, balance, decimals) => {
     withdraw_amount: to_show,
     i_will_withdraw_max: true
   });
+
+  if (that.bn(balance).toString() === that.bn('0').toString()) {
+    that.setState({ is_withdraw_enable: false });
+  } else {
+    that.setState({ is_withdraw_enable: true });
+  }
 }
 
 
@@ -677,6 +689,12 @@ export const handle_borrow_max = (that, balance, decimals) => {
     borrow_amount: to_show,
     i_will_borrow_max: true
   });
+
+  if (that.bn(balance).toString() === that.bn('0').toString()) {
+    that.setState({ is_borrow_enable: false });
+  } else {
+    that.setState({ is_borrow_enable: true });
+  }
 }
 
 
@@ -701,6 +719,12 @@ export const handle_repay_max = (that, balance, borrowed, decimals) => {
     repay_amount: to_show,
     i_will_repay_max: true
   });
+
+  if (that.bn(balance).toString() === that.bn('0').toString() || that.bn(borrowed).toString() === that.bn('0').toString()) {
+    that.setState({ is_repay_enable: false });
+  } else {
+    that.setState({ is_repay_enable: true });
+  }
 }
 
 
