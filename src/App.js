@@ -139,7 +139,7 @@ class App extends Component {
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_imBTC']).call().then(res_my_supply_imbtc => {
               // console.log(res_my_supply_imbtc);
               if (this.bn(res_my_supply_imbtc).gt(this.bn('0'))) {
-                this.setState({ i_have_supply_imbtc: true });
+                this.setState({ i_have_supply_imbtc: true, my_supply_imbtc: format_bn(res_my_supply_imbtc, this.state.imBTC_decimals, 2) });
                 return false;
               } else {
                 this.setState({ i_have_supply_imbtc: false });
@@ -148,7 +148,7 @@ class App extends Component {
               this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_imBTC']).call().then(res_my_borrow_imbtc => {
                 // console.log(res_my_borrow_imbtc);
                 if (this.bn(res_my_borrow_imbtc).gt(this.bn('0'))) {
-                  this.setState({ i_have_borrow_imbtc: true });
+                  this.setState({ i_have_borrow_imbtc: true, my_borrow_imbtc: format_bn(res_my_borrow_imbtc, this.state.imBTC_decimals, 2) });
                   return false;
                 } else {
                   this.setState({ i_have_borrow_imbtc: false });
@@ -176,7 +176,7 @@ class App extends Component {
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDT']).call().then(res_my_supply_usdt => {
               // console.log(res_my_supply_usdt);
               if (this.bn(res_my_supply_usdt).gt(this.bn('0'))) {
-                this.setState({ i_have_supply_usdt: true });
+                this.setState({ i_have_supply_usdt: true, my_supply_usdt: format_bn(res_my_supply_usdt, this.state.USDT_decimals, 2) });
                 return false;
               } else {
                 this.setState({ i_have_supply_usdt: false });
@@ -185,7 +185,7 @@ class App extends Component {
               this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_USDT']).call().then(res_my_borrow_usdt => {
                 // console.log(res_my_borrow_usdt);
                 if (this.bn(res_my_borrow_usdt).gt(this.bn('0'))) {
-                  this.setState({ i_have_borrow_usdt: true });
+                  this.setState({ i_have_borrow_usdt: true, my_borrow_usdt: format_bn(res_my_borrow_usdt, this.state.USDT_decimals, 2) });
                   return false;
                 } else {
                   this.setState({ i_have_borrow_usdt: false });
@@ -210,7 +210,7 @@ class App extends Component {
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDx']).call().then(res_my_supply_usdx => {
             // console.log(res_my_supply_usdx);
             if (this.bn(res_my_supply_usdx).gt(this.bn('0'))) {
-              this.setState({ i_have_supply_usdx: true });
+              this.setState({ i_have_supply_usdx: true, my_supply_usdx: format_bn(res_my_supply_usdx, this.state.USDx_decimals, 2) });
               return false;
             } else {
               this.setState({ i_have_supply_usdx: false });
@@ -219,7 +219,7 @@ class App extends Component {
             this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_USDx']).call().then(res_my_borrow_usdx => {
               // console.log(res_my_borrow_usdx);
               if (this.bn(res_my_borrow_usdx).gt(this.bn('0'))) {
-                this.setState({ i_have_borrow_usdx: true });
+                this.setState({ i_have_borrow_usdx: true, my_borrow_usdx: format_bn(res_my_borrow_usdx, this.state.USDx_decimals, 2) });
                 return false;
               } else {
                 this.setState({ i_have_borrow_usdx: false });
@@ -246,7 +246,7 @@ class App extends Component {
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_WETH']).call().then(res_my_supply_weth => {
               // console.log(res_my_supply_weth);
               if (this.bn(res_my_supply_weth).gt(this.bn('0'))) {
-                this.setState({ i_have_supply_weth: true });
+                this.setState({ i_have_supply_weth: true, my_supply_weth: format_bn(res_my_supply_weth, this.state.WETH_decimals, 2) });
                 return false;
               } else {
                 this.setState({ i_have_supply_weth: false });
@@ -255,7 +255,7 @@ class App extends Component {
               this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_WETH']).call().then(res_my_borrow_weth => {
                 // console.log(res_my_borrow_weth);
                 if (this.bn(res_my_borrow_weth).gt(this.bn('0'))) {
-                  this.setState({ i_have_borrow_weth: true });
+                  this.setState({ i_have_borrow_weth: true, my_borrow_weth: format_bn(res_my_borrow_weth, this.state.WETH_decimals, 2) });
                   return false;
                 } else {
                   this.setState({ i_have_borrow_weth: false });

@@ -214,6 +214,14 @@ $button-color-borrow: #675CFF;
             .apr-num-right {
                 text-align: right;
             }
+
+            .apr-supply-color {
+                color: $button-color;
+            }
+
+            .apr-borrow-color {
+                color: $button-color-borrow;
+            }
         }
 
         .card-bottom {

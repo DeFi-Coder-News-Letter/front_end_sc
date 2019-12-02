@@ -102,14 +102,35 @@ class Home extends Component {
                         <div className='clear'></div>
 
                         <div className='card-center'>
-                            <div className={'supply-apr'}>
-                                <span className='apr'>Supply APR</span>
-                                <span className='apr-num apr-num-left'>{this.props.data.usdx_supply_APR ? this.props.data.usdx_supply_APR + '%' : '···'}</span>
-                            </div>
-                            <div className={'borrow-apr'}>
-                                <span className='apr'>Borrow APR</span>
-                                <span className='apr-num apr-num-center'>{this.props.data.usdx_borrow_APR ? this.props.data.usdx_borrow_APR + '%' : '···'}</span>
-                            </div>
+                            {
+                                this.props.data.i_have_borrow_usdx &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr apr-borrow-color'>Borrowing Balance</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdx ? this.props.data.my_borrow_usdx : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_borrow_usdx &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr'>Supply APR</span>
+                                    <span className='apr-num apr-num-left'>{this.props.data.usdx_supply_APR ? this.props.data.usdx_supply_APR + '%' : '···'}</span>
+                                </div>
+                            }
+
+                            {
+                                this.props.data.i_have_supply_usdx &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr apr-supply-color'>Supplying Balance</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_usdx ? this.props.data.my_supply_usdx : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_supply_usdx &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr'>Borrow APR</span>
+                                    <span className='apr-num apr-num-center'>{this.props.data.usdx_borrow_APR ? this.props.data.usdx_borrow_APR + '%' : '···'}</span>
+                                </div>
+                            }
                             <div className={'u-rate'}>
                                 <span className='apr'>Utilization Rate</span>
                                 <span className='apr-num apr-num-right'>{this.props.data.usdx_u_rate ? this.props.data.usdx_u_rate + '%' : '···'}</span>
@@ -191,14 +212,35 @@ class Home extends Component {
                         <div className='clear'></div>
 
                         <div className='card-center'>
-                            <div className={'supply-apr'}>
-                                <span className='apr'>Supply APR</span>
-                                <span className='apr-num apr-num-left'>{this.props.data.usdt_supply_APR ? this.props.data.usdt_supply_APR + '%' : '···'}</span>
-                            </div>
-                            <div className={'borrow-apr'}>
-                                <span className='apr'>Borrow APR</span>
-                                <span className='apr-num apr-num-center'>{this.props.data.usdt_borrow_APR ? this.props.data.usdt_borrow_APR + '%' : '···'}</span>
-                            </div>
+                            {
+                                this.props.data.i_have_borrow_usdt &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr apr-borrow-color'>Borrowing Balance</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdt ? this.props.data.my_borrow_usdt : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_borrow_usdt &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr'>Supply APR</span>
+                                    <span className='apr-num apr-num-left'>{this.props.data.usdt_supply_APR ? this.props.data.usdt_supply_APR + '%' : '···'}</span>
+                                </div>
+                            }
+
+                            {
+                                this.props.data.i_have_supply_usdt &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr apr-supply-color'>Supplying Balance</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_borrow_usdt ? this.props.data.my_borrow_usdt : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_supply_usdt &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr'>Borrow APR</span>
+                                    <span className='apr-num apr-num-center'>{this.props.data.usdt_borrow_APR ? this.props.data.usdt_borrow_APR + '%' : '···'}</span>
+                                </div>
+                            }
                             <div className={'u-rate'}>
                                 <span className='apr'>Utilization Rate</span>
                                 <span className='apr-num apr-num-right'>{this.props.data.usdt_u_rate ? this.props.data.usdt_u_rate + '%' : '···'}</span>
@@ -280,14 +322,35 @@ class Home extends Component {
                         <div className='clear'></div>
 
                         <div className='card-center'>
-                            <div className={'supply-apr'}>
-                                <span className='apr'>Supply APR</span>
-                                <span className='apr-num apr-num-left'>{this.props.data.weth_supply_APR ? this.props.data.weth_supply_APR + '%' : '···'}</span>
-                            </div>
-                            <div className={'borrow-apr'}>
-                                <span className='apr'>Borrow APR</span>
-                                <span className='apr-num apr-num-center'>{this.props.data.weth_borrow_APR ? this.props.data.weth_borrow_APR + '%' : '···'}</span>
-                            </div>
+                            {
+                                this.props.data.i_have_borrow_weth &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr apr-borrow-color'>Borrowing Balance</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_weth ? this.props.data.my_borrow_weth : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_borrow_weth &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr'>Supply APR</span>
+                                    <span className='apr-num apr-num-left'>{this.props.data.weth_supply_APR ? this.props.data.weth_supply_APR + '%' : '···'}</span>
+                                </div>
+                            }
+
+                            {
+                                this.props.data.i_have_supply_weth &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr apr-supply-color'>Supplying Balance</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_weth ? this.props.data.my_supply_weth + '%' : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_supply_weth &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr'>Borrow APR</span>
+                                    <span className='apr-num apr-num-center'>{this.props.data.weth_borrow_APR ? this.props.data.weth_borrow_APR + '%' : '···'}</span>
+                                </div>
+                            }
                             <div className={'u-rate'}>
                                 <span className='apr'>Utilization Rate</span>
                                 <span className='apr-num apr-num-right'>{this.props.data.weth_u_rate ? this.props.data.weth_u_rate + '%' : '···'}</span>
@@ -368,14 +431,36 @@ class Home extends Component {
                         <div className='clear'></div>
 
                         <div className='card-center'>
-                            <div className={'supply-apr'}>
-                                <span className='apr'>Supply APR</span>
-                                <span className='apr-num apr-num-left'>{this.props.data.imbtc_supply_APR ? this.props.data.imbtc_supply_APR + '%' : '···'}</span>
-                            </div>
-                            <div className={'borrow-apr'}>
-                                <span className='apr'>Borrow APR</span>
-                                <span className='apr-num apr-num-center'>{this.props.data.imbtc_borrow_APR ? this.props.data.imbtc_borrow_APR + '%' : '···'}</span>
-                            </div>
+                            {
+                                this.props.data.i_have_borrow_imbtc &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr apr-borrow-color'>Borrowing Balance</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_imbtc ? this.props.data.my_borrow_imbtc : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_borrow_imbtc &&
+                                <div className={'supply-apr'}>
+                                    <span className='apr'>Supply APR</span>
+                                    <span className='apr-num apr-num-left'>{this.props.data.imbtc_supply_APR ? this.props.data.imbtc_supply_APR + '%' : '···'}</span>
+                                </div>
+                            }
+
+
+                            {
+                                this.props.data.i_have_supply_imbtc &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr apr-supply-color'>Supplying Balance</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_imbtc ? this.props.data.my_supply_imbtc : '···'}</span>
+                                </div>
+                            }
+                            {
+                                !this.props.data.i_have_supply_imbtc &&
+                                <div className={'borrow-apr'}>
+                                    <span className='apr'>Borrow APR</span>
+                                    <span className='apr-num apr-num-center'>{this.props.data.imbtc_borrow_APR ? this.props.data.imbtc_borrow_APR + '%' : '···'}</span>
+                                </div>
+                            }
                             <div className={'u-rate'}>
                                 <span className='apr'>Utilization Rate</span>
                                 <span className='apr-num apr-num-right'>{this.props.data.imbtc_u_rate ? this.props.data.imbtc_u_rate + '%' : '···'}</span>
