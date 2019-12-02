@@ -108,7 +108,7 @@ class Home extends Component {
                                 this.props.data.i_have_borrow_usdx &&
                                 <div className={'supply-apr'}>
                                     <span className='apr apr-borrow-color'>Borrowing Balance</span>
-                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdx ? format_str_to_kmb(this.props.data.my_borrow_usdx) : '···'}</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdx ? this.props.data.my_borrow_usdx : '···'}</span>
                                 </div>
                             }
                             {
@@ -123,7 +123,7 @@ class Home extends Component {
                                 this.props.data.i_have_supply_usdx &&
                                 <div className={'borrow-apr'}>
                                     <span className='apr apr-supply-color'>Supplying Balance</span>
-                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_usdx ? format_str_to_kmb(this.props.data.my_supply_usdx) : '···'}</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_usdx ? this.props.data.my_supply_usdx : '···'}</span>
                                 </div>
                             }
                             {
@@ -218,7 +218,7 @@ class Home extends Component {
                                 this.props.data.i_have_borrow_usdt &&
                                 <div className={'supply-apr'}>
                                     <span className='apr apr-borrow-color'>Borrowing Balance</span>
-                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdt ? format_str_to_kmb(this.props.data.my_borrow_usdt) : '···'}</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_usdt ? this.props.data.my_borrow_usdt : '···'}</span>
                                 </div>
                             }
                             {
@@ -233,7 +233,7 @@ class Home extends Component {
                                 this.props.data.i_have_supply_usdt &&
                                 <div className={'borrow-apr'}>
                                     <span className='apr apr-supply-color'>Supplying Balance</span>
-                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_usdt ? format_str_to_kmb(this.props.data.my_supply_usdt) : '···'}</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_usdt ? this.props.data.my_supply_usdt : '···'}</span>
                                 </div>
                             }
                             {
@@ -328,7 +328,7 @@ class Home extends Component {
                                 this.props.data.i_have_borrow_weth &&
                                 <div className={'supply-apr'}>
                                     <span className='apr apr-borrow-color'>Borrowing Balance</span>
-                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_weth ? format_str_to_kmb(this.props.data.my_borrow_weth) : '···'}</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_weth ? this.props.data.my_borrow_weth : '···'}</span>
                                 </div>
                             }
                             {
@@ -343,7 +343,7 @@ class Home extends Component {
                                 this.props.data.i_have_supply_weth &&
                                 <div className={'borrow-apr'}>
                                     <span className='apr apr-supply-color'>Supplying Balance</span>
-                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_weth ? format_str_to_kmb(this.props.data.my_supply_weth) : '···'}</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_weth ? this.props.data.my_supply_weth : '···'}</span>
                                 </div>
                             }
                             {
@@ -437,7 +437,7 @@ class Home extends Component {
                                 this.props.data.i_have_borrow_imbtc &&
                                 <div className={'supply-apr'}>
                                     <span className='apr apr-borrow-color'>Borrowing Balance</span>
-                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_imbtc ? format_str_to_kmb(this.props.data.my_borrow_imbtc) : '···'}</span>
+                                    <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_imbtc ? this.props.data.my_borrow_imbtc : '···'}</span>
                                 </div>
                             }
                             {
@@ -453,7 +453,7 @@ class Home extends Component {
                                 this.props.data.i_have_supply_imbtc &&
                                 <div className={'borrow-apr'}>
                                     <span className='apr apr-supply-color'>Supplying Balance</span>
-                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_imbtc ? format_str_to_kmb(this.props.data.my_supply_imbtc) : '···'}</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_imbtc ? this.props.data.my_supply_imbtc : '···'}</span>
                                 </div>
                             }
                             {
