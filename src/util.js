@@ -775,7 +775,47 @@ export const i_got_hash = (account, net_type, token, action, amount, hash, times
 
 
 
+export const format_str_to_kmb = (str_num) => {
+  var t_num = Number(str_num);
+  var out_a, out_b;
 
+
+  if (t_num >= 1E9) {
+    out_a = Math.floor(t_num / 1E9);
+    if ((t_num % 1E9 / 1E9).toString().indexOf('.') > 0) {
+      var t_index = (t_num % 1E9 / 1E9).toString().indexOf('.') + 1;
+      out_b = (t_num % 1E9 / 1E9).toString().substr(t_index, 2);
+    } else {
+      out_b = '00';
+    }
+    return out_a + '.' + out_b + 'G';
+  }
+
+
+  if (t_num >= 1E6) {
+    out_a = Math.floor(t_num / 1E6);
+    if ((t_num % 1E6 / 1E6).toString().indexOf('.') > 0) {
+      var t_index = (t_num % 1E6 / 1E6).toString().indexOf('.') + 1;
+      out_b = (t_num % 1E6 / 1E6).toString().substr(t_index, 2);
+    } else {
+      out_b = '00';
+    }
+    return out_a + '.' + out_b + 'M';
+  }
+
+
+  if (t_num >= 1E3) {
+    out_a = Math.floor(t_num / 1E3);
+    if ((t_num % 1E3 / 1E3).toString().indexOf('.') > 0) {
+      var t_index = (t_num % 1E3 / 1E3).toString().indexOf('.') + 1;
+      out_b = (t_num % 1E3 / 1E3).toString().substr(t_index, 2);
+    } else {
+      out_b = '00';
+    }
+    return out_a + '.' + out_b + 'K';
+  }
+
+}
 
 
 
