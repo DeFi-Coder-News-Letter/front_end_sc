@@ -341,7 +341,7 @@ class Home extends Component {
                                 this.props.data.i_have_supply_weth &&
                                 <div className={'borrow-apr'}>
                                     <span className='apr apr-supply-color'>Supplying Balance</span>
-                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_weth ? this.props.data.my_supply_weth + '%' : '···'}</span>
+                                    <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_weth ? this.props.data.my_supply_weth : '···'}</span>
                                 </div>
                             }
                             {
