@@ -815,6 +815,8 @@ export const format_str_to_kmb = (str_num) => {
     return out_a + '.' + out_b + 'K';
   }
 
+  return str_num;
+
 }
 
 

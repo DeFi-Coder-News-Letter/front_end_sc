@@ -127,6 +127,35 @@ class Supply_usdx extends Component {
           {(match) =>
             // <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
             <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
+
+
+              <div className='top-status'>
+                <div className='top-status-box'>
+                  <div className='top-box-left'>
+                    <img className='logo2' src={'images/lendf_logo2.svg'} />
+                  </div>
+                  <div className='top-box-right'>
+                    <div className='token-price'>
+                      ETH/USD 238.00
+                    </div>
+                    <div className='netstatus'>
+                      <div className='netstatus-top'>
+                        <span className={'net-span rinkeby-span'}></span>
+                        {'t_net'}
+                      </div>
+                      <div className='netstatus-bm'>
+                        <span className='account-span'>
+                          {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '-'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='clear'></div>
+                </div>
+              </div>
+
+
+
               <div className='redirect-button'>
                 <div className='go-back-button'>
                   <Link to={'/'}>
@@ -302,6 +331,7 @@ class Supply_usdx extends Component {
                         token={this.token_name}
                         load_new_history={this.state.load_new_history}
                         new_web3={this.new_web3}
+                        mMarket={this.state.mMarket}
                       />
                     }
                   </div>

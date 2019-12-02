@@ -97,9 +97,7 @@ class RecordBoard extends Component {
     };
 
 
-    componentWillUnmount() {
-        // clearInterval(this.timerID);
-    }
+    componentWillUnmount() { }
 
 
     componentWillReceiveProps = (nextProps) => {
@@ -127,7 +125,7 @@ class RecordBoard extends Component {
                         this.state.RecentTransactions ?
                             this.state.RecentTransactions.map((item, i) => {
 
-                                if (item.token !== this.props.token) {
+                                if (item.token !== this.props.token && this.props.token !== 'WETH') {
                                     return false;
                                 }
 
