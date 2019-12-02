@@ -139,7 +139,11 @@ class Home extends Component {
                                     </div>
 
                                     <div className={'button-wrap-home-borrow'}>
-                                        <Link to={{ pathname: './borrow-usdx' }}>
+                                        <Link to={{
+                                            pathname:
+                                                this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                    './borrow-usdx' : ''
+                                        }}>
                                             <Button
                                                 size='large'
                                                 className={
@@ -224,7 +228,11 @@ class Home extends Component {
                                     </div>
 
                                     <div className={'button-wrap-home-borrow'}>
-                                        <Link to={{ pathname: './borrow-usdt' }}>
+                                        <Link to={{
+                                            pathname:
+                                                this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                    './borrow-usdt' : ''
+                                        }}>
                                             <Button
                                                 size='large'
                                                 className={
@@ -309,7 +317,11 @@ class Home extends Component {
                                     </div>
 
                                     <div className={'button-wrap-home-borrow'}>
-                                        <Link to={{ pathname: './borrow-weth' }}>
+                                        <Link to={{
+                                            pathname:
+                                                this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                    './borrow-weth' : ''
+                                        }}>
                                             <Button
                                                 size='large'
                                                 className={
@@ -393,7 +405,11 @@ class Home extends Component {
                                     </div>
 
                                     <div className={'button-wrap-home-borrow'}>
-                                        <Link to={{ pathname: './borrow-imbtc' }}>
+                                        <Link to={{
+                                            pathname:
+                                                this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
+                                                    './borrow-imbtc' : ''
+                                        }}>
                                             <Button
                                                 size='large'
                                                 className={
