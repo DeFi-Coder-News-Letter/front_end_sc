@@ -30,6 +30,8 @@ import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
 import My_status from '../../component/header/my-status';
+import Top_status from '../../component/header/top-status';
+
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -127,7 +129,8 @@ class Borrow_usdt extends Component {
         <MediaQuery maxWidth={768}>
           {(match) =>
             <div className={'borrow-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
-              {/* <WithMarketInfoEnhanced networkName={findNetwork(this.state.NetworkName)} account={window.web3.eth.accounts[0]} login={window.web3.eth.accounts[0]} /> */}
+
+              <Top_status token_name={this.token_name} data={this.props.data} />
 
               <div className='redirect-button'>
                 <div className='go-back-button'>

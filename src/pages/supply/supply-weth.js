@@ -32,6 +32,8 @@ import {
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
+import Top_status from '../../component/header/top-status';
+
 
 // tokens ABIs
 let USDx_abi = require('../../ABIs/USDX_ABI.json');
@@ -126,6 +128,9 @@ class Supply_weth extends Component {
         <MediaQuery maxWidth={768}>
           {(match) =>
             <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
+
+              <Top_status token_name={this.token_name} data={this.props.data} />
+
               <div className='redirect-button'>
                 <div className='go-back-button'>
                   <Link to={'/'}>

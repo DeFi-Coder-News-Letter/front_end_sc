@@ -26,6 +26,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import My_status from '../../component/header/my-status';
+import Top_status from '../../component/header/top-status';
 
 import Web3 from 'web3';
 // tokens ABIs
@@ -128,33 +129,7 @@ class Supply_usdx extends Component {
             // <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
             <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
 
-
-              <div className='top-status'>
-                <div className='top-status-box'>
-                  <div className='top-box-left'>
-                    <img className='logo2' src={'images/lendf_logo2.svg'} />
-                  </div>
-                  <div className='top-box-right'>
-                    <div className='token-price'>
-                      ETH/USD 238.00
-                    </div>
-                    <div className='netstatus'>
-                      <div className='netstatus-top'>
-                        <span className={'net-span rinkeby-span'}></span>
-                        {'t_net'}
-                      </div>
-                      <div className='netstatus-bm'>
-                        <span className='account-span'>
-                          {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '-'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='clear'></div>
-                </div>
-              </div>
-
-
+              <Top_status token_name={this.token_name} data={this.props.data} />
 
               <div className='redirect-button'>
                 <div className='go-back-button'>

@@ -129,7 +129,10 @@ class App extends Component {
             // console.log(res_imbtc_markets);
             var imbtc_t_supply = this.bn(res_imbtc_markets.totalSupply).mul(this.bn(res_imbtc_price)).div(this.bn(res_usdx_price));
 
+            var t_price = this.bn(res_imbtc_price).div(this.bn(res_usdx_price));
+
             this.setState({
+              imbtc_price: format_bn(t_price, 10, 2),
               imbtc_total_supply: format_bn(imbtc_t_supply.toString(), 18, this.decimal_precision),
               imbtc_supply_APR: format_bn(this.bn(res_imbtc_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               imbtc_borrow_APR: format_bn(this.bn(res_imbtc_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
@@ -166,7 +169,10 @@ class App extends Component {
             // console.log('res_usdt_markets: ', res_usdt_markets);
             var usdt_t_supply = this.bn(res_usdt_markets.totalSupply).mul(this.bn(res_usdt_price)).div(this.bn(res_usdx_price));
 
+            var t_price = this.bn(res_usdt_price).div(this.bn(res_usdx_price));
+
             this.setState({
+              usdt_price: format_bn(t_price, 12, 2),
               usdt_total_supply: format_bn(usdt_t_supply.toString(), 18, this.decimal_precision),
               usdt_supply_APR: format_bn(this.bn(res_usdt_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               usdt_borrow_APR: format_bn(this.bn(res_usdt_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
@@ -236,7 +242,10 @@ class App extends Component {
             // console.log(res_weth_markets);
             var weth_t_supply = this.bn(res_weth_markets.totalSupply).mul(this.bn(res_weth_price)).div(this.bn(res_usdx_price));
 
+            var t_price = this.bn(res_weth_price).div(this.bn(res_usdx_price));
+
             this.setState({
+              weth_price: format_bn(t_price, 0, 2),
               weth_total_supply: format_bn(weth_t_supply.toString(), 18, this.decimal_precision),
               weth_supply_APR: format_bn(this.bn(res_weth_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               weth_borrow_APR: format_bn(this.bn(res_weth_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
