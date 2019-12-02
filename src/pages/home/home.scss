@@ -201,6 +201,17 @@ $button-color-borrow: #675CFF;
                 font-size: $apr-num;
                 font-weight: 500;
                 color: rgba(67, 73, 118, 1);
+            }
+
+            .apr-num-left {
+                text-align: left;
+            }
+
+            .apr-num-center {
+                text-align: center;
+            }
+
+            .apr-num-right {
                 text-align: right;
             }
         }
