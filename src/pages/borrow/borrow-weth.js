@@ -206,7 +206,7 @@ class Borrow_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      wrap
+                                      {'WRAP'}
                                       </Button>
                                   </div>
                                 </div>
@@ -233,7 +233,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      unwrap
+                                      {'UNWRAP'}
                                     </Button>
                                   </div>
                                 </div>
@@ -331,7 +331,7 @@ class Borrow_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      wrap
+                                      {'WRAP'}
                                       </Button>
                                   </div>
                                 </div>
@@ -358,7 +358,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      unwrap
+                                      {'UNWRAP'}
                                     </Button>
                                   </div>
                                 </div>
