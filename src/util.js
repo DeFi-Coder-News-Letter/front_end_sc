@@ -91,7 +91,7 @@ export const get_supplied__available_to_withdraw = (mContract, tokenContract, ac
 export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
   console.log('*********');
   mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
-    // console.log(res_liquidity);
+    console.log('res_liquidity: ', res_liquidity);
 
     if (!(that.bn(res_liquidity).gt('0'))) {
       that.setState({ available_to_borrow: 0 });
@@ -741,9 +741,9 @@ export const format_bn = (numStr, decimals, decimalPlace = decimals) => {
     numStr.slice(0, numStr.length - decimals) + '.' + numStr.slice(numStr.length - decimals) :
     '0.' + str.slice(0, str.length - numStr.length) + numStr).replace(/(0+)$/g, "");
 
-  res = res.slice(-1) == '.' ? res + '00' : res;
+  res = res.slice(-1) === '.' ? res + '00' : res;
 
-  if (decimalPlace == 0)
+  if (decimalPlace === 0)
     return res.slice(0, res.indexOf('.'));
 
   var length = res.indexOf('.') + 1 + decimalPlace;
@@ -777,13 +777,13 @@ export const i_got_hash = (account, net_type, token, action, amount, hash, times
 
 export const format_str_to_kmb = (str_num) => {
   var t_num = Number(str_num);
-  var out_a, out_b;
+  var out_a, out_b, t_index;
 
 
   if (t_num >= 1E9) {
     out_a = Math.floor(t_num / 1E9);
     if ((t_num % 1E9 / 1E9).toString().indexOf('.') > 0) {
-      var t_index = (t_num % 1E9 / 1E9).toString().indexOf('.') + 1;
+      t_index = (t_num % 1E9 / 1E9).toString().indexOf('.') + 1;
       out_b = (t_num % 1E9 / 1E9).toString().substr(t_index, 2);
     } else {
       out_b = '00';
@@ -795,7 +795,7 @@ export const format_str_to_kmb = (str_num) => {
   if (t_num >= 1E6) {
     out_a = Math.floor(t_num / 1E6);
     if ((t_num % 1E6 / 1E6).toString().indexOf('.') > 0) {
-      var t_index = (t_num % 1E6 / 1E6).toString().indexOf('.') + 1;
+      t_index = (t_num % 1E6 / 1E6).toString().indexOf('.') + 1;
       out_b = (t_num % 1E6 / 1E6).toString().substr(t_index, 2);
     } else {
       out_b = '00';
@@ -807,7 +807,7 @@ export const format_str_to_kmb = (str_num) => {
   if (t_num >= 1E3) {
     out_a = Math.floor(t_num / 1E3);
     if ((t_num % 1E3 / 1E3).toString().indexOf('.') > 0) {
-      var t_index = (t_num % 1E3 / 1E3).toString().indexOf('.') + 1;
+      t_index = (t_num % 1E3 / 1E3).toString().indexOf('.') + 1;
       out_b = (t_num % 1E3 / 1E3).toString().substr(t_index, 2);
     } else {
       out_b = '00';
@@ -884,3 +884,16 @@ export const findNetwork = (networkId) => {
 //     return res_accounts;
 //   })
 // }
+
+// ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 *****  ***** 分割线 ***** ***** 分割线 ***** 
+
+
+export const format_num_to_K = (str_num) => {
+  var part_a = str_num.split('.')[0];
+  var part_b = str_num.split('.')[1];
+
+  var reg = /\d{1,3}(?=(\d{3})+$)/g;
+  part_a = (part_a + '').replace(reg, '$&,');
+
+  return part_a + '.' + part_b;
+}

@@ -14,12 +14,6 @@ class Top_status extends Component {
     }
 
 
-    componentDidMount_temp = () => { }
-
-
-    componentWillUnmount() { }
-
-
     render = () => {
         return (
             <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
@@ -29,6 +23,14 @@ class Top_status extends Component {
                             <img className='logo2' src={'images/lendf_logo2.svg'} />
                         </div>
                         <div className='top-box-right'>
+
+                            {
+                                this.props.token_name === 'USDx' &&
+                                <div className='token-price'>
+                                    <span className='token-price-t'>USDx/USD</span>
+                                    <span>{'1.00'}</span>
+                                </div>
+                            }
 
                             {
                                 this.props.token_name === 'USDT' &&

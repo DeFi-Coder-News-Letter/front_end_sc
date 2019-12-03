@@ -72,49 +72,6 @@ $button-color-borrow: #675CFF;
     margin: 0 auto;
     // display: flex;
 
-    .header-new {
-        width: 820px;
-        background: rgba(255, 255, 255, 1);
-        box-shadow: 0px 0px 35px 0px rgba(67, 73, 118, 0.15);
-        border-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        padding: 20px 0;
-        margin-bottom: 20px;
-
-
-        .header-new-item {
-            border-right: 1px solid rgba(221, 221, 232, 0.5);
-            width: 33.3%;
-            padding: 0 20px;
-
-            .item-title {
-                display: block;
-                font-size: 16px;
-                font-weight: 500;
-                color: rgba(164, 167, 190, 1);
-            }
-
-            .item-num {
-                font-size: $token-num;
-                font-weight: bold;
-                color: rgba(112, 78, 244, 1);
-            }
-
-            .item-num-borrow {
-                color: #B542F7;
-            }
-
-            .item-num-ratio {
-                color: #00A577;
-            }
-        }
-
-        .collate-rate {
-            border-right: none;
-        }
-    }
-
     .card-margin-right {
         margin-right: 20px;
     }

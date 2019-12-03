@@ -15,7 +15,8 @@ import {
   get_supplied__available_to_withdraw,
   handle_approve,
   handle_supply_click,
-  handle_withdraw_click
+  handle_withdraw_click,
+  format_num_to_K
 } from '../../util.js';
 
 import MediaQuery from 'react-responsive';
@@ -160,7 +161,7 @@ class Supply_usdx extends Component {
                           <FormattedMessage id='supplied' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_supplied ? format_bn(this.state.my_supplied, this.state.USDx_decimals, this.decimal_precision) : '-'}
+                          {this.state.my_supplied ? format_num_to_K(format_bn(this.state.my_supplied, this.state.USDx_decimals, this.decimal_precision)) : '-'}
                         </span>
                       </div>
 
@@ -177,7 +178,7 @@ class Supply_usdx extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_bn(this.state.my_balance, this.state.USDx_decimals, this.decimal_precision) : '-'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.USDx_decimals, this.decimal_precision)) : '-'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
@@ -240,7 +241,7 @@ class Supply_usdx extends Component {
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_withdraw ? format_bn(this.state.available_to_withdraw, this.state.USDx_decimals, this.decimal_precision) : '-'}
+                                  {this.state.available_to_withdraw ? format_num_to_K(format_bn(this.state.available_to_withdraw, this.state.USDx_decimals, this.decimal_precision)) : '-'}
                                 </span>
                               </div>
 

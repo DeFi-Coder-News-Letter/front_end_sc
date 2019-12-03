@@ -6,6 +6,8 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
+import { format_num_to_K } from '../../util.js';
+
 class My_status extends Component {
     constructor(props) {
         super(props)
@@ -21,14 +23,14 @@ class My_status extends Component {
                     <div className='header-new-item supply-balance'>
                         <span className='item-title'>Supply Balance</span>
                         <span className='item-num'>
-                            {this.props.data.my_supply ? '$' + this.props.data.my_supply : '···'}
+                            {this.props.data.my_supply ? '$' + format_num_to_K(this.props.data.my_supply) : '···'}
                         </span>
                     </div>
 
                     <div className='header-new-item borrow-balance'>
                         <span className='item-title'>Borrow Balance</span>
                         <span className='item-num item-num-borrow'>
-                            {this.props.data.my_borrow ? '$' + this.props.data.my_borrow : '···'}
+                            {this.props.data.my_borrow ? '$' + format_num_to_K(this.props.data.my_borrow) : '···'}
                         </span>
                     </div>
 

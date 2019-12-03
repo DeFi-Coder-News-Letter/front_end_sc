@@ -16,7 +16,8 @@ import {
   handle_borrow_click,
   handle_repay_click,
   handle_repay_change,
-  handle_repay_max
+  handle_repay_max,
+  format_num_to_K
 } from '../../util.js';
 
 import {
@@ -166,7 +167,7 @@ class Borrow_weth extends Component {
                           <FormattedMessage id='borrowed' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_borrowed ? format_bn(this.state.my_borrowed, this.state.WETH_decimals, 2) : '-'}
+                          {this.state.my_borrowed ? format_num_to_K(format_bn(this.state.my_borrowed, this.state.WETH_decimals, 2)) : '-'}
                         </span>
                       </div>
 
@@ -182,7 +183,7 @@ class Borrow_weth extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_ETH ? format_bn(this.state.my_ETH, 18, 2) : '-'}
+                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '-'}
                                 </span>
                               </div>
                               <div className='input-wrap-unit-wrapper'>
@@ -239,7 +240,7 @@ class Borrow_weth extends Component {
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_borrow ? format_bn(this.state.available_to_borrow, 18, 2) : '-'}
+                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, 18, 2)) : '-'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
@@ -303,7 +304,7 @@ class Borrow_weth extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_bn(this.state.my_balance, this.state.WETH_decimals, 2) : '-'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.WETH_decimals, 2)) : '-'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
