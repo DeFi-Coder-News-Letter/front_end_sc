@@ -204,7 +204,7 @@ class Borrow_imbtc extends Component {
                                     disabled={false}
                                     onClick={() => { handle_borrow_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                   >
-                                    {'borrow'}
+                                    <FormattedMessage id='BORROW' />
                                   </Button>
                                 </div>
                               </div>
@@ -223,7 +223,7 @@ class Borrow_imbtc extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>
@@ -271,7 +271,7 @@ class Borrow_imbtc extends Component {
                                     disabled={false}
                                     onClick={() => { handle_repay_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
                                   >
-                                    {'repay'}
+                                    <FormattedMessage id='REPAY' />
                                   </Button>
                                 </div>
                               </div>
@@ -290,7 +290,7 @@ class Borrow_imbtc extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>

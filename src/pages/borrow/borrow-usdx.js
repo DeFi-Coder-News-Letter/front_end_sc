@@ -206,7 +206,7 @@ class Borrow_usdx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_borrow_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    {'borrow'}
+                                    <FormattedMessage id='BORROW' />
                                   </Button>
                                 </div>
                               </div>
@@ -225,7 +225,7 @@ class Borrow_usdx extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>
@@ -273,7 +273,7 @@ class Borrow_usdx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_repay_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    {'repay'}
+                                    <FormattedMessage id='REPAY' />
                                   </Button>
                                 </div>
                               </div>
@@ -292,7 +292,7 @@ class Borrow_usdx extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>

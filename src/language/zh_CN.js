@@ -1,9 +1,27 @@
 const zh_CN = {
     available_withdraw: "可取数量",
     available_borrow: "可借数量",
+
     balance: "余额",
     borrowed: "已借数量",
+    borrow_APR: "借款利率",
+    borrow_balance: "借款总额",
+    borrowing_balance: "你的借款总额",
+    collateralization_ratio: "抵押率",
+
+    market_size: "市场存款总额",
+
     supplied: "已存数量",
+    supply_APR: "存款利率",
+    supply_balance: "存款总额",
+    supplying_balance: "你的存款总额",
+    utilization_Rate: "借存比率",
+
+    SUPPLY: "存款",
+    WITHDRAW: "取出",
+    BORROW: "借款",
+    REPAY: "偿还",
+    ENABLE: "授权",
 
     before_supplying_usdx: "授权首次USDx存款",
     before_borrowing_usdx: "授权首次USDx借款",
@@ -24,8 +42,6 @@ const zh_CN = {
     USDx_Supplied: "USDx已存数量",
     USDx_Supplied_home: "USDx存款总额",
     USDx_Borrowed: "USDx借款总额",
-    Utilization_Rate: "USDx借存比率",
-    Collateralization_ratio: "抵押率",
     USDx_Supply_APR: "USDx存款利率",
     USDx_Borrow_APR: "USDx借款利率",
     Supply_USDx: "存USDx",
@@ -36,7 +52,6 @@ const zh_CN = {
     Supplied_Balance: "存款总额",
     Borrowed_Balance: "借款总额",
     Available_to_Borrow: "可借款上限",
-    Borrow_APR: "借款利率",
     Supply: "存款",
     WETH_Supplied: "WETH已存数量",
     ETH_Balance: "ETH余额",
@@ -49,8 +64,6 @@ const zh_CN = {
     USDx_Market: "USDx市场",
     Total_Supplied: "存款总额",
     Total_Borrowed: "借款总额",
-    Supply_APR: "存款利率",
-    Before_supplying: "授权首次USDx存款",
     Already_borrowed: "存款前需还清所有USDx借款",
     INSUFFICIENT_LIQUIDITY: "市场流动性不足",
     INSUFFICIENT_BALANCE: "余额不足",
@@ -64,9 +77,6 @@ const zh_CN = {
     Repay: "偿还",
     USDx_Balance: "USDx余额",
     Home: "首页",
-    SUPPLY: "存款",
-    BORROW: "借款",
-    REPAY: "偿还",
     Balance: "余额"
 }
 export default zh_CN;

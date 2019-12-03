@@ -264,7 +264,7 @@ class Supply_weth extends Component {
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    {'supply'}
+                                    <FormattedMessage id='SUPPLY' />
                                   </Button>
                                 </div>
                               </div>
@@ -283,7 +283,7 @@ class Supply_weth extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.WETH, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>
@@ -393,7 +393,7 @@ class Supply_weth extends Component {
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    {'withdraw'}
+                                    <FormattedMessage id='WITHDRAW' />
                                   </Button>
                                 </div>
                               </div>
@@ -412,7 +412,7 @@ class Supply_weth extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.WETH, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>

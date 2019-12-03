@@ -202,8 +202,7 @@ class Supply_usdx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    {'SUPPLY'}
-                                    {/* <FormattedMessage id='USDx_Balance' /> */}
+                                    <FormattedMessage id='SUPPLY' />
                                   </Button>
                                 </div>
                               </div>
@@ -222,7 +221,7 @@ class Supply_usdx extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>
@@ -267,7 +266,7 @@ class Supply_usdx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    {'WITHDRAW'}
+                                    <FormattedMessage id='WITHDRAW' />
                                   </Button>
                                 </div>
                               </div>
@@ -286,7 +285,7 @@ class Supply_usdx extends Component {
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
-                                  {'ENABLE'}
+                                  <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
                             </div>

@@ -1,9 +1,27 @@
 const en_US = {
     available_withdraw: " Available",
-    available_borrow: " Available",
+    available_borrow: " Available to Borrow",
+
     balance: " Balance",
     borrowed: " Borrowed",
+    borrow_APR: "Borrow APR",
+    borrow_balance: "Borrow Balance",
+    borrowing_balance: "Borrowing Balance",
+    collateralization_ratio: "Collateralization ratio",
+
+    market_size: "Market Size",
+
     supplied: " Supplied",
+    supply_APR: "Supply APR",
+    supply_balance: "Supply Balance",
+    supplying_balance: "Supplying Balance",
+    utilization_Rate: "Utilization Rate",
+
+    SUPPLY: "SUPPLY",
+    WITHDRAW: "WITHDRAW",
+    BORROW: "BORROW",
+    REPAY: "REPAY",
+    ENABLE: "ENABLE",
 
     before_supplying_usdx: "Before supplying USDx for the first time, you must enable USDx.",
     before_borrowing_usdx: "Before borrowing USDx for the first time, you must enable USDx.",
@@ -24,8 +42,6 @@ const en_US = {
     USDx_Supplied: "USDx Supplied",
     USDx_Supplied_home: "USDx Supplied",
     USDx_Borrowed: "USDx Borrowed",
-    Utilization_Rate: "Utilization Rate",
-    Collateralization_ratio: "Collateralization ratio",
     USDx_Supply_APR: "USDx Supply APR",
     USDx_Borrow_APR: "USDx Borrow APR",
     Supply_USDx: "Supply USDx",
@@ -36,7 +52,6 @@ const en_US = {
     Supplied_Balance: "Supplied Balance",
     Borrowed_Balance: "Borrowed Balance",
     Available_to_Borrow: "Available to Borrow",
-    Borrow_APR: "Borrow APR",
     Supply: "Supply",
     WETH_Supplied: "WETH Supplied",
     ETH_Balance: "ETH Balance",
@@ -49,8 +64,6 @@ const en_US = {
     USDx_Market: "USDx Market",
     Total_Supplied: "Total Supplied",
     Total_Borrowed: "Total Borrowed",
-    Supply_APR: "Supply APR",
-    Before_supplying: "Before supplying USDx for the first time, you must enable USDx.",
     Already_borrowed: "Already borrowed USDx, please repay all of them in Borrow Page before supplying any.",
     INSUFFICIENT_LIQUIDITY: "INSUFFICIENT LIQUIDITY",
     INSUFFICIENT_BALANCE: "INSUFFICIENT BALANCE",
@@ -64,9 +77,6 @@ const en_US = {
     Repay: "Repay",
     USDx_Balance: "USDx Balance",
     Home: "Home",
-    SUPPLY: "SUPPLY",
-    BORROW: "BORROW",
-    REPAY: "REPAY",
     Balance: " Balance"
 }
 export default en_US;
