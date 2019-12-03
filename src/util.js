@@ -550,7 +550,7 @@ export const handle_repay_change = (value, that, decimals, balance) => {
 
   that.setState({ repay_amount: value });
 
-  if ((Number(value)) === 0) {
+  if ((Number(value)) === 0 || Number(that.state.my_borrowed) === 0) {
     that.setState({ is_repay_enable: false });
     return;
   } else {
