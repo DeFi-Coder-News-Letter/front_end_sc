@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Record from "../../component/record/record";
 import Asset from "../../constant.json";
-import { getTransactionHistoryKey, formatTransactionTime, format_bn } from "../../util.js";
+import { format_bn, format_num_to_K } from "../../util.js";
 
 import { Popover } from 'antd';
 import moment from 'moment';
@@ -164,7 +164,7 @@ class RecordBoard extends Component {
                                                     {
                                                         item.action === 'approve' ?
                                                             null :
-                                                            format_bn(item.amount, this.props.decimal, this.decimal_precision) + ' '
+                                                            format_num_to_K(format_bn(item.amount, this.props.decimal, this.decimal_precision)) + ' '
                                                     }
                                                     {item.token}
                                                 </span>

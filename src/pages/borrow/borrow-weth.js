@@ -17,7 +17,8 @@ import {
   handle_repay_click,
   handle_repay_change,
   handle_repay_max,
-  format_num_to_K
+  format_num_to_K,
+  handle_borrow_max
 } from '../../util.js';
 
 import {
@@ -26,7 +27,8 @@ import {
   handle_wrap_change,
   handle_wrap_click,
   handle_unwrap_change,
-  handle_unwrap_click
+  handle_unwrap_click,
+  handle_unwrap_max
 } from '../../util-weth';
 
 // add i18n.
@@ -220,7 +222,9 @@ class Borrow_weth extends Component {
                                       onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
                                       className='input-number'
                                     />
-                                    {/* <span className={this.state.unwrapMaxClassName} onClick={this.state.unwrapInputDisabled ? '' : this.handleunwrapMax}>MAX</span> */}
+                                    <span className={'max-amount-button special-clolr'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                      {'MAX'}
+                                    </span>
                                   </div>
                                   <div className='button-wrapper-borrow'>
                                     <Button
@@ -254,7 +258,9 @@ class Borrow_weth extends Component {
                                     className='input-number'
                                     disabled={false}
                                   />
-                                  {/* <span className={this.state.maxClassName} onClick={this.state.supplyInputDisabled ? '' : this.handleSupplyMax}>MAX</span> */}
+                                  <span className={'max-amount-button special-clolr'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow, this.state.WETH_decimals) }}>
+                                    {'SAFE MAX'}
+                                  </span>
                                 </div>
                                 <div className={'button-wrapper-borrow'}>
                                   <Button
@@ -298,6 +304,65 @@ class Borrow_weth extends Component {
                           {
                             (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
+                              <div className='balance-info'>
+                                <span className='balance-desc'>
+                                  {'ETH'}
+                                  <FormattedMessage id='balance' />
+                                </span>
+                                <span className='balance-amount'>
+                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '-'}
+                                </span>
+                              </div>
+                              <div className='input-wrap-unit-wrapper'>
+                                <div className='wrap-input-wrapper'>
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={'Ether to Wrap'}
+                                      min={0}
+                                      value={this.state.wrap_amount}
+                                      onChange={(e) => handle_wrap_change(this, e.target.value, this.state.my_ETH)}
+                                      className='input-number'
+                                    />
+                                  </div>
+                                  <div className='button-wrapper-borrow'>
+                                    <Button
+                                      size='large'
+                                      className={this.state.is_wrap_enable ? null : 'disable-button'}
+                                      onClick={() => handle_wrap_click(this)}
+                                    >
+                                      wrap
+                                      </Button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className='input-unwrap-unit-wrapper'>
+                                <div className='wrap-input-wrapper'>
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={'WETH to Unwrap'}
+                                      min={0}
+                                      value={this.state.unwrap_amount}
+                                      onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
+                                      className='input-number'
+                                    />
+                                    <span className={'max-amount-button special-clolr'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                  <div className='button-wrapper-borrow'>
+                                    <Button
+                                      size='large'
+                                      className={this.state.is_unwrap_enable ? null : 'disable-button'}
+                                      disabled={false}
+                                      onClick={() => handle_unwrap_click(this)}
+                                    >
+                                      unwrap
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
                                   {this.token_name}

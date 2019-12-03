@@ -130,7 +130,7 @@ export const handle_wrap_click = (that) => {
   console.log('amount_bn: ', amount_bn);
   console.log('amount_bn string: ', amount_bn.toString());
 
-  that.state.WETH.methods.deposit().estimateGas({ from: that.state.my_account,value: amount_bn.toString() }, (err, gasLimit) => {
+  that.state.WETH.methods.deposit().estimateGas({ from: that.state.my_account, value: amount_bn.toString() }, (err, gasLimit) => {
     that.new_web3.eth.getGasPrice((err, gasPrice) => {
       console.log('supply_gasLimit: ', gasLimit);
       console.log('supply_gasPrice: ', gasPrice);
@@ -188,6 +188,8 @@ export const handle_unwrap_change = (that, value, balance) => {
     return;
   }
 
+  that.setState({ i_will_unwrap_max: false });
+
   if (value === null || value === '') {
     console.log("value === null || value === ''")
     that.setState({
@@ -236,6 +238,7 @@ export const handle_unwrap_change = (that, value, balance) => {
   }
 }
 
+
 export const handle_unwrap_click = (that) => {
   if (!(that.state.is_unwrap_enable && that.state.unwrap_amount)) {
     console.log('i return you...');
@@ -253,6 +256,10 @@ export const handle_unwrap_click = (that) => {
     amount_bn = that.bn(amount_str).mul(that.bn(10 ** (18 - sub_num)));// bn_'123456'
   } else {
     amount_bn = that.bn(amount_str).mul(that.bn(10 ** 18));
+  }
+
+  if (that.state.i_will_unwrap_max) {
+    amount_bn = that.bn(that.state.my_balance)
   }
 
   console.log('amount_bn: ', amount_bn);
@@ -288,4 +295,23 @@ export const handle_unwrap_click = (that) => {
 }
 
 
+export const handle_unwrap_max = (that, balance, decimals) => {
+  var to_show;
+  if (balance.length <= decimals) {
+    to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
+  } else {
+    to_show = (that.bn(balance).div(that.bn(10 ** decimals)) + '.' + balance.substr(-decimals)).substring(0, 18);
+  }
+
+  that.setState({
+    unwrap_amount: to_show,
+    i_will_unwrap_max: true
+  });
+
+  if (that.bn(balance).toString() === that.bn('0').toString()) {
+    that.setState({ is_unwrap_enable: false });
+  } else {
+    that.setState({ is_unwrap_enable: true });
+  }
+}
 

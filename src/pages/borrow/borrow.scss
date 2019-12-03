@@ -494,6 +494,7 @@ $button-color: #675CFF;
     color: #675CFF;
   }
 
+
   .max-amount-button-borrow-disable {
     position: absolute;
     right: 10px;
@@ -517,4 +518,8 @@ $button-color: #675CFF;
   .ant-input-number-input {
     font-size: 12px !important;
   }
+}
+
+.special-clolr {
+  color: #675CFF !important;
 }

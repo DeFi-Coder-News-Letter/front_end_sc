@@ -638,6 +638,18 @@ $button-borrow-color: #675CFF;
     .input-wrapper {
         position: relative;
         width: 290px;
+
+        .max-amount-button {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            font-weight: 500;
+            font-size: 12px;
+            color: $button-color;
+        }
     }
 
     .button-wrapper {
@@ -761,4 +773,8 @@ $button-borrow-color: #675CFF;
         border-color: #e9e7f0 !important;
         color: #92909a !important;
     }
+}
+
+.special-clolr {
+    color: #675CFF !important;
 }
