@@ -162,7 +162,7 @@ class Borrow_imbtc extends Component {
                           <FormattedMessage id='borrowed' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_borrowed ? format_num_to_K(format_bn(this.state.my_borrowed, this.state.imBTC_decimals, this.decimal_precision)) : '-'}
+                          {this.state.my_borrowed ? format_num_to_K(format_bn(this.state.my_borrowed, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
                         </span>
                       </div>
 
@@ -178,7 +178,7 @@ class Borrow_imbtc extends Component {
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, this.state.imBTC_decimals, this.decimal_precision)) : '-'}
+                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
@@ -245,7 +245,7 @@ class Borrow_imbtc extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision)) : '-'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
 

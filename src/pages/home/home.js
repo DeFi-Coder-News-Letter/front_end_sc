@@ -55,7 +55,7 @@ class Home extends Component {
                         </div>
                         <div className='netstatus-bm'>
                             <span className='account-span'>
-                                {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '-'}
+                                {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
                             </span>
                         </div>
                     </div>

@@ -163,7 +163,7 @@ class Supply_weth extends Component {
                           <FormattedMessage id='supplied' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_WETH_supplied ? format_num_to_K(format_bn(this.state.my_WETH_supplied, this.state.WETH_decimals, 2)) : '-'}
+                          {this.state.my_WETH_supplied ? format_num_to_K(format_bn(this.state.my_WETH_supplied, this.state.WETH_decimals, 2)) : '···'}
                         </span>
                       </div>
 
@@ -179,7 +179,7 @@ class Supply_weth extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '-'}
+                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '···'}
                                 </span>
                               </div>
                               <div className='input-wrap-unit-wrapper'>
@@ -238,7 +238,7 @@ class Supply_weth extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, 18, 2)) : '-'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, 18, 2)) : '···'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
@@ -303,7 +303,7 @@ class Supply_weth extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '-'}
+                                  {this.state.my_ETH ? format_num_to_K(format_bn(this.state.my_ETH, 18, 2)) : '···'}
                                 </span>
                               </div>
                               <div className='input-wrap-unit-wrapper'>
@@ -362,7 +362,7 @@ class Supply_weth extends Component {
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_WETH_available_to_withdraw ? format_num_to_K(format_bn(this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals, 2)) : '-'}
+                                  {this.state.my_WETH_available_to_withdraw ? format_num_to_K(format_bn(this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals, 2)) : '···'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>

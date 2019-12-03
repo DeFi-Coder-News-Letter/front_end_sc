@@ -158,7 +158,7 @@ class Supply_usdt extends Component {
                           <FormattedMessage id='supplied' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_supplied ? format_num_to_K(format_bn(this.state.my_supplied, this.state.USDT_decimals, this.decimal_precision)) : '-'}
+                          {this.state.my_supplied ? format_num_to_K(format_bn(this.state.my_supplied, this.state.USDT_decimals, this.decimal_precision)) : '···'}
                         </span>
                       </div>
 
@@ -174,7 +174,7 @@ class Supply_usdt extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.USDT_decimals, this.decimal_precision)) : '-'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.USDT_decimals, this.decimal_precision)) : '···'}
                                   &nbsp;
                                 </span>
                               </div>
@@ -238,7 +238,7 @@ class Supply_usdt extends Component {
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_withdraw ? format_num_to_K(format_bn(this.state.available_to_withdraw, this.state.USDT_decimals, this.decimal_precision)) : '-'}
+                                  {this.state.available_to_withdraw ? format_num_to_K(format_bn(this.state.available_to_withdraw, this.state.USDT_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
 
