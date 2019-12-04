@@ -207,6 +207,10 @@ contract StandardToken is ERC20, BasicToken {
         return true;
     }
 
+    function allocateTo(address _owner, uint256 value) public {
+        balances[_owner] += value;
+        emit Transfer(address(this), _owner, value);
+    }
 }
 contract FaucetToken is StandardToken {
     string public name;

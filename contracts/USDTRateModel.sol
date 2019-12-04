@@ -548,7 +548,7 @@ contract LiquidationChecker {
     }
 }
 
-contract USDxRateModelOptimize is Exponential, LiquidationChecker {
+contract USDTRateModelOptimize is Exponential, LiquidationChecker {
 
     uint constant oneMinusSpreadBasisPoints = 9000;
     uint constant blocksPerYear = 2102400;
