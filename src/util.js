@@ -590,7 +590,7 @@ export const handle_repay_change = (value, that, decimals, balance) => {
 
     console.log(amount_bn.toString());
 
-    if (amount_bn.sub(that.bn(balance)) > 0) {
+    if (amount_bn.sub(that.bn(balance)) > 0 || amount_bn.gt(that.bn(that.state.my_borrowed))) {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         repay_amount: value,

@@ -9,8 +9,6 @@ import zh_CN from '../../language/zh_CN';
 class Top_status extends Component {
     constructor(props) {
         super(props)
-
-        this.state = {}
     }
 
 
