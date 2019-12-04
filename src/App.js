@@ -160,13 +160,19 @@ class App extends Component {
             var imbtc_t_supply = this.bn(res_imbtc_markets.totalSupply).mul(this.bn(res_imbtc_price)).div(this.bn(res_usdx_price));
 
             var t_price = this.bn(res_imbtc_price).div(this.bn(res_usdx_price));
+            var t_u_rate;
+            if (this.bn(res_imbtc_markets.totalSupply).toString() === '0') {
+              t_u_rate = this.bn('0');
+            } else {
+              t_u_rate = format_bn(this.bn(res_imbtc_markets.totalBorrows).mul(this.bn(10 ** this.state.imBTC_decimals)).div(this.bn(res_imbtc_markets.totalSupply)).toString(), this.state.imBTC_decimals - 2, this.decimal_precision);
+            }
 
             this.setState({
               imbtc_price: format_bn(t_price, this.state.USDx_decimals - this.state.imBTC_decimals, 2),
               imbtc_total_supply: format_bn(imbtc_t_supply.toString(), 18, this.decimal_precision),
               imbtc_supply_APR: format_bn(this.bn(res_imbtc_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               imbtc_borrow_APR: format_bn(this.bn(res_imbtc_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
-              imbtc_u_rate: format_bn(this.bn(res_imbtc_markets.totalBorrows).mul(this.bn(10 ** this.state.imBTC_decimals)).div(this.bn(res_imbtc_markets.totalSupply)).toString(), this.state.imBTC_decimals - 2, this.decimal_precision)
+              imbtc_u_rate: t_u_rate
             });
 
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_imBTC']).call().then(res_my_supply_imbtc => {
@@ -200,13 +206,19 @@ class App extends Component {
             var usdt_t_supply = this.bn(res_usdt_markets.totalSupply).mul(this.bn(res_usdt_price)).div(this.bn(res_usdx_price));
 
             var t_price = this.bn(res_usdt_price).div(this.bn(res_usdx_price));
+            var t_u_rate;
+            if (this.bn(res_usdt_markets.totalSupply).toString() === '0') {
+              t_u_rate = this.bn('0');
+            } else {
+              t_u_rate = format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision);
+            }
 
             this.setState({
               usdt_price: format_bn(t_price, this.state.USDx_decimals - this.state.USDT_decimals, 2),
               usdt_total_supply: format_bn(usdt_t_supply.toString(), 18, this.decimal_precision),
               usdt_supply_APR: format_bn(this.bn(res_usdt_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               usdt_borrow_APR: format_bn(this.bn(res_usdt_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
-              usdt_u_rate: format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision)
+              usdt_u_rate: t_u_rate
             });
 
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDT']).call().then(res_my_supply_usdt => {
@@ -236,11 +248,18 @@ class App extends Component {
         // get_usdx_status
         this.state.mMarket.methods.markets(address[this.state.net_type]['address_USDx']).call().then(res_usdx_markets => {
           // console.log(res_usdx_markets);
+          var t_u_rate;
+          if (this.bn(res_usdx_markets.totalSupply).toString() === '0') {
+            t_u_rate = this.bn('0');
+          } else {
+            t_u_rate = format_bn(this.bn(res_usdx_markets.totalBorrows).mul(this.bn(10 ** this.state.USDx_decimals)).div(this.bn(res_usdx_markets.totalSupply)).toString(), this.state.USDx_decimals - 2, this.decimal_precision);
+          }
+
           this.setState({
             usdx_total_supply: format_bn(this.bn(res_usdx_markets.totalSupply).toString(), this.state.USDx_decimals, this.decimal_precision),
             usdx_supply_APR: format_bn(this.bn(res_usdx_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
             usdx_borrow_APR: format_bn(this.bn(res_usdx_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
-            usdx_u_rate: format_bn(this.bn(res_usdx_markets.totalBorrows).mul(this.bn(10 ** this.state.USDx_decimals)).div(this.bn(res_usdx_markets.totalSupply)).toString(), this.state.USDx_decimals - 2, this.decimal_precision)
+            usdx_u_rate: t_u_rate
           });
 
           this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_USDx']).call().then(res_my_supply_usdx => {
@@ -273,13 +292,19 @@ class App extends Component {
             var weth_t_supply = this.bn(res_weth_markets.totalSupply).mul(this.bn(res_weth_price)).div(this.bn(res_usdx_price));
 
             var t_price = this.bn(res_weth_price).div(this.bn(res_usdx_price));
+            var t_u_rate;
+            if (this.bn(res_weth_markets.totalSupply).toString() === '0') {
+              t_u_rate = this.bn('0');
+            } else {
+              t_u_rate = format_bn(this.bn(res_weth_markets.totalBorrows).mul(this.bn(10 ** this.state.WETH_decimals)).div(this.bn(res_weth_markets.totalSupply)).toString(), this.state.WETH_decimals - 2, this.decimal_precision);
+            }
 
             this.setState({
               weth_price: format_bn(t_price, this.state.USDx_decimals - this.state.WETH_decimals, 2),
               weth_total_supply: format_bn(weth_t_supply.toString(), 18, this.decimal_precision),
               weth_supply_APR: format_bn(this.bn(res_weth_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
               weth_borrow_APR: format_bn(this.bn(res_weth_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
-              weth_u_rate: format_bn(this.bn(res_weth_markets.totalBorrows).mul(this.bn(10 ** this.state.WETH_decimals)).div(this.bn(res_weth_markets.totalSupply)).toString(), this.state.WETH_decimals - 2, this.decimal_precision)
+              weth_u_rate: t_u_rate
             });
 
             this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_WETH']).call().then(res_my_supply_weth => {
