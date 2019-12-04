@@ -5,16 +5,16 @@ const zh_CN = {
     balance: "余额",
     borrowed: "已借数量",
     borrow_APR: "借款利率",
-    borrow_balance: "借款总额",
-    borrowing_balance: "你的借款总额",
-    collateralization_ratio: "抵押率",
+    borrow_balance: "你的借款总额",
+    borrowing_balance: "你的借款量",
+    collateralization_ratio: "你的抵押率",
 
     market_size: "市场存款总额",
 
     supplied: "已存数量",
     supply_APR: "存款利率",
-    supply_balance: "存款总额",
-    supplying_balance: "你的存款总额",
+    supply_balance: "你的存款总额",
+    supplying_balance: "你的存款量",
     utilization_Rate: "借存比率",
 
     SUPPLY: "存款",
