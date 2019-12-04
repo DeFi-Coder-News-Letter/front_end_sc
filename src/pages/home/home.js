@@ -50,15 +50,26 @@ class Home extends Component {
                             <img className='logo-img' src='images/lendf_logo.svg' />
                         </div>
                         <div className='netstatus'>
-                            <div className='netstatus-top'>
-                                <span className={t_class}></span>
-                                {t_net}
-                            </div>
-                            <div className='netstatus-bm'>
-                                <span className='account-span'>
-                                    {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
-                                </span>
-                            </div>
+                            {
+                                this.props.data.my_account &&
+                                <React.Fragment>
+                                    <div className='netstatus-top'>
+                                        <span className={t_class}></span>
+                                        {t_net}
+                                    </div>
+                                    <div className='netstatus-bm'>
+                                        <span className='account-span'>
+                                            {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
+                                        </span>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {
+                                !this.props.data.my_account &&
+                                <React.Fragment>
+                                    <div className='content-btn'>Connect</div>
+                                </React.Fragment>
+                            }
                         </div>
                         <div className='clear'></div>
                     </div>

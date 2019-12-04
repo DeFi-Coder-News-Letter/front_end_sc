@@ -10,8 +10,7 @@ $button-color-borrow: #675CFF;
 }
 
 .top {
-    max-width: 1200px;
-    min-width: 820px;
+    width: 820px;
     // background: red;
     margin: 0 auto;
     margin-bottom: 40px;
@@ -21,14 +20,25 @@ $button-color-borrow: #675CFF;
         float: left;
 
         .logo-img {
-            width: 180px;
+            width: 145px;
         }
     }
 
     .netstatus {
         float: right;
-        width: 200px;
+        width: 110px;
         // background: pink;
+
+        .content-btn {
+            width: 100px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background: rgba(67, 73, 118, 1);
+            border: 1px solid rgba(231, 233, 239, 1);
+            color: #fff;
+            cursor: pointer;
+        }
 
         .netstatus-top {
             position: relative;

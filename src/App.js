@@ -90,7 +90,17 @@ class App extends Component {
     if (window.ethereum.on) {
       window.ethereum.on('accountsChanged', (accounts) => {
         console.log('accountsChanged: ', accounts[0]);
-        this.setState({ my_account: accounts[0] }, async () => {
+        this.setState({
+          my_account: accounts[0],
+          i_have_supply_usdx: false,
+          i_have_supply_usdt: false,
+          i_have_supply_imbtc: false,
+          i_have_supply_weth: false,
+          i_have_borrow_usdx: false,
+          i_have_borrow_usdt: false,
+          i_have_borrow_imbtc: false,
+          i_have_borrow_weth: false
+        }, async () => {
           console.log('connected: ', this.state.my_account)
           let timer_Next = setInterval(() => {
             if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {

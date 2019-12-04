@@ -90,7 +90,7 @@ export const get_supplied__available_to_withdraw = (mContract, tokenContract, ac
 
 export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
   console.log('*********');
-  get_available_to_borrow111(mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that);
+  // get_available_to_borrow111(mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that);
 
 
   mContract.methods.calculateAccountValues(account).call((err, res_account_values) => {
@@ -132,31 +132,31 @@ export const get_available_to_borrow = (mContract, tokenContract, m_address, tok
 
 
 
-export const get_available_to_borrow111 = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
-  console.log('*********111111111');
-  mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
-    // console.log('res_liquidity: ', res_liquidity);
+// export const get_available_to_borrow111 = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
+//   console.log('*********111111111');
+//   mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
+//     // console.log('res_liquidity: ', res_liquidity);
 
-    if (!(that.bn(res_liquidity).gt('0'))) {
-      // that.setState({ available_to_borrow: 0 });
-      return false;
-    } else {
+//     if (!(that.bn(res_liquidity).gt('0'))) {
+//       // that.setState({ available_to_borrow: 0 });
+//       return false;
+//     } else {
 
-      tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
-        mContract.methods.assetPrices(token_address).call((err, res_price) => {
-          // console.log('res_cash: ', res_cash);
-          // console.log('res_price: ', res_price);
+//       tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
+//         mContract.methods.assetPrices(token_address).call((err, res_price) => {
+//           // console.log('res_cash: ', res_cash);
+//           // console.log('res_price: ', res_price);
 
-          var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
-          var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
+//           var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
+//           var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
 
-          console.log('available_to_borrow111111111111111: ', to_borrow_bn.toString());
-          // that.setState({ available_to_borrow: to_borrow_bn.toString() });
-        })
-      })
-    }
-  })
-}
+//           console.log('available_to_borrow111111111111111: ', to_borrow_bn.toString());
+//           // that.setState({ available_to_borrow: to_borrow_bn.toString() });
+//         })
+//       })
+//     }
+//   })
+// }
 
 
 

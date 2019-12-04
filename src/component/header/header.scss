@@ -318,10 +318,10 @@ $token-num: 24px;
     width: 100%;
     height: 70px;
     background: #222C3C;
+    margin-bottom: 20px;
 
     .top-status-box {
-        max-width: 1200px;
-        min-width: 820px;
+        width: 820px;
         margin: 0 auto;
         // background: red;
         padding-top: 13px;
@@ -355,7 +355,7 @@ $token-num: 24px;
 
             .netstatus {
                 float: right;
-                width: 160px;
+                width: 110px;
                 // background: pink;
 
                 .netstatus-top {
