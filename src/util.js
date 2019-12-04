@@ -688,12 +688,14 @@ export const handle_repay_click = (that, decimals, token_address) => {
   }
 
   if (that.state.i_will_repay_max) {
-    if (that.bn(that.state.my_balance).gt(that.bn(that.state.my_borrowed))) {
-      amount_bn = that.bn('-1');
-      amount_bn_to_history = that.bn(that.state.my_borrowed);
-    } else {
-      amount_bn_to_history = amount_bn = that.bn(that.state.my_balance);
-    }
+    // if (that.bn(that.state.my_balance).gt(that.bn(that.state.my_borrowed))) {
+    //   amount_bn = that.bn('-1');
+    //   amount_bn_to_history = that.bn(that.state.my_borrowed);
+    // } else {
+    //   amount_bn_to_history = amount_bn = that.bn(that.state.my_balance);
+    // }
+    amount_bn = that.bn('-1');
+    amount_bn_to_history = that.bn(that.state.my_borrowed);
   }
 
   console.log('amount_bn: ', amount_bn);
@@ -754,18 +756,24 @@ export const handle_borrow_max = (that, balance, decimals) => {
 export const handle_repay_max = (that, balance, borrowed, decimals) => {
   var to_show;
 
-  if (that.bn(balance).gt(that.bn(borrowed))) {
-    if (borrowed.length <= decimals) {
-      to_show = ('0.' + ('000000000000000000' + borrowed).substr(-decimals)).substring(0, 18);
-    } else {
-      to_show = (that.bn(borrowed).div(that.bn(10 ** decimals)) + '.' + borrowed.substr(-decimals)).substring(0, 18);
-    }
+  // if (that.bn(balance).gt(that.bn(borrowed))) {
+  //   if (borrowed.length <= decimals) {
+  //     to_show = ('0.' + ('000000000000000000' + borrowed).substr(-decimals)).substring(0, 18);
+  //   } else {
+  //     to_show = (that.bn(borrowed).div(that.bn(10 ** decimals)) + '.' + borrowed.substr(-decimals)).substring(0, 18);
+  //   }
+  // } else {
+  //   if (balance.length <= decimals) {
+  //     to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
+  //   } else {
+  //     to_show = (that.bn(balance).div(that.bn(10 ** decimals)) + '.' + balance.substr(-decimals)).substring(0, 18);
+  //   }
+  // }
+
+  if (balance.length <= decimals) {
+    to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
   } else {
-    if (balance.length <= decimals) {
-      to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
-    } else {
-      to_show = (that.bn(balance).div(that.bn(10 ** decimals)) + '.' + balance.substr(-decimals)).substring(0, 18);
-    }
+    to_show = (that.bn(balance).div(that.bn(10 ** decimals)) + '.' + balance.substr(-decimals)).substring(0, 18);
   }
 
   that.setState({
@@ -773,7 +781,7 @@ export const handle_repay_max = (that, balance, borrowed, decimals) => {
     i_will_repay_max: true
   });
 
-  if (that.bn(balance).toString() === that.bn('0').toString() || that.bn(borrowed).toString() === that.bn('0').toString()) {
+  if (that.bn(balance).toString() === that.bn('0').toString() || that.bn(borrowed).toString() === that.bn('0').toString() || that.bn(balance).lt(that.bn(borrowed))) {
     that.setState({ is_repay_enable: false });
   } else {
     that.setState({ is_repay_enable: true });
