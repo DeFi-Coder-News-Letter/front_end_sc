@@ -132,7 +132,11 @@ class RecordBoard extends Component {
                                     t_hash = 'https://etherscan.io/tx/' + item.hash;
                                 }
 
-                                if (item.token !== this.props.token && this.props.token !== 'WETH') {
+                                if (this.props.token === 'WETH') {
+                                    if (!(item.token === 'ETH' || item.token === 'WETH')) {
+                                        return false;
+                                    }
+                                } else if (item.token !== this.props.token) {
                                     return false;
                                 }
 
