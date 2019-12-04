@@ -125,6 +125,13 @@ class RecordBoard extends Component {
                         this.state.RecentTransactions ?
                             this.state.RecentTransactions.map((item, i) => {
 
+                                var t_hash;
+                                if (this.props.net_type === 'rinkeby') {
+                                    t_hash = 'https://rinkeby.etherscan.io/tx/' + item.hash;
+                                } else {
+                                    t_hash = 'https://etherscan.io/tx/' + item.hash;
+                                }
+
                                 if (item.token !== this.props.token && this.props.token !== 'WETH') {
                                     return false;
                                 }
@@ -147,7 +154,7 @@ class RecordBoard extends Component {
                                     <div key={i}>
                                         {/* <Popover  placement="top" content={props.failedInfo} trigger={props.failed ? 'hover' : ''}> */}
                                         {/* <Popover> */}
-                                        <div className='transaction' onClick={() => this.goTxnHashHref(this.goTxnHashHref)}>
+                                        <div className='transaction' onClick={() => this.goTxnHashHref(t_hash)}>
                                             <div className='transaction-detail'>
                                                 <img
                                                     style={{ height: '16px', width: '16px' }}
