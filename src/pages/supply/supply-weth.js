@@ -402,7 +402,7 @@ class Supply_weth extends Component {
                                     className='input-number'
                                     disabled={false}
                                   />
-                                  <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.my_WETH_supplied, this.state.WETH_decimals) }}>
+                                  <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals) }}>
                                     {'MAX'}
                                   </span>
                                 </div>
