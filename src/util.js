@@ -90,11 +90,55 @@ export const get_supplied__available_to_withdraw = (mContract, tokenContract, ac
 
 export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
   console.log('*********');
+  get_available_to_borrow111(mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that);
+
+
+  mContract.methods.calculateAccountValues(account).call((err, res_account_values) => {
+    var max_borrow = that.bn(res_account_values[1]).mul(that.bn(10 ** 18)).div(that.bn(collateral_rate));
+    var max_borrow_safe = max_borrow.mul(that.bn('8')).div(that.bn('10'));
+
+    if (max_borrow.lte(that.bn(res_account_values[2]))) {
+      that.setState({ available_to_borrow: 0, available_to_borrow_safe: 0 });
+      return false;
+    }
+
+    mContract.methods.assetPrices(token_address).call((err, res_price) => {
+      // console.log('res_cash: ', res_cash);
+      // console.log('res_price: ', res_price);
+      tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
+
+        var t_liquidity = max_borrow.sub(that.bn(res_account_values[2]));
+        var liquidity_bn = that.bn(t_liquidity).mul(that.bn('10').pow(that.bn('18'))).div(that.bn(res_price).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
+        var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
+
+        if (max_borrow_safe.lte(that.bn(res_account_values[2]))) {
+          that.setState({ available_to_borrow: to_borrow_bn.toString(), available_to_borrow_safe: 0 });
+          return false;
+        }
+        var t_liquidity_safe = max_borrow_safe.sub(that.bn(res_account_values[2]));
+        var liquidity_bn_safe = that.bn(t_liquidity_safe).mul(that.bn('10').pow(that.bn('18'))).div(that.bn(res_price).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
+        var to_borrow_bn_safe = liquidity_bn_safe.lt(that.bn(res_cash)) ? liquidity_bn_safe : that.bn(res_cash);
+
+        console.log('available_to_borrow: ', to_borrow_bn.toString());
+        console.log('available_to_borrow_safe: ', to_borrow_bn_safe.toString());
+        that.setState({
+          available_to_borrow: to_borrow_bn.toString(),
+          available_to_borrow_safe: to_borrow_bn_safe.toString()
+        });
+      })
+    })
+  })
+}
+
+
+
+export const get_available_to_borrow111 = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
+  console.log('*********111111111');
   mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
-    console.log('res_liquidity: ', res_liquidity);
+    // console.log('res_liquidity: ', res_liquidity);
 
     if (!(that.bn(res_liquidity).gt('0'))) {
-      that.setState({ available_to_borrow: 0 });
+      // that.setState({ available_to_borrow: 0 });
       return false;
     } else {
 
@@ -106,13 +150,14 @@ export const get_available_to_borrow = (mContract, tokenContract, m_address, tok
           var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
           var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
 
-          console.log('available_to_borrow: ', to_borrow_bn.toString());
-          that.setState({ available_to_borrow: to_borrow_bn.toString() });
+          console.log('available_to_borrow111111111111111: ', to_borrow_bn.toString());
+          // that.setState({ available_to_borrow: to_borrow_bn.toString() });
         })
       })
     }
   })
 }
+
 
 
 export const get_borrow_balance = (mContract, account, token_address, that) => {
@@ -458,14 +503,15 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
     console.log("value === null || value === ''")
     that.setState({
       is_borrow_enable: true,
-      borrow_amount: null
+      borrow_amount: null,
+      borrow_exceed: false
     });
     return false;
   } else {
-    var amount_bn;
+    var amount_bn, sub_num;
     var temp_value = value;
     if (temp_value.indexOf('.') > 0) {
-      var sub_num = temp_value.length - temp_value.indexOf('.') - 1;// 3
+      sub_num = temp_value.length - temp_value.indexOf('.') - 1;// 3
       if (sub_num > decimals) {
         console.log(' --- decimals extent ---');
         that.setState({
@@ -490,12 +536,18 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
       });
       return false;
     }
+
+    if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe))) {
+      that.setState({ borrow_exceed: true })
+    } else {
+      that.setState({ borrow_exceed: false })
+    }
   }
 
   that.setState({ borrow_amount: value });
 
   if ((Number(value)) === 0) {
-    that.setState({ is_borrow_enable: false });
+    that.setState({ is_borrow_enable: false, borrow_exceed: false });
     return;
   } else {
     that.setState({ is_borrow_enable: true });
@@ -579,7 +631,7 @@ export const handle_borrow_click = (that, decimals, token_address) => {
   }
 
   if (that.state.i_will_borrow_max) {
-    amount_bn = that.bn(that.state.available_to_borrow)
+    amount_bn = that.bn(that.state.available_to_borrow_safe)
   }
 
   console.log('amount_bn: ', amount_bn);
@@ -679,6 +731,7 @@ export const handle_repay_click = (that, decimals, token_address) => {
 
 export const handle_borrow_max = (that, balance, decimals) => {
   var to_show;
+  balance = balance.toString();
   if (balance.length <= decimals) {
     to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
   } else {

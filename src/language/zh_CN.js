@@ -23,6 +23,8 @@ const zh_CN = {
     REPAY: "偿还",
     ENABLE: "授权",
 
+    exceed_massage: "避免使用过低抵押率导致抵押资产被清算",
+
     before_supplying_usdx: "授权首次USDx存款",
     before_borrowing_usdx: "授权首次USDx借款",
 

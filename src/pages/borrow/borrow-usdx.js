@@ -194,11 +194,17 @@ class Borrow_usdx extends Component {
                                       className='input-number'
                                       value={this.state.borrow_amount}
                                     />
-                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow, this.state.USDx_decimals) }}>
+                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.USDx_decimals) }}>
                                       {'SAFE MAX'}
                                     </span>
                                   </div>
                                 }
+
+                                {
+                                  this.state.borrow_exceed &&
+                                  <div className='safe-max-alert-message'><FormattedMessage id='exceed_massage' /></div>
+                                }
+
                                 <div className='button-wrapper-borrow'>
                                   <Button
                                     size='large'

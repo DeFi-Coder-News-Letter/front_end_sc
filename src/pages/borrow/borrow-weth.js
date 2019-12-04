@@ -207,7 +207,7 @@ class Borrow_weth extends Component {
                                       onClick={() => handle_wrap_click(this)}
                                     >
                                       {'WRAP'}
-                                      </Button>
+                                    </Button>
                                   </div>
                                 </div>
                               </div>
@@ -258,10 +258,14 @@ class Borrow_weth extends Component {
                                     className='input-number'
                                     disabled={false}
                                   />
-                                  <span className={'max-amount-button special-clolr'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow, this.state.WETH_decimals) }}>
+                                  <span className={'max-amount-button special-clolr'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.WETH_decimals) }}>
                                     {'SAFE MAX'}
                                   </span>
                                 </div>
+                                {
+                                  this.state.borrow_exceed &&
+                                  <div className='safe-max-alert-message'><FormattedMessage id='exceed_massage' /></div>
+                                }
                                 <div className={'button-wrapper-borrow'}>
                                   <Button
                                     size='large'
@@ -332,7 +336,7 @@ class Borrow_weth extends Component {
                                       onClick={() => handle_wrap_click(this)}
                                     >
                                       {'WRAP'}
-                                      </Button>
+                                    </Button>
                                   </div>
                                 </div>
                               </div>

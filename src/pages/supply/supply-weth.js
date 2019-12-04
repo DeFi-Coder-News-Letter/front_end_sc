@@ -381,11 +381,6 @@ class Supply_weth extends Component {
                                   </span>
                                 </div>
 
-                                {/* {
-                                  props.exceedsSafeMax ?
-                                    <div className='safe-max-alert-message'>Borrowing exceeds SAFE value makes your supply in risk.</div> : ''
-                                } */}
-
                                 <div className={'button-wrapper'}>
                                   <Button
                                     size='large'

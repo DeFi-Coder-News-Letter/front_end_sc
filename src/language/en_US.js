@@ -23,6 +23,8 @@ const en_US = {
     REPAY: "REPAY",
     ENABLE: "ENABLE",
 
+    exceed_massage: "Borrowing exceeds SAFE value makes your supply in risk.",
+
     before_supplying_usdx: "Before supplying USDx for the first time, you must enable USDx.",
     before_borrowing_usdx: "Before borrowing USDx for the first time, you must enable USDx.",
 
