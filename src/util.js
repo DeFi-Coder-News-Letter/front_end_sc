@@ -770,10 +770,10 @@ export const handle_repay_max = (that, balance, borrowed, decimals) => {
   //   }
   // }
 
-  if (balance.length <= decimals) {
-    to_show = ('0.' + ('000000000000000000' + balance).substr(-decimals)).substring(0, 18);
+  if (borrowed.length <= decimals) {
+    to_show = ('0.' + ('000000000000000000' + borrowed).substr(-decimals)).substring(0, 18);
   } else {
-    to_show = (that.bn(balance).div(that.bn(10 ** decimals)) + '.' + balance.substr(-decimals)).substring(0, 18);
+    to_show = (that.bn(borrowed).div(that.bn(10 ** decimals)) + '.' + borrowed.substr(-decimals)).substring(0, 18);
   }
 
   that.setState({
