@@ -75,11 +75,9 @@ class App extends Component {
                   console.log('2222222222: i got it...');
                   clearInterval(timer_Next);
                   this.setState({ i_am_ready: true })
-
                   // to do something...
-
-
-
+                  this.get_my_status();
+                  this.get_4_tokens_status();
                 }
               }, 100)
             })
@@ -87,6 +85,28 @@ class App extends Component {
         })
       }
     )
+
+    // add accounts changed
+    if (window.ethereum.on) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        console.log('accountsChanged: ', accounts[0]);
+        this.setState({ my_account: accounts[0] }, async () => {
+          console.log('connected: ', this.state.my_account)
+          let timer_Next = setInterval(() => {
+            if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+              console.log('111111111: not get yet...');
+            } else {
+              console.log('2222222222: i got it...');
+              clearInterval(timer_Next);
+              this.setState({ i_am_ready: true })
+              // to do something...
+              this.get_my_status();
+              this.get_4_tokens_status();
+            }
+          }, 100)
+        })
+      });
+    }
   }
 
 
@@ -293,7 +313,7 @@ class App extends Component {
       }
       this.get_my_status();
       this.get_4_tokens_status();
-    }, 3000)
+    }, 1000 * 5)
   }
 
 

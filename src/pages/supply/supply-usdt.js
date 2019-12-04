@@ -98,6 +98,31 @@ class Supply_usdt extends Component {
         })
       }
     )
+
+    // add accounts changed
+    if (window.ethereum.on) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        console.log('accountsChanged: ', accounts[0]);
+        this.setState({ my_account: accounts[0] }, async () => {
+          console.log('connected: ', this.state.my_account)
+          let is_approved = await get_allowance(this.state.USDT, this.state.my_account, address[this.state.net_type]['address_mMarket'], this.bn);
+          console.log('is_approved: ', is_approved)
+          this.setState({ is_approved: is_approved })
+          let timer_Next = setInterval(() => {
+            if (!this.state.USDT_decimals) {
+              console.log('111111111: not get yet...');
+            } else {
+              console.log('2222222222: i got it...');
+              clearInterval(timer_Next);
+              this.setState({ i_am_ready: true })
+              // to do something...
+              get_my_balance(this.state.USDT, this.state.my_account, this);
+              get_supplied__available_to_withdraw(this.state.mMarket, this.state.USDT, this.state.my_account, address[this.state.net_type]['address_USDT'], address[this.state.net_type]['address_mMarket'], this);
+            }
+          }, 100)
+        })
+      });
+    }
   }
 
 
