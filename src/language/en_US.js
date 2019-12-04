@@ -1,5 +1,5 @@
 const en_US = {
-    available_withdraw: " Available",
+    available_withdraw: " Available to Withdraw",
     available_borrow: " Available to Borrow",
 
     balance: " Balance",

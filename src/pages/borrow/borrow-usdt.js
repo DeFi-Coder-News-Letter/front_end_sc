@@ -202,7 +202,6 @@ class Borrow_usdt extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {this.token_name}
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>

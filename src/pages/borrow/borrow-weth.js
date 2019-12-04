@@ -267,7 +267,6 @@ class Borrow_weth extends Component {
                               </div>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {this.token_name}
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>

@@ -258,7 +258,6 @@ class Supply_usdt extends Component {
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {this.token_name}
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>

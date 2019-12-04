@@ -384,7 +384,6 @@ class Supply_weth extends Component {
                               </div>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
-                                  {this.token_name}
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
