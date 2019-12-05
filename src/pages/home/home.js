@@ -140,13 +140,7 @@ class Home extends Component {
                                         <FormattedMessage id='utilization_Rate' />
                                     </span>
                                     <span className='apr-num apr-num-right'>
-                                        {
-                                            this.props.data.usdx_u_rate ?
-                                                Number(this.props.data.usdx_u_rate) > 0 && Number(this.props.data.usdx_u_rate) < 0.0001 ?
-                                                    '<0.01%' : this.props.data.usdx_u_rate + '%'
-                                                :
-                                                '···'
-                                        }
+                                        {this.props.data.usdx_u_rate ? this.props.data.usdx_u_rate : '···'}
                                     </span>
                                 </div>
                             </div>
@@ -270,13 +264,7 @@ class Home extends Component {
                                         <FormattedMessage id='utilization_Rate' />
                                     </span>
                                     <span className='apr-num apr-num-right'>
-                                        {
-                                            this.props.data.usdt_u_rate ?
-                                                Number(this.props.data.usdt_u_rate) > 0 && Number(this.props.data.usdt_u_rate) < 0.0001 ?
-                                                    '<0.01%' : this.props.data.usdt_u_rate + '%'
-                                                :
-                                                '···'
-                                        }
+                                        {this.props.data.usdt_u_rate ? this.props.data.usdt_u_rate : '···'}
                                     </span>
                                 </div>
                             </div>
@@ -400,13 +388,7 @@ class Home extends Component {
                                         <FormattedMessage id='utilization_Rate' />
                                     </span>
                                     <span className='apr-num apr-num-right'>
-                                        {
-                                            this.props.data.weth_u_rate ?
-                                                Number(this.props.data.weth_u_rate) > 0 && Number(this.props.data.weth_u_rate) < 0.0001 ?
-                                                    '<0.01%' : this.props.data.weth_u_rate + '%'
-                                                :
-                                                '···'
-                                        }
+                                        {this.props.data.weth_u_rate ? this.props.data.weth_u_rate : '···'}
                                     </span>
                                 </div>
                             </div>
@@ -530,13 +512,7 @@ class Home extends Component {
                                         <FormattedMessage id='utilization_Rate' />
                                     </span>
                                     <span className='apr-num apr-num-right'>
-                                        {
-                                            this.props.data.imbtc_u_rate ?
-                                                Number(this.props.data.imbtc_u_rate) > 0 && Number(this.props.data.imbtc_u_rate) < 0.0001 ?
-                                                    '<0.01%' : this.props.data.imbtc_u_rate + '%'
-                                                :
-                                                '···'
-                                        }
+                                        {this.props.data.imbtc_u_rate ? this.props.data.imbtc_u_rate : '···'}
                                     </span>
                                 </div>
                             </div>
