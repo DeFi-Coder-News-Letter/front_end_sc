@@ -20,31 +20,33 @@ class My_status extends Component {
         return (
             <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
                 <div className='header-new'>
-                    <div className='header-new-item supply-balance'>
-                        <span className='item-title'>
-                        <FormattedMessage id='supply_balance' />
-                        </span>
-                        <span className='item-num'>
-                            {this.props.data.my_supply ? '$' + format_num_to_K(this.props.data.my_supply) : '···'}
-                        </span>
-                    </div>
+                    <div className='header-new-con'>
+                        <div className='header-new-item supply-balance'>
+                            <span className='item-title'>
+                                <FormattedMessage id='supply_balance' />
+                            </span>
+                            <span className='item-num'>
+                                {this.props.data.my_supply ? '$' + format_num_to_K(this.props.data.my_supply) : '···'}
+                            </span>
+                        </div>
 
-                    <div className='header-new-item borrow-balance'>
-                        <span className='item-title'>
-                        <FormattedMessage id='borrow_balance' />
-                        </span>
-                        <span className='item-num item-num-borrow'>
-                            {this.props.data.my_borrow ? '$' + format_num_to_K(this.props.data.my_borrow) : '···'}
-                        </span>
-                    </div>
+                        <div className='header-new-item borrow-balance'>
+                            <span className='item-title'>
+                                <FormattedMessage id='borrow_balance' />
+                            </span>
+                            <span className='item-num item-num-borrow'>
+                                {this.props.data.my_borrow ? '$' + format_num_to_K(this.props.data.my_borrow) : '···'}
+                            </span>
+                        </div>
 
-                    <div className='header-new-item collate-rate'>
-                        <span className='item-title'>
-                        <FormattedMessage id='collateralization_ratio' />
-                        </span>
-                        <span className='item-num item-num-ratio'>
-                            {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2) + '%'}
-                        </span>
+                        <div className='header-new-item collate-rate'>
+                            <span className='item-title'>
+                                <FormattedMessage id='collateralization_ratio' />
+                            </span>
+                            <span className='item-num item-num-ratio'>
+                                {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2) + '%'}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </IntlProvider>

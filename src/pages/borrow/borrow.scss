@@ -161,8 +161,11 @@ $button-color: #675CFF;
     .supply-group,
     .borrow-group,
     .input-unit-switch {
-      width: 89%;
-      margin: 0 5.5%;
+      // width: 89%;
+      // margin: 0 5.5%;
+
+      width: 100%;
+      margin: 0;
     }
 
     .redirect-button {
@@ -265,7 +268,7 @@ $button-color: #675CFF;
 
     .borrow-title-borrow,
     .supply-title {
-      display: none;
+      // display: none;
     }
   }
 }

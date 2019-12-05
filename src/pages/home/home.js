@@ -74,12 +74,9 @@ class Home extends Component {
                         <div className='clear'></div>
                     </div>
 
-
+                    <My_status data={this.props.data} />
 
                     <div className='card-wrap'>
-
-                        <My_status data={this.props.data} />
-
                         <div className='card card-margin-right'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
