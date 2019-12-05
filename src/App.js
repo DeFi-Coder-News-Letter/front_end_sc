@@ -211,7 +211,7 @@ class App extends Component {
             var t_u_rate;
             if (this.bn(res_usdt_markets.totalSupply).toString() === '0') {
               t_u_rate = '0.00%';
-            } else if (Number(format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision + 4)) > 0.01) {
+            } else if (Number(format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision + 4)) < 0.01) {
               t_u_rate = '<0.01%';
             } else {
               t_u_rate = format_bn(this.bn(res_usdt_markets.totalBorrows).mul(this.bn(10 ** this.state.USDT_decimals)).div(this.bn(res_usdt_markets.totalSupply)).toString(), this.state.USDT_decimals - 2, this.decimal_precision) + '%';
