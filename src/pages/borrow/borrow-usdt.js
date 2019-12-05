@@ -198,7 +198,7 @@ class Borrow_usdt extends Component {
                       <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '借款' : 'BORROW'} key="1" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved) &&
+                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_supply_usdt) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -261,6 +261,12 @@ class Borrow_usdt extends Component {
                               </div>
                             </div>
                           }
+                          {
+                            this.props.data.i_have_supply_usdt &&
+                            <div className='alert-message'>
+                              <FormattedMessage id='already_supply_usdt' />
+                            </div>
+                          }
                         </Tabs.TabPane>
 
 
@@ -270,7 +276,7 @@ class Borrow_usdt extends Component {
 
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '偿还' : 'REPAY'} key="2" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved) &&
+                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_supply_usdt) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -326,6 +332,12 @@ class Borrow_usdt extends Component {
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
+                            </div>
+                          }
+                          {
+                            this.props.data.i_have_supply_usdt &&
+                            <div className='alert-message'>
+                              <FormattedMessage id='already_supply_usdt' />
                             </div>
                           }
                         </Tabs.TabPane>

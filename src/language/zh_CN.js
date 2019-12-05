@@ -38,6 +38,16 @@ const zh_CN = {
     before_borrowing_imbtc: "授权首次imBTC借款",
 
 
+    already_borrow_usdx: "存款前需还清所有USDx借款",
+    already_borrow_usdt: "存款前需还清所有USDT借款",
+    already_borrow_weth: "存款前需还清所有WETH借款",
+    already_borrow_imbtc: "存款前需还清所有imBTC借款",
+
+    already_supply_usdx: "借款前需取出所有USDx存款",
+    already_supply_usdt: "借款前需取出所有USDT存款",
+    already_supply_weth: "借款前需取出所有WETH存款",
+    already_supply_imbtc: "借款前需取出所有imBTC存款",
+
 
 
     Decentralized: "随存随贷，你自己的银行",

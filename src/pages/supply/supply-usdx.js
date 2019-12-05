@@ -195,7 +195,7 @@ class Supply_usdx extends Component {
                         {/* ***** ***** ***** approve ***** ***** ***** */}
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '存款' : 'SUPPLY'} key="1" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved) &&
+                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_usdx) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -251,13 +251,19 @@ class Supply_usdx extends Component {
                               </div>
                             </div>
                           }
+                          {
+                            this.props.data.i_have_borrow_usdx &&
+                            <div className='alert-message'>
+                              <FormattedMessage id='already_borrow_usdx' />
+                            </div>
+                          }
                         </Tabs.TabPane>
                         {/* ***** ***** ***** approve ***** ***** ***** */}
 
                         {/* ***** ***** ***** withdraw ***** ***** ***** */}
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW'} key="2" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved) &&
+                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_usdx) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -312,6 +318,12 @@ class Supply_usdx extends Component {
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
+                            </div>
+                          }
+                          {
+                            this.props.data.i_have_borrow_usdx &&
+                            <div className='alert-message'>
+                              <FormattedMessage id='already_borrow_usdx' />
                             </div>
                           }
                         </Tabs.TabPane>
