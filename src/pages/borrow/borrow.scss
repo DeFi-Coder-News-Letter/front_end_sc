@@ -155,7 +155,8 @@ $button-color: #675CFF;
 
 .XS {
   &.borrow-page {
-    top: 70px;
+    // top: 70px;
+    top: 0px;
 
     .supply-group,
     .borrow-group,

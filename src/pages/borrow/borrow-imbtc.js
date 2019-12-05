@@ -135,7 +135,7 @@ class Borrow_imbtc extends Component {
         console.log('account not available.')
         return false;
       }
-      console.log('update new data.')
+      console.log('update new data... (---borrow imbtc---) ');
       get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
       get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
       get_my_balance(this.state.imBTC, this.state.my_account, this);
