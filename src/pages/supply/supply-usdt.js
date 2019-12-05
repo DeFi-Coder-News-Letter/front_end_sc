@@ -114,7 +114,7 @@ class Supply_usdt extends Component {
             } else {
               console.log('2222222222: i got it...');
               clearInterval(timer_Next);
-              this.setState({ i_am_ready: true })
+              this.setState({ i_am_ready: true, load_new_history: Math.random() })
               // to do something...
               get_my_balance(this.state.USDT, this.state.my_account, this);
               get_supplied__available_to_withdraw(this.state.mMarket, this.state.USDT, this.state.my_account, address[this.state.net_type]['address_USDT'], address[this.state.net_type]['address_mMarket'], this);

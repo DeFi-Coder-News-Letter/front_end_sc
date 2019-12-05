@@ -126,7 +126,7 @@ class Borrow_weth extends Component {
             } else {
               console.log('2222222222: i got it...');
               clearInterval(timer_Next);
-              this.setState({ i_am_ready: true })
+              this.setState({ i_am_ready: true, load_new_history: Math.random() })
               // to do something...
               get_my_ETH(this);
               get_my_WETH(this);
