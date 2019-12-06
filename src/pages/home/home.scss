@@ -298,10 +298,11 @@ $token-num-mobile: 18px;
                         bottom: 55px;
                         padding: 8px 15px;
                         border-radius: 2px;
-                        background: rgba(222, 222, 231, 1);
+                        background: #FFCBCB;
                         font-size: 14px;
                         width: 100%;
                         text-align: center;
+                        color: #434976;
 
                         &::after {
                             content: '';
@@ -313,7 +314,7 @@ $token-num-mobile: 18px;
                             right: 30px;
                             bottom: -10px;
                             border: 5px solid transparent;
-                            border-top: 5px solid rgba(222, 222, 231, 1);
+                            border-top: 5px solid #FFCBCB;
                             // border-top: 5px solid red;
                         }
                     }
@@ -594,10 +595,11 @@ $token-num-mobile: 18px;
                         bottom: 50px;
                         padding: 8px 15px;
                         border-radius: 2px;
-                        background: rgba(222, 222, 231, 1);
+                        background: #FFCBCB;
                         font-size: 14px;
                         width: 100%;
                         text-align: center;
+                        color: #434976;
 
                         &::after {
                             content: '';
@@ -609,7 +611,7 @@ $token-num-mobile: 18px;
                             right: 30px;
                             bottom: -10px;
                             border: 5px solid transparent;
-                            border-top: 5px solid rgba(222, 222, 231, 1);
+                            border-top: 5px solid #FFCBCB;
                             // border-top: 5px solid red;
                         }
                     }
