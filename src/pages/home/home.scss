@@ -619,13 +619,14 @@ $token-num-mobile: 18px;
                         position: absolute;
                         right: 0;
                         bottom: 50px;
-                        padding: 8px 15px;
+                        padding: 8px 0px;
                         border-radius: 2px;
                         font-size: 14px;
                         width: 100%;
                         text-align: center;
                         color: #434976;
                         background: #FFEBEB;
+                        white-space: nowrap;
 
                         &::after {
                             content: '';
