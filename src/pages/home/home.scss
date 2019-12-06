@@ -296,13 +296,14 @@ $token-num-mobile: 18px;
                         position: absolute;
                         right: 0;
                         bottom: 55px;
-                        padding: 8px 5px;
+                        padding: 8px 0px;
                         border-radius: 2px;
                         background: #FFEBEB;
                         font-size: 14px;
                         width: 100%;
                         text-align: center;
                         color: #434976;
+                        white-space: nowrap;
 
                         &::after {
                             content: '';
