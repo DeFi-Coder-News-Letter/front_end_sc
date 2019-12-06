@@ -497,7 +497,7 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
     return;
   }
 
-  that.setState({ i_will_borrow_max: false });
+  that.setState({ i_will_borrow_max: false, borrow_exceed: false });
 
   if (value === null || value === '') {
     console.log("value === null || value === ''")
@@ -532,7 +532,8 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         borrow_amount: value,
-        is_borrow_enable: false
+        is_borrow_enable: false,
+        borrow_exceed: false
       });
       return false;
     }
@@ -543,7 +544,7 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
       that.setState({ borrow_exceed: false })
     }
 
-    if(amount_bn.gt(that.bn(that.state.available_to_borrow))){
+    if (amount_bn.gt(that.bn(that.state.available_to_borrow))) {
       that.setState({ borrow_exceed: false })
     }
   }
