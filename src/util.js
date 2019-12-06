@@ -537,7 +537,7 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
       return false;
     }
 
-    if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe))) {
+    if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe)) && amount_bn.lte(that.bn(that.state.available_to_borrow))) {
       that.setState({ borrow_exceed: true })
     } else {
       that.setState({ borrow_exceed: false })
