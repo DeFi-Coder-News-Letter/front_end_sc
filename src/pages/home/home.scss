@@ -359,6 +359,35 @@ $token-num-mobile: 18px;
 
         }
     }
+
+    .card-special {
+        position: relative;
+        overflow: hidden;
+    
+        .blur-special {
+            // -webkit-filter: blur(10px);
+            // -moz-filter: blur(10px);
+            // -ms-filter: blur(10px);
+            filter: blur(1px);
+        }
+    
+        .am-popup {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(67, 73, 118, 1);
+        }
+    }
 }
 
 
@@ -653,4 +682,9 @@ $token-num-mobile: 18px;
 
         }
     }
+
+    .card-special {
+        display: none;
+    }
 }
+

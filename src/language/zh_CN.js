@@ -50,6 +50,7 @@ const zh_CN = {
 
     safe_max_tips: "抵押率低于125%时，抵押物将被清算，SAFE MAX允许你的借款量保持健康的抵押率",
     deposit_first: "先抵押再借款",
+    coming_soon: "敬请期待...",
 
 
     Decentralized: "随存随贷，你自己的银行",

@@ -50,6 +50,7 @@ const en_US = {
 
     safe_max_tips: "When the collateral ratio is lower than 125%, your under-collateralized assets would be liquidated, SAFE MAX allows you to keep a much healthy collateral ratio.",
     deposit_first: "Please deposit first.",
+    coming_soon: "Coming Soon...",
 
 
     Decentralized: "Earn Interest and Borrow Money at Ease with Lendf.Me",
