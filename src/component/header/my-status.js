@@ -44,7 +44,10 @@ class My_status extends Component {
                                 <FormattedMessage id='collateralization_ratio' />
                             </span>
                             <span className='item-num item-num-ratio'>
-                                {Number(this.props.data.my_borrow) === 0 ? '···' : (this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2) + '%'}
+                                {
+                                    Number(this.props.data.my_borrow) === 0 ?
+                                        '···' : format_num_to_K((this.props.data.my_supply * 100 / this.props.data.my_borrow).toFixed(2).toString()) + '%'
+                                }
                             </span>
                         </div>
                     </div>
