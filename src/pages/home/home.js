@@ -20,7 +20,7 @@ class Home extends Component {
         super(props);
     }
 
-    componentDidMount = () => {}
+    componentDidMount = () => { }
 
     check_my_account = () => {
         var addr;
@@ -172,7 +172,7 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow'}>
+                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
@@ -189,6 +189,9 @@ class Home extends Component {
                                                     <FormattedMessage id='BORROW' />
                                                 </Button>
                                             </Link>
+                                            <div className='deposit-first'>
+                                                <FormattedMessage id='deposit_first' />
+                                            </div>
                                         </div>
                                     </React.Fragment>
                                 }
@@ -296,7 +299,7 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow'}>
+                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
@@ -313,6 +316,9 @@ class Home extends Component {
                                                     <FormattedMessage id='BORROW' />
                                                 </Button>
                                             </Link>
+                                            <div className='deposit-first'>
+                                                <FormattedMessage id='deposit_first' />
+                                            </div>
                                         </div>
                                     </React.Fragment>
                                 }
@@ -420,7 +426,7 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow'}>
+                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
@@ -437,6 +443,9 @@ class Home extends Component {
                                                     <FormattedMessage id='BORROW' />
                                                 </Button>
                                             </Link>
+                                            <div className='deposit-first'>
+                                                <FormattedMessage id='deposit_first' />
+                                            </div>
                                         </div>
                                     </React.Fragment>
                                 }
@@ -544,7 +553,7 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow'}>
+                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
@@ -561,6 +570,9 @@ class Home extends Component {
                                                     <FormattedMessage id='BORROW' />
                                                 </Button>
                                             </Link>
+                                            <div className='deposit-first'>
+                                                <FormattedMessage id='deposit_first' />
+                                            </div>
                                         </div>
                                     </React.Fragment>
                                 }

@@ -267,6 +267,7 @@ $token-num-mobile: 18px;
                 .button-wrap-home-borrow {
                     display: inline-block;
                     width: 48%;
+                    position: relative;
 
                     button {
                         font-size: 16px !important;
@@ -290,6 +291,39 @@ $token-num-mobile: 18px;
                         color: #92909A !important;
                     }
 
+                    .deposit-first {
+                        display: none;
+                        position: absolute;
+                        right: 0;
+                        bottom: 55px;
+                        padding: 8px 15px;
+                        border-radius: 2px;
+                        background: rgba(222, 222, 231, 1);
+                        font-size: 14px;
+                        width: 100%;
+                        text-align: center;
+
+                        &::after {
+                            content: '';
+                            display: block;
+                            width: 0px;
+                            height: 0px;
+                            // background: red;
+                            position: absolute;
+                            right: 30px;
+                            bottom: -10px;
+                            border: 5px solid transparent;
+                            border-top: 5px solid rgba(222, 222, 231, 1);
+                            // border-top: 5px solid red;
+                        }
+                    }
+
+                }
+
+                .deposit-first-wrap {
+                    &:hover .deposit-first {
+                        display: block;
+                    }
                 }
 
                 .button-wrap-home-borrow-fall {
@@ -529,6 +563,7 @@ $token-num-mobile: 18px;
                 .button-wrap-home-borrow {
                     display: inline-block;
                     width: 48%;
+                    position: relative;
 
                     button {
                         font-size: 16px !important;
@@ -552,6 +587,39 @@ $token-num-mobile: 18px;
                         color: #92909A !important;
                     }
 
+                    .deposit-first {
+                        display: none;
+                        position: absolute;
+                        right: 0;
+                        bottom: 50px;
+                        padding: 8px 15px;
+                        border-radius: 2px;
+                        background: rgba(222, 222, 231, 1);
+                        font-size: 14px;
+                        width: 100%;
+                        text-align: center;
+
+                        &::after {
+                            content: '';
+                            display: block;
+                            width: 0px;
+                            height: 0px;
+                            // background: red;
+                            position: absolute;
+                            right: 30px;
+                            bottom: -10px;
+                            border: 5px solid transparent;
+                            border-top: 5px solid rgba(222, 222, 231, 1);
+                            // border-top: 5px solid red;
+                        }
+                    }
+
+                }
+
+                .deposit-first-wrap {
+                    &:hover .deposit-first {
+                        display: block;
+                    }
                 }
 
                 .button-wrap-home-borrow-fall {
