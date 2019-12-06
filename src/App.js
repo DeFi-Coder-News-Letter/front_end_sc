@@ -300,7 +300,7 @@ class App extends Component {
               // console.log(res_weth_markets);
               var weth_t_supply = this.bn(res_weth_markets.totalSupply).mul(this.bn(res_weth_price)).div(this.bn(res_usdx_price));
 
-              var t_price = this.bn(res_weth_price).div(this.bn(res_usdx_price));
+              var t_price = this.bn(res_weth_price).mul(this.bn(100)).div(this.bn(res_usdx_price));
               var t_u_rate;
               if (this.bn(res_weth_markets.totalSupply).toString() === '0') {
                 t_u_rate = '0.00%';
@@ -311,7 +311,7 @@ class App extends Component {
               }
 
               this.setState({
-                weth_price: format_bn(t_price, this.state.USDx_decimals - this.state.WETH_decimals, 2),
+                weth_price: format_bn(t_price, this.state.USDx_decimals - this.state.WETH_decimals + 2, 2),
                 weth_total_supply: format_bn(weth_t_supply.toString(), 18, this.decimal_precision),
                 weth_supply_APR: format_bn(this.bn(res_weth_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
                 weth_borrow_APR: format_bn(this.bn(res_weth_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
