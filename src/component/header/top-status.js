@@ -11,6 +11,15 @@ class Top_status extends Component {
         super(props)
     }
 
+    check_my_account = () => {
+        var addr;
+        if (this.props.data.net_type === 'main') {
+            addr = `https://etherscan.io/address/${this.props.data.my_account}`;
+        } else {
+            addr = `https://rinkeby.etherscan.io/address/${this.props.data.my_account}`;
+        }
+        window.open(addr, "_blank");
+    }
 
     render = () => {
         return (
@@ -61,7 +70,7 @@ class Top_status extends Component {
                                     <span className={'net-span rinkeby-span'}></span>
                                     {this.props.data.net_type ? this.props.data.net_type.substring(0, 1).toUpperCase() + this.props.data.net_type.substring(1) : ''}
                                 </div>
-                                <div className='netstatus-bm'>
+                                <div className='netstatus-bm' onClick={() => { this.check_my_account() }}>
                                     <span className='account-span'>
                                         {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
                                     </span>

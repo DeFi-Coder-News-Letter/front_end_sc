@@ -20,9 +20,17 @@ class Home extends Component {
         super(props);
     }
 
-    componentDidMount = () => { }
+    componentDidMount = () => {}
 
-
+    check_my_account = () => {
+        var addr;
+        if (this.props.data.net_type === 'main') {
+            addr = `https://etherscan.io/address/${this.props.data.my_account}`;
+        } else {
+            addr = `https://rinkeby.etherscan.io/address/${this.props.data.my_account}`;
+        }
+        window.open(addr, "_blank");
+    }
 
 
 
@@ -57,7 +65,7 @@ class Home extends Component {
                                         <span className={t_class}></span>
                                         {t_net}
                                     </div>
-                                    <div className='netstatus-bm'>
+                                    <div className='netstatus-bm' onClick={() => { this.check_my_account() }}>
                                         <span className='account-span'>
                                             {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
                                         </span>
