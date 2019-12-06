@@ -227,6 +227,15 @@ class Borrow_imbtc extends Component {
                                     <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.imBTC_decimals) }}>
                                       {'SAFE MAX'}
                                     </span>
+
+                                    <div className='alert-tips'>
+                                      <div className='tips1'>
+                                        ?
+                                      </div>
+                                      <div className='tips2'>
+                                        <FormattedMessage id='safe_max_tips' />
+                                      </div>
+                                    </div>
                                   </div>
                                 }
 

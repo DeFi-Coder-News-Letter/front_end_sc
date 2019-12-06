@@ -38,15 +38,17 @@ const en_US = {
     before_borrowing_imbtc: "Before borrowing imBTC for the first time, you must enable imBTC.",
 
 
-    already_borrow_usdx: "Already borrowed USDx, please repay all of them in Borrow Page before supplying any.",
-    already_borrow_usdt: "Already borrowed USDT, please repay all of them in Borrow Page before supplying any.",
-    already_borrow_weth: "Already borrowed WETH, please repay all of them in Borrow Page before supplying any.",
-    already_borrow_imbtc: "Already borrowed imBTC, please repay all of them in Borrow Page before supplying any.",
+    already_borrow_usdx: "Already borrowed USDx, please repay all of them before supplying any.",
+    already_borrow_usdt: "Already borrowed USDT, please repay all of them before supplying any.",
+    already_borrow_weth: "Already borrowed WETH, please repay all of them before supplying any.",
+    already_borrow_imbtc: "Already borrowed imBTC, please repay all of them before supplying any.",
 
-    already_supply_usdx: "Already supplied USDx, please withdraw all of them in Lend Page before borrowing any.",
-    already_supply_usdt: "Already supplied USDT, please withdraw all of them in Lend Page before borrowing any.",
-    already_supply_weth: "Already supplied WETH, please withdraw all of them in Lend Page before borrowing any.",
-    already_supply_imbtc: "Already supplied imBTC, please withdraw all of them in Lend Page before borrowing any.",
+    already_supply_usdx: "Already supplied USDx, please withdraw all of them before borrowing any.",
+    already_supply_usdt: "Already supplied USDT, please withdraw all of them before borrowing any.",
+    already_supply_weth: "Already supplied WETH, please withdraw all of them before borrowing any.",
+    already_supply_imbtc: "Already supplied imBTC, please withdraw all of them before borrowing any.",
+
+    safe_max_tips: "When the collateral ratio is lower than 125%, your under-collateralized assets would be liquidated, SAFE MAX allows you to keep a much healthy collateral ratio.",
 
 
 

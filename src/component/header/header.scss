@@ -404,6 +404,11 @@ $token-num-mobile: 18px;
                     .netstatus-bm {
                         font-size: 14px;
                         font-weight: 400;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: rgba(112, 78, 244, 1);
+                        }
                     }
                 }
             }

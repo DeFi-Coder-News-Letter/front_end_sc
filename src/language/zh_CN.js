@@ -48,6 +48,8 @@ const zh_CN = {
     already_supply_weth: "借款前需取出所有WETH存款",
     already_supply_imbtc: "借款前需取出所有imBTC存款",
 
+    safe_max_tips: "抵押率低于125%时，抵押物将被清算，SAFE MAX允许你的借款量保持健康的抵押率",
+
 
 
     Decentralized: "随存随贷，你自己的银行",

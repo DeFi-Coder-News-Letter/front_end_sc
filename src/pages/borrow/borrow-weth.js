@@ -295,6 +295,15 @@ class Borrow_weth extends Component {
                                     <span className={'max-amount-button special-clolr'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.WETH_decimals) }}>
                                       {'SAFE MAX'}
                                     </span>
+
+                                    <div className='alert-tips'>
+                                      <div className='tips1'>
+                                        ?
+                                      </div>
+                                      <div className='tips2'>
+                                        <FormattedMessage id='safe_max_tips' />
+                                      </div>
+                                    </div>
                                   </div>
                                 }
                                 {

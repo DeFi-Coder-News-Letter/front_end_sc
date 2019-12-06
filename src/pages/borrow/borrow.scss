@@ -375,6 +375,37 @@ $button-color: #675CFF;
     position: relative;
     width: auto;
     margin: auto;
+
+    .alert-tips{
+      position: absolute;
+      background: #DEDEE7;
+      width: 100%;
+      bottom: -10px;
+      color: #80808D;
+
+      &:hover .tips2 {
+        display: block;
+      }
+
+      .tips1{
+        position: absolute;
+        right: -20px;
+        bottom: 19px;
+        width: 15px;
+        height: 15px;
+        background:rgba(222,222,231,1);
+        border-radius: 50%;
+        font-size: 60%;
+        cursor: pointer;
+      }
+
+      .tips2{
+        min-height: 42px;
+        font-size: 10px;
+        padding: 8px 5px;
+        display: none;
+      }
+    }
   }
 
   // .button-wrapper {
