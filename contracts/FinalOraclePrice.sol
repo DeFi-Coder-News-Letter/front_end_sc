@@ -594,6 +594,11 @@ contract PriceOracle is Exponential {
     event NewAnchorAdmin(address oldAnchorAdmin, address newAnchorAdmin);
 
     /**
+      * @dev emitted when poster is changed
+      */
+    event NewPoster(address oldPoster, address newPoster);
+
+    /**
       * @notice set `paused` to the specified state
       * @dev Admin function to pause or resume the market
       * @param requestedState value to assign to `paused`
@@ -665,7 +670,6 @@ contract PriceOracle is Exponential {
       * @param newPoster New poster.
       * @return uint 0=success, otherwise a failure
       *
-      * TODO: Should we add a second arg to verify, like a checksum of `newAnchorAdmin` address?
       */
     function _setPoster(address newPoster) public returns (uint) {
         assert(poster != newPoster);
