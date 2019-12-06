@@ -296,14 +296,14 @@ class Borrow_weth extends Component {
                                       {'SAFE MAX'}
                                     </span>
 
-                                    <div className='alert-tips'>
+                                    {/* <div className='alert-tips'>
                                       <div className='tips1'>
                                         ?
                                       </div>
                                       <div className='tips2'>
                                         <FormattedMessage id='safe_max_tips' />
                                       </div>
-                                    </div>
+                                    </div> */}
                                   </div>
                                 }
                                 {
