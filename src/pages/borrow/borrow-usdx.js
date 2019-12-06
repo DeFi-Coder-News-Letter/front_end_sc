@@ -198,7 +198,7 @@ class Borrow_usdx extends Component {
                       <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '借款' : 'BORROW'} key="1" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_supply_usdx) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -210,6 +210,13 @@ class Borrow_usdx extends Component {
                               </div>
                               <div className='input-unit-wrapper'>
                                 {
+                                  this.props.data.i_have_supply_usdx &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_supply_usdx' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_supply_usdx &&
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
@@ -224,16 +231,14 @@ class Borrow_usdx extends Component {
                                     </span>
                                   </div>
                                 }
-
                                 {
                                   this.state.borrow_exceed &&
                                   <div className='safe-max-alert-message'><FormattedMessage id='exceed_massage' /></div>
                                 }
-
                                 <div className='button-wrapper-borrow'>
                                   <Button
                                     size='large'
-                                    className={this.state.is_borrow_enable ? null : 'disable-button'}
+                                    className={this.state.is_borrow_enable && !this.props.data.i_have_supply_usdx ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_borrow_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
@@ -261,12 +266,6 @@ class Borrow_usdx extends Component {
                               </div>
                             </div>
                           }
-                          {
-                            this.props.data.i_have_supply_usdx &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_supply_usdx' />
-                            </div>
-                          }
                         </Tabs.TabPane>
 
 
@@ -276,7 +275,7 @@ class Borrow_usdx extends Component {
 
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '偿还' : 'REPAY'} key="2" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_supply_usdx) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -287,26 +286,33 @@ class Borrow_usdx extends Component {
                                   {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.USDx_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
-
                               <div className='input-unit-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={this.placeholder}
-                                    min={0}
-                                    onChange={(e) => handle_repay_change(e.target.value, this, this.state.USDx_decimals, this.state.my_balance)}
-                                    className='input-number'
-                                    value={this.state.repay_amount}
-                                  />
-                                  <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.USDx_decimals) }}>
-                                    {'MAX'}
-                                  </span>
-                                </div>
-
+                                {
+                                  this.props.data.i_have_supply_usdx &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_supply_usdx' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_supply_usdx &&
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={this.placeholder}
+                                      min={0}
+                                      onChange={(e) => handle_repay_change(e.target.value, this, this.state.USDx_decimals, this.state.my_balance)}
+                                      className='input-number'
+                                      value={this.state.repay_amount}
+                                    />
+                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.USDx_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                }
                                 <div className={'button-wrapper-borrow'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_repay_enable ? null : 'disable-button'}
+                                    className={this.state.is_repay_enable && !this.props.data.i_have_supply_usdx ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_repay_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
@@ -332,12 +338,6 @@ class Borrow_usdx extends Component {
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
-                            </div>
-                          }
-                          {
-                            this.props.data.i_have_supply_usdx &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_supply_usdx' />
                             </div>
                           }
                         </Tabs.TabPane>

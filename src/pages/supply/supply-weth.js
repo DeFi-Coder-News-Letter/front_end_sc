@@ -197,7 +197,7 @@ class Supply_weth extends Component {
                       <Tabs className='tab-wrapper' animated={true} size='large' onChange={this.changePane}>
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '存款' : 'SUPPLY'} key="1" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_weth) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -268,25 +268,34 @@ class Supply_weth extends Component {
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={'Amount in WETH'}
-                                    min={0}
-                                    value={this.state.supply_amount}
-                                    onChange={(e) => handle_supply_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
-                                    className='input-number'
-                                    disabled={false}
-                                  />
-                                  <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                    {'MAX'}
-                                  </span>
-                                </div>
+                                {
+                                  this.props.data.i_have_borrow_weth &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_borrow_weth' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_borrow_weth &&
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={'Amount in WETH'}
+                                      min={0}
+                                      value={this.state.supply_amount}
+                                      onChange={(e) => handle_supply_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
+                                      className='input-number'
+                                      disabled={false}
+                                    />
+                                    <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                }
 
                                 <div className={'button-wrapper'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_supply_enable ? null : 'disable-button'}
+                                    className={this.state.is_supply_enable && !this.props.data.i_have_borrow_weth ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
@@ -314,12 +323,6 @@ class Supply_weth extends Component {
                               </div>
                             </div>
                           }
-                          {
-                            this.props.data.i_have_borrow_weth &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_borrow_weth' />
-                            </div>
-                          }
                         </Tabs.TabPane>
 
 
@@ -327,7 +330,7 @@ class Supply_weth extends Component {
 
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW'} key="2" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_weth) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -397,25 +400,34 @@ class Supply_weth extends Component {
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={'Amount in WETH'}
-                                    min={0}
-                                    value={this.state.withdraw_amount}
-                                    onChange={(e) => handle_withdraw_change(e.target.value, this, this.state.WETH_decimals, this.state.my_WETH_available_to_withdraw)}
-                                    className='input-number'
-                                    disabled={false}
-                                  />
-                                  <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals) }}>
-                                    {'MAX'}
-                                  </span>
-                                </div>
+                                {
+                                  this.props.data.i_have_borrow_weth &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_borrow_weth' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_borrow_weth &&
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={'Amount in WETH'}
+                                      min={0}
+                                      value={this.state.withdraw_amount}
+                                      onChange={(e) => handle_withdraw_change(e.target.value, this, this.state.WETH_decimals, this.state.my_WETH_available_to_withdraw)}
+                                      className='input-number'
+                                      disabled={false}
+                                    />
+                                    <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                }
 
                                 <div className={'button-wrapper'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_withdraw_enable ? null : 'disable-button'}
+                                    className={this.state.is_withdraw_enable && !this.props.data.i_have_borrow_weth ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
@@ -441,12 +453,6 @@ class Supply_weth extends Component {
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
-                            </div>
-                          }
-                          {
-                            this.props.data.i_have_borrow_weth &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_borrow_weth' />
                             </div>
                           }
                         </Tabs.TabPane>

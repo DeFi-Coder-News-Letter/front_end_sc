@@ -191,7 +191,7 @@ class Supply_usdt extends Component {
                         {/* ***** ***** ***** approve ***** ***** ***** */}
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '存款' : 'SUPPLY'} key="1" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_usdt) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -204,23 +204,33 @@ class Supply_usdt extends Component {
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={this.placeholder}
-                                    min={0}
-                                    onChange={(e) => handle_supply_change(e.target.value, this, this.state.USDT_decimals, this.state.my_balance)}
-                                    className='input-number'
-                                    value={this.state.supply_amount}
-                                  />
-                                  <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.USDT_decimals) }}>
-                                    {'MAX'}
-                                  </span>
-                                </div>
+                                {
+                                  this.props.data.i_have_borrow_usdt &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_borrow_usdt' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_borrow_usdt &&
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={this.placeholder}
+                                      min={0}
+                                      onChange={(e) => handle_supply_change(e.target.value, this, this.state.USDT_decimals, this.state.my_balance)}
+                                      className='input-number'
+                                      value={this.state.supply_amount}
+                                    />
+                                    <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.USDT_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                }
+
                                 <div className={'button-wrapper'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_supply_enable ? null : 'disable-button'}
+                                    className={this.state.is_supply_enable && !this.props.data.i_have_borrow_usdt ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
                                   >
@@ -248,19 +258,13 @@ class Supply_usdt extends Component {
                               </div>
                             </div>
                           }
-                          {
-                            this.props.data.i_have_borrow_usdt &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_borrow_usdt' />
-                            </div>
-                          }
                         </Tabs.TabPane>
                         {/* ***** ***** ***** approve ***** ***** ***** */}
 
                         {/* ***** ***** ***** withdraw ***** ***** ***** */}
                         <Tabs.TabPane tab={navigator.language === 'zh-CN' ? '取出' : 'WITHDRAW'} key="2" className='tab-content'>
                           {
-                            (this.state.i_am_ready && this.state.is_approved && !this.props.data.i_have_borrow_usdt) &&
+                            (this.state.i_am_ready && this.state.is_approved) &&
                             <React.Fragment>
                               <div className='balance-info'>
                                 <span className='balance-desc'>
@@ -272,24 +276,33 @@ class Supply_usdt extends Component {
                               </div>
 
                               <div className='input-unit-wrapper'>
-                                <div className='input-wrapper'>
-                                  <Input
-                                    type='number'
-                                    placeholder={this.placeholder}
-                                    min={0}
-                                    className='input-number'
-                                    onChange={(e) => handle_withdraw_change(e.target.value, this, this.state.USDT_decimals, this.state.available_to_withdraw)}
-                                    value={this.state.withdraw_amount}
-                                  />
-                                  <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.available_to_withdraw, this.state.USDT_decimals) }}>
-                                    {'MAX'}
-                                  </span>
-                                </div>
+                                {
+                                  this.props.data.i_have_borrow_usdt &&
+                                  <div className='alert-message'>
+                                    <FormattedMessage id='already_borrow_usdt' />
+                                  </div>
+                                }
+                                {
+                                  !this.props.data.i_have_borrow_usdt &&
+                                  <div className='input-wrapper'>
+                                    <Input
+                                      type='number'
+                                      placeholder={this.placeholder}
+                                      min={0}
+                                      className='input-number'
+                                      onChange={(e) => handle_withdraw_change(e.target.value, this, this.state.USDT_decimals, this.state.available_to_withdraw)}
+                                      value={this.state.withdraw_amount}
+                                    />
+                                    <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.available_to_withdraw, this.state.USDT_decimals) }}>
+                                      {'MAX'}
+                                    </span>
+                                  </div>
+                                }
 
                                 <div className={'button-wrapper'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_withdraw_enable ? null : 'disable-button'}
+                                    className={this.state.is_withdraw_enable && !this.props.data.i_have_borrow_usdt ? null : 'disable-button'}
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
                                   >
@@ -315,12 +328,6 @@ class Supply_usdt extends Component {
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
                               </div>
-                            </div>
-                          }
-                          {
-                            this.props.data.i_have_borrow_usdt &&
-                            <div className='alert-message'>
-                              <FormattedMessage id='already_borrow_usdt' />
                             </div>
                           }
                         </Tabs.TabPane>
