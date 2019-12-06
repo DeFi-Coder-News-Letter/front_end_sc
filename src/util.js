@@ -651,7 +651,7 @@ export const handle_borrow_click = (that, decimals, token_address) => {
           // 成功后返回哈希
           if (res_hash) {
             console.log(res_hash);
-            that.setState({ is_borrow_enable: true, borrow_amount: null });
+            that.setState({ is_borrow_enable: true, borrow_amount: null, borrow_exceed: false });
             let timestamp = new Date().getTime();
             i_got_hash(that.state.my_account, that.state.net_type, that.token_name, 'borrow', amount_bn.toString(), res_hash, timestamp, 'pendding', that);
           }
