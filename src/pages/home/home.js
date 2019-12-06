@@ -172,7 +172,10 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
+                                        <div className={
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
+                                        }>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
@@ -299,7 +302,10 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
+                                        <div className={
+                                            this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
+                                        }>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
@@ -426,7 +432,10 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
+                                        <div className={
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
+                                        }>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
@@ -553,7 +562,10 @@ class Home extends Component {
                                             </Link>
                                         </div>
 
-                                        <div className={'button-wrap-home-borrow deposit-first-wrap'}>
+                                        <div className={
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
+                                                'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
+                                        }>
                                             <Link to={{
                                                 pathname:
                                                     this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
