@@ -537,9 +537,13 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
       return false;
     }
 
-    if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe)) && amount_bn.lte(that.bn(that.state.available_to_borrow))) {
+    if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe))) {
       that.setState({ borrow_exceed: true })
     } else {
+      that.setState({ borrow_exceed: false })
+    }
+
+    if(amount_bn.gt(that.bn(that.state.available_to_borrow))){
       that.setState({ borrow_exceed: false })
     }
   }
@@ -742,7 +746,8 @@ export const handle_borrow_max = (that, balance, decimals) => {
 
   that.setState({
     borrow_amount: to_show,
-    i_will_borrow_max: true
+    i_will_borrow_max: true,
+    borrow_exceed: false
   });
 
   if (that.bn(balance).toString() === that.bn('0').toString()) {
