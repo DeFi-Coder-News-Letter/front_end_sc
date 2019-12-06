@@ -257,7 +257,7 @@ class Borrow_usdx extends Component {
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
-                                  className={''}
+                                  className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
@@ -331,7 +331,7 @@ class Borrow_usdx extends Component {
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
-                                  className={''}
+                                  className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.USDx, this, address[this.state.net_type]['address_mMarket']) }}
                                 >

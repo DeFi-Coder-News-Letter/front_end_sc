@@ -323,7 +323,7 @@ class Borrow_weth extends Component {
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
-                                  className={''}
+                                  className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.WETH, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
@@ -457,7 +457,7 @@ class Borrow_weth extends Component {
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
-                                  className={''}
+                                  className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
                                   onClick={() => { handle_approve(this.state.WETH, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
