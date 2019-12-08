@@ -118,7 +118,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='supply_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-left'>{this.props.data.usdx_supply_APR ? this.props.data.usdx_supply_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-left'>
+                                            {
+                                                this.props.data.usdx_supply_APR ?
+                                                    this.props.data.usdx_supply_APR === '0.00' ? '<0.01%' : this.props.data.usdx_supply_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
 
@@ -137,7 +144,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='borrow_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-center'>{this.props.data.usdx_borrow_APR ? this.props.data.usdx_borrow_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-center'>
+                                            {
+                                                this.props.data.usdx_borrow_APR ?
+                                                    this.props.data.usdx_borrow_APR === '0.00' ? '<0.01%' : this.props.data.usdx_borrow_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
                                 <div className={'u-rate'}>
@@ -248,7 +262,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='supply_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-left'>{this.props.data.usdt_supply_APR ? this.props.data.usdt_supply_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-left'>
+                                            {
+                                                this.props.data.usdt_supply_APR ?
+                                                    this.props.data.usdt_supply_APR === '0.00' ? '<0.01%' : this.props.data.usdt_supply_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
 
@@ -267,7 +288,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='borrow_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-center'>{this.props.data.usdt_borrow_APR ? this.props.data.usdt_borrow_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-center'>
+                                            {
+                                                this.props.data.usdt_borrow_APR ?
+                                                    this.props.data.usdt_borrow_APR === '0.00' ? '<0.01%' : this.props.data.usdt_borrow_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
                                 <div className={'u-rate'}>
@@ -378,7 +406,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='supply_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-left'>{this.props.data.weth_supply_APR ? this.props.data.weth_supply_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-left'>
+                                            {
+                                                this.props.data.weth_supply_APR ?
+                                                    this.props.data.weth_supply_APR === '0.00' ? '<0.01%' : this.props.data.weth_supply_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
 
@@ -397,7 +432,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='borrow_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-center'>{this.props.data.weth_borrow_APR ? this.props.data.weth_borrow_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-center'>
+                                            {
+                                                this.props.data.weth_borrow_APR ?
+                                                    this.props.data.weth_borrow_APR === '0.00' ? '<0.01%' : this.props.data.weth_borrow_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
                                 <div className={'u-rate'}>
