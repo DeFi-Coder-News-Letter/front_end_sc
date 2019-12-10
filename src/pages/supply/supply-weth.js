@@ -68,6 +68,8 @@ class Supply_weth extends Component {
     this.collateral_rate = constant.collateral_rate;
 
     this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in WETH';
+    this.to_wrap = navigator.language === 'zh-CN' ? 'ETH数量' : 'Ether to Wrap';
+    this.to_unwrap = navigator.language === 'zh-CN' ? 'WETH数量' : 'WETH to Unwrap';
     this.img_src = 'WETH';
     this.token_name = 'WETH';
 
@@ -213,7 +215,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Ether to Wrap'}
+                                      placeholder={this.to_wrap}
                                       min={0}
                                       value={this.state.wrap_amount}
                                       onChange={(e) => handle_wrap_change(this, e.target.value, this.state.my_ETH)}
@@ -236,7 +238,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'WETH to Unwrap'}
+                                      placeholder={this.to_unwrap}
                                       min={0}
                                       value={this.state.unwrap_amount}
                                       onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
@@ -348,7 +350,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Ether to Wrap'}
+                                      placeholder={this.to_wrap}
                                       min={0}
                                       value={this.state.wrap_amount}
                                       onChange={(e) => handle_wrap_change(this, e.target.value, this.state.my_ETH)}
@@ -371,7 +373,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'WETH to Unwrap'}
+                                      placeholder={this.to_unwrap}
                                       min={0}
                                       value={this.state.unwrap_amount}
                                       onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
