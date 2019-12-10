@@ -75,7 +75,9 @@ class Home extends Component {
                             {
                                 !this.props.data.my_account &&
                                 <React.Fragment>
-                                    <div className='content-btn'>Connect</div>
+                                    <div className='content-btn'>
+                                        <FormattedMessage id='connect' />
+                                    </div>
                                 </React.Fragment>
                             }
                         </div>

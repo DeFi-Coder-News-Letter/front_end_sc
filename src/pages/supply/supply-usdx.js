@@ -54,7 +54,7 @@ class Supply_usdx extends Component {
       is_withdraw_enable: true
     }
 
-    this.placeholder = 'Amount in USDx';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in USDx';
     this.img_src = 'USDx@2x';
     this.token_name = 'USDx';
 
@@ -225,7 +225,7 @@ class Supply_usdx extends Component {
                                       value={this.state.supply_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.USDx_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }
@@ -297,7 +297,7 @@ class Supply_usdx extends Component {
                                       value={this.state.withdraw_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.available_to_withdraw, this.state.USDx_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }

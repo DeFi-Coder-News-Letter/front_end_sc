@@ -61,7 +61,7 @@ class Borrow_usdx extends Component {
     this.collateral_rate = constant.collateral_rate;
     this.originationFee = constant.originationFee;
 
-    this.placeholder = 'Amount in USDx';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in USDx';
     this.img_src = 'USDx';
     this.token_name = 'USDx';
 
@@ -227,7 +227,7 @@ class Borrow_usdx extends Component {
                                       value={this.state.borrow_amount}
                                     />
                                     <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.USDx_decimals) }}>
-                                      {'SAFE MAX'}
+                                      <FormattedMessage id='SAFE_MAX' />
                                     </span>
 
                                     {/* <div className='alert-tips'>
@@ -314,7 +314,7 @@ class Borrow_usdx extends Component {
                                       value={this.state.repay_amount}
                                     />
                                     <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.USDx_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }

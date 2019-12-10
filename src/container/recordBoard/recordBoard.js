@@ -7,6 +7,11 @@ import { Popover } from 'antd';
 import moment from 'moment';
 import "./recordBoard.scss";
 
+// add i18n.
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import en_US from '../../language/en_US.js';
+import zh_CN from '../../language/zh_CN';
+
 let constant = require('../../ABIs/constant.json');
 
 class RecordBoard extends Component {
@@ -114,87 +119,95 @@ class RecordBoard extends Component {
         }
 
         return (
-            <div className="record-board">
-                {
-                    (this.state.RecentTransactions && this.state.RecentTransactions.length > 0) &&
-                    <div className="board-title">Recent Transactions</div>
-                }
-
-                <div className="board-content">
+            <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
+                <div className="record-board">
                     {
-                        this.state.RecentTransactions ?
-                            this.state.RecentTransactions.map((item, i) => {
+                        (this.state.RecentTransactions && this.state.RecentTransactions.length > 0) &&
+                        <div className="board-title">
+                            <FormattedMessage id='Recent_Transactions' />
+                        </div>
+                    }
 
-                                var t_hash;
-                                if (this.props.net_type === 'rinkeby') {
-                                    t_hash = 'https://rinkeby.etherscan.io/tx/' + item.hash;
-                                } else {
-                                    t_hash = 'https://etherscan.io/tx/' + item.hash;
-                                }
+                    <div className="board-content">
+                        {
+                            this.state.RecentTransactions ?
+                                this.state.RecentTransactions.map((item, i) => {
 
-                                if (this.props.token === 'WETH') {
-                                    if (!(item.token === 'ETH' || item.token === 'WETH')) {
+                                    var t_hash;
+                                    if (this.props.net_type === 'rinkeby') {
+                                        t_hash = 'https://rinkeby.etherscan.io/tx/' + item.hash;
+                                    } else {
+                                        t_hash = 'https://etherscan.io/tx/' + item.hash;
+                                    }
+
+                                    if (this.props.token === 'WETH') {
+                                        if (!(item.token === 'ETH' || item.token === 'WETH')) {
+                                            return false;
+                                        }
+                                    } else if (item.token !== this.props.token) {
                                         return false;
                                     }
-                                } else if (item.token !== this.props.token) {
-                                    return false;
-                                }
 
-                                var img_src;
+                                    var img_src;
 
-                                if (item.status === 'pendding') {
-                                    if (item.action === 'borrow' || item.action === 'repay') {
-                                        img_src = 'loading_02'
-                                    } else {
-                                        img_src = 'loading_01'
+                                    if (item.status === 'pendding') {
+                                        if (item.action === 'borrow' || item.action === 'repay') {
+                                            img_src = 'loading_02'
+                                        } else {
+                                            img_src = 'loading_01'
+                                        }
+                                    } else if (item.status === 'success') {
+                                        // item.action; //   wrap unwrap  
+                                        img_src = item.action;
                                     }
-                                } else if (item.status === 'success') {
-                                    // item.action; //   wrap unwrap  
-                                    img_src = item.action;
-                                }
 
 
-                                return (
-                                    <div key={i}>
-                                        {/* <Popover  placement="top" content={props.failedInfo} trigger={props.failed ? 'hover' : ''}> */}
-                                        {/* <Popover> */}
-                                        <div className='transaction' onClick={() => this.goTxnHashHref(t_hash)}>
-                                            <div className='transaction-detail'>
-                                                <img
-                                                    style={{ height: '16px', width: '16px' }}
-                                                    src={`images/${img_src}.png`}
-                                                    alt="RECORD"
-                                                    className={item.status === 'pendding' ? 'icon-loading' : null}
-                                                />
-                                                <span style={{ marginLeft: '5px' }}>
-                                                    {
-                                                        item.action === 'approve' ?
-                                                            'Enable ' :
-                                                            item.action.substring(0, 1).toUpperCase() + item.action.substring(1) + ' '
-                                                    }
-                                                    {
-                                                        item.action === 'approve' ?
-                                                            null :
-                                                            format_num_to_K(format_bn(item.amount, this.props.decimal, this.decimal_precision)) + ' '
-                                                    }
-                                                    {item.token}
-                                                </span>
+                                    return (
+                                        <div key={i}>
+                                            {/* <Popover  placement="top" content={props.failedInfo} trigger={props.failed ? 'hover' : ''}> */}
+                                            {/* <Popover> */}
+                                            <div className='transaction' onClick={() => this.goTxnHashHref(t_hash)}>
+                                                <div className='transaction-detail'>
+                                                    <img
+                                                        style={{ height: '16px', width: '16px' }}
+                                                        src={`images/${img_src}.png`}
+                                                        alt="RECORD"
+                                                        className={item.status === 'pendding' ? 'icon-loading' : null}
+                                                    />
+                                                    <span style={{ marginLeft: '5px' }}>
+                                                        {
+                                                            item.action === 'approve' ?
+                                                                <FormattedMessage id={'enable'} /> :
+                                                                // item.action.substring(0, 1).toUpperCase() + item.action.substring(1) + ' '
+                                                                <FormattedMessage id={item.action} />
+                                                        }
+                                                        {
+                                                            item.action === 'approve' ?
+                                                                null :
+                                                                format_num_to_K(format_bn(item.amount, this.props.decimal, this.decimal_precision)) + ' '
+                                                        }
+                                                        {
+                                                            item.action === 'unwrap' ?
+                                                                'WETH' : item.token
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <div className='transaction-time'>
+                                                    <span>
+                                                        {moment(item.timestamp).format('MMM. DD, HH:mm')}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className='transaction-time'>
-                                                <span>
-                                                    {moment(item.timestamp).format('MMM. DD, HH:mm')}
-                                                </span>
-                                            </div>
+                                            {/* </Popover> */}
                                         </div>
-                                        {/* </Popover> */}
-                                    </div>
-                                )
-                            })
-                            :
-                            null
-                    }
+                                    )
+                                })
+                                :
+                                null
+                        }
+                    </div>
                 </div>
-            </div>
+            </IntlProvider>
         );
     }
 

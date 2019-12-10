@@ -71,7 +71,7 @@ class Borrow_weth extends Component {
     this.collateral_rate = constant.collateral_rate;
     this.originationFee = constant.originationFee;
 
-    this.placeholder = 'Amount in WETH';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in WETH';
     this.img_src = 'WETH';
     this.token_name = 'WETH';
 
@@ -233,7 +233,7 @@ class Borrow_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      {'WRAP'}
+                                      <FormattedMessage id='WRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -251,7 +251,7 @@ class Borrow_weth extends Component {
                                     />
                                     {
                                       /* <span className={'max-amount-button special-clolr'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                        {'MAX'}
+                                        <FormattedMessage id='MAX' />
                                       </span> */
                                     }
                                   </div>
@@ -262,7 +262,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      {'UNWRAP'}
+                                      <FormattedMessage id='UNWRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -287,7 +287,7 @@ class Borrow_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Amount in WETH'}
+                                      placeholder={this.placeholder}
                                       min={0}
                                       value={this.state.borrow_amount}
                                       onChange={(e) => handle_borrow_change(e.target.value, this, this.state.WETH_decimals, this.state.available_to_borrow)}
@@ -295,7 +295,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                     />
                                     <span className={'max-amount-button special-clolr'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.WETH_decimals) }}>
-                                      {'SAFE MAX'}
+                                      <FormattedMessage id='SAFE_MAX' />
                                     </span>
 
                                     {/* <div className='alert-tips'>
@@ -381,7 +381,7 @@ class Borrow_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      {'WRAP'}
+                                      <FormattedMessage id='WRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -399,7 +399,7 @@ class Borrow_weth extends Component {
                                     />
                                     {
                                       /* <span className={'max-amount-button special-clolr'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                        {'MAX'}
+                                        <FormattedMessage id='MAX' />
                                       </span> */
                                     }
                                   </div>
@@ -410,7 +410,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      {'UNWRAP'}
+                                      <FormattedMessage id='UNWRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -436,7 +436,7 @@ class Borrow_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Amount in WETH'}
+                                      placeholder={this.placeholder}
                                       min={0}
                                       value={this.state.repay_amount}
                                       onChange={(e) => handle_repay_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
@@ -444,7 +444,7 @@ class Borrow_weth extends Component {
                                       disabled={false}
                                     />
                                     <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.WETH_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }

@@ -59,7 +59,7 @@ class Supply_imbtc extends Component {
     this.gas_limit_coefficient = constant.gas_limit_coefficient;
     this.collateral_rate = constant.collateral_rate;
 
-    this.placeholder = 'Amount in imBTC';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in imBTC';
     this.img_src = 'imBTC';
     this.token_name = 'imBTC';
 
@@ -220,7 +220,7 @@ class Supply_imbtc extends Component {
                                       value={this.state.supply_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.imBTC_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }
@@ -292,7 +292,7 @@ class Supply_imbtc extends Component {
                                       value={this.state.withdraw_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.available_to_withdraw, this.state.imBTC_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }

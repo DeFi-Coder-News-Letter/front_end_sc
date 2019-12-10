@@ -67,7 +67,7 @@ class Supply_weth extends Component {
     this.gas_limit_coefficient = constant.gas_limit_coefficient;
     this.collateral_rate = constant.collateral_rate;
 
-    this.placeholder = 'Amount in WETH';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in WETH';
     this.img_src = 'WETH';
     this.token_name = 'WETH';
 
@@ -226,7 +226,7 @@ class Supply_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      {'WRAP'}
+                                      <FormattedMessage id='WRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -244,7 +244,7 @@ class Supply_weth extends Component {
                                     />
                                     {
                                       /* <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                        {'MAX'}
+                                        <FormattedMessage id='MAX' />
                                       </span> */
                                     }
                                   </div>
@@ -255,7 +255,7 @@ class Supply_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      {'UNWRAP'}
+                                      <FormattedMessage id='UNWRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -281,7 +281,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Amount in WETH'}
+                                      placeholder={this.placeholder}
                                       min={0}
                                       value={this.state.supply_amount}
                                       onChange={(e) => handle_supply_change(e.target.value, this, this.state.WETH_decimals, this.state.my_balance)}
@@ -289,7 +289,7 @@ class Supply_weth extends Component {
                                       disabled={false}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }
@@ -361,7 +361,7 @@ class Supply_weth extends Component {
                                       className={this.state.is_wrap_enable ? null : 'disable-button'}
                                       onClick={() => handle_wrap_click(this)}
                                     >
-                                      {'WRAP'}
+                                      <FormattedMessage id='WRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -379,7 +379,7 @@ class Supply_weth extends Component {
                                     />
                                     {
                                       /* <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                        {'MAX'}
+                                        <FormattedMessage id='MAX' />
                                       </span> */
                                     }
                                   </div>
@@ -390,7 +390,7 @@ class Supply_weth extends Component {
                                       disabled={false}
                                       onClick={() => handle_unwrap_click(this)}
                                     >
-                                      {'UNWRAP'}
+                                      <FormattedMessage id='UNWRAP' />
                                     </Button>
                                   </div>
                                 </div>
@@ -415,7 +415,7 @@ class Supply_weth extends Component {
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
-                                      placeholder={'Amount in WETH'}
+                                      placeholder={this.placeholder}
                                       min={0}
                                       value={this.state.withdraw_amount}
                                       onChange={(e) => handle_withdraw_change(e.target.value, this, this.state.WETH_decimals, this.state.my_WETH_available_to_withdraw)}
@@ -423,7 +423,7 @@ class Supply_weth extends Component {
                                       disabled={false}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }

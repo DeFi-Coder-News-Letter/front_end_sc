@@ -61,7 +61,7 @@ class Supply_usdt extends Component {
     this.gas_limit_coefficient = constant.gas_limit_coefficient;
     this.collateral_rate = constant.collateral_rate;
 
-    this.placeholder = 'Amount in USDT';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in USDT';
     this.img_src = 'USDT';
     this.token_name = 'USDT';
 
@@ -222,7 +222,7 @@ class Supply_usdt extends Component {
                                       value={this.state.supply_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_supply_max(this, this.state.my_balance, this.state.USDT_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }
@@ -294,7 +294,7 @@ class Supply_usdt extends Component {
                                       value={this.state.withdraw_amount}
                                     />
                                     <span className={'max-amount-button'} onClick={() => { handle_withdraw_max(this, this.state.available_to_withdraw, this.state.USDT_decimals) }}>
-                                      {'MAX'}
+                                      <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
                                 }
