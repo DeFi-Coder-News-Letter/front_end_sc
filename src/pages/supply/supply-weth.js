@@ -267,7 +267,7 @@ class Supply_weth extends Component {
                                   {this.token_name}
                                   <FormattedMessage id='balance' />
                                 </span>
-                                <span className='balance-amount' onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                <span className='balance-amount' style={{cursor: 'pointer'}} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
                                   {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, 18, 2)) : '···'}
                                 </span>
                               </div>
