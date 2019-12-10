@@ -242,9 +242,11 @@ class Supply_weth extends Component {
                                       onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
                                       className='input-number'
                                     />
-                                    <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                      {'MAX'}
-                                    </span>
+                                    {
+                                      /* <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                        {'MAX'}
+                                      </span> */
+                                    }
                                   </div>
                                   <div className='button-wrapper'>
                                     <Button
@@ -263,7 +265,7 @@ class Supply_weth extends Component {
                                   {this.token_name}
                                   <FormattedMessage id='balance' />
                                 </span>
-                                <span className='balance-amount'>
+                                <span className='balance-amount' onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
                                   {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, 18, 2)) : '···'}
                                 </span>
                               </div>
@@ -375,9 +377,11 @@ class Supply_weth extends Component {
                                       onChange={(e) => handle_unwrap_change(this, e.target.value, this.state.my_balance)}
                                       className='input-number'
                                     />
-                                    <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
-                                      {'MAX'}
-                                    </span>
+                                    {
+                                      /* <span className={'max-amount-button'} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                        {'MAX'}
+                                      </span> */
+                                    }
                                   </div>
                                   <div className='button-wrapper'>
                                     <Button
