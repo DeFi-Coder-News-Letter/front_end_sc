@@ -6,7 +6,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
-class Top_status extends Component {
+class TopStatus extends Component {
     constructor(props) {
         super(props)
     }
@@ -85,4 +85,4 @@ class Top_status extends Component {
     }
 }
 
-export default Top_status;
+export default TopStatus;

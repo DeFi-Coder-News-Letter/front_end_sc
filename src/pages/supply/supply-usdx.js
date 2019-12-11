@@ -27,7 +27,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import MyStatus from '../../component/header/my-status';
-import Top_status from '../../component/header/top-status';
+import TopStatus from '../../component/header/top-status';
 
 import Web3 from 'web3';
 // tokens ABIs
@@ -155,7 +155,7 @@ class Supply_usdx extends Component {
             // <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + (NetworkName === 'Main' ? 'without-banner' : 'with-banner')}>
             <div className={'lend-page ' + (match ? 'CM XS ' : 'CM LG ') + ('without-banner')}>
 
-              <Top_status token_name={this.token_name} data={this.props.data} />
+              <TopStatus token_name={this.token_name} data={this.props.data} />
 
               <div className='redirect-button'>
                 <div className='go-back-button'>
