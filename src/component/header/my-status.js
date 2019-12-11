@@ -8,7 +8,7 @@ import zh_CN from '../../language/zh_CN';
 
 import { format_num_to_K } from '../../util.js';
 
-class My_status extends Component {
+class MyStatus extends Component {
     constructor(props) {
         super(props)
 
@@ -57,4 +57,4 @@ class My_status extends Component {
     }
 }
 
-export default My_status;
+export default MyStatus;

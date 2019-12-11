@@ -37,7 +37,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import Web3 from 'web3';
-import My_status from '../../component/header/my-status';
+import MyStatus from '../../component/header/my-status';
 import Top_status from '../../component/header/top-status';
 
 
@@ -179,7 +179,7 @@ class Borrow_weth extends Component {
                 </div>
               </div>
 
-              <My_status data={this.props.data} />
+              <MyStatus data={this.props.data} />
 
               <div className='lend-page-wrapper'>
                 <div className='borrow-group'>

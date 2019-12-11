@@ -26,7 +26,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
-import My_status from '../../component/header/my-status';
+import MyStatus from '../../component/header/my-status';
 import Top_status from '../../component/header/top-status';
 
 import Web3 from 'web3';
@@ -168,7 +168,7 @@ class Supply_usdx extends Component {
                 </div>
               </div>
 
-              <My_status data={this.props.data} />
+              <MyStatus data={this.props.data} />
 
               <div className="lend-page-wrapper">
                 <div className="supply-group">

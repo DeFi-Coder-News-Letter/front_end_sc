@@ -5,7 +5,7 @@ import { Tabs, Button, Input } from 'antd';
 import MediaQuery from 'react-responsive';
 import './supply.scss';
 import Web3 from 'web3';
-import My_status from '../../component/header/my-status';
+import MyStatus from '../../component/header/my-status';
 
 import {
   get_tokens_decimals,
@@ -172,7 +172,7 @@ class Supply_weth extends Component {
                 </div>
               </div>
 
-              <My_status data={this.props.data} />
+              <MyStatus data={this.props.data} />
 
               <div className='lend-page-wrapper'>
                 <div className='supply-group'>
