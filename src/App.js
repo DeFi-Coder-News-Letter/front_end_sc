@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Alert } from 'antd';
+// import { Alert } from 'antd';
 import { Route, Switch } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 
@@ -19,8 +19,6 @@ import BorrowimBTC from './pages/borrow/borrow-imbtc';
 
 import { get_tokens_decimals, format_bn } from './util.js';
 
-const mainnetOrRinkebyIconAlert = <img style={{ margin: 'auto' }} src={`images/alert_icon.png`} alt="" />;
-const noteIconAlert = <img style={{ margin: 'auto' }} src={`images/note_alert.png`} alt="" />;
 
 // tokens ABIs
 let USDx_abi = require('./ABIs/USDX_ABI.json');
@@ -380,12 +378,6 @@ class App extends Component {
           <Switch>
             <React.Fragment>
               <div className="App">
-
-                {/* <div className="App-header"> */}
-                {/* <Alert message="Lendf.me is currently only available on Mainnet or the Rinkeby Testnet." type="error" onClose='' icon={mainnetOrRinkebyIconAlert} showIcon /> */}
-                {/* <Alert message="Note: You are currently connected to the Rinkeby Testnet" type="informational" onClose='' className='informational-banner' icon={noteIconAlert} showIcon /> */}
-                {/* </div> */}
-
                 <Route exact path="/" render={() => <Home data={this.state} />} />
 
                 <Route path="/supply-usdx" render={() => <SupplyUSDx data={this.state} />} />

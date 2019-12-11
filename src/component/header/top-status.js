@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import './header.scss';
 
 // add i18n.
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 class TopStatus extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     check_my_account = () => {
         var addr;
@@ -27,7 +24,7 @@ class TopStatus extends Component {
                 <div className='top-status'>
                     <div className='top-status-box'>
                         <div className='top-box-left'>
-                            <img className='logo2' src={'images/lendf_logo2.svg'} />
+                            <img className='logo2' src={'images/lendf_logo2.svg'} alt='' />
                         </div>
                         <div className='top-box-right'>
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import { withMarketInfo } from '../../HOC/withMarketInfo';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import './borrow.scss';

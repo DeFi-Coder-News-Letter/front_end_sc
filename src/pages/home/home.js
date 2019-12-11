@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 // import MediaQuery from 'react-responsive';
-import { Tabs, Button, Input } from 'antd';
+import { Button } from 'antd';
 import './home.scss';
 
 import { format_str_to_kmb, format_num_to_K } from '../../util.js';
@@ -11,14 +11,11 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
-import My_status from '../../component/header/my-status';
+import MyStatus from '../../component/header/my-status';
 
 
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount = () => { }
 
@@ -55,7 +52,7 @@ class Home extends Component {
                 <React.Fragment>
                     <div className='top'>
                         <div className='logo'>
-                            <img className='logo-img' src='images/lendf_logo.svg' />
+                            <img className='logo-img' src='images/lendf_logo.svg' alt='' />
                         </div>
                         <div className='netstatus'>
                             {
@@ -84,13 +81,13 @@ class Home extends Component {
                         <div className='clear'></div>
                     </div>
 
-                    <My_status data={this.props.data} />
+                    <MyStatus data={this.props.data} />
 
                     <div className='card-wrap'>
                         <div className='card card-margin-right'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
-                                    <img src={'images/Home_USDx.svg'} />
+                                    <img src={'images/Home_USDx.svg'} alt='' />
                                     <span>USDx</span>
                                 </div>
                                 <div className='card-top-right'>
@@ -234,7 +231,7 @@ class Home extends Component {
                         <div className='card'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
-                                    <img src={'images/Home_USDT.svg'} />
+                                    <img src={'images/Home_USDT.svg'} alt='' />
                                     <span className='token-usdt'>USDT</span>
                                 </div>
                                 <div className='card-top-right'>
@@ -378,7 +375,7 @@ class Home extends Component {
                         <div className='card card-margin-right'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
-                                    <img src={'images/Home_WETH.svg'} />
+                                    <img src={'images/Home_WETH.svg'} alt='' />
                                     <span className='token-weth'>WETH</span>
                                 </div>
                                 <div className='card-top-right'>
@@ -525,7 +522,7 @@ class Home extends Component {
 
                             <div className='card-top blur-special'>
                                 <div className='card-top-left'>
-                                    <img src={'images/Home_imBTC.svg'} />
+                                    <img src={'images/Home_imBTC.svg'} alt='' />
                                     <span className='token-imbtc'>imBTC</span>
                                 </div>
                                 <div className='card-top-right'>
