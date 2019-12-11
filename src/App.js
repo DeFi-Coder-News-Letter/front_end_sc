@@ -7,15 +7,15 @@ import MediaQuery from 'react-responsive';
 import Home from './pages/home/home';
 import Web3 from 'web3';
 
-import Supply_usdx from './pages/supply/supply-usdx';
-import Supply_usdt from './pages/supply/supply-usdt';
-import Supply_imbtc from './pages/supply/supply-imbtc';
-import Supply_weth from './pages/supply/supply-weth';
+import SupplyUSDx from './pages/supply/supply-usdx';
+import SupplyUSDT from './pages/supply/supply-usdt';
+import SupplyimBTC from './pages/supply/supply-imbtc';
+import SupplyWETH from './pages/supply/supply-weth';
 
-import Borrow_usdx from './pages/borrow/borrow-usdx';
-import Borrow_usdt from './pages/borrow/borrow-usdt';
-import Borrow_weth from './pages/borrow/borrow-weth';
-import Borrow_imbtc from './pages/borrow/borrow-imbtc';
+import BorrowUSDx from './pages/borrow/borrow-usdx';
+import BorrowUSDT from './pages/borrow/borrow-usdt';
+import BorrowWETH from './pages/borrow/borrow-weth';
+import BorrowimBTC from './pages/borrow/borrow-imbtc';
 
 import { get_tokens_decimals, format_bn } from './util.js';
 
@@ -388,15 +388,15 @@ class App extends Component {
 
                 <Route exact path="/" render={() => <Home data={this.state} />} />
 
-                <Route path="/supply-usdx" render={() => <Supply_usdx data={this.state} />} />
-                <Route path="/supply-usdt" render={() => <Supply_usdt data={this.state} />} />
-                <Route path="/supply-imbtc" render={() => <Supply_imbtc data={this.state} />} />
-                <Route path="/supply-weth" render={() => <Supply_weth data={this.state} />} />
+                <Route path="/supply-usdx" render={() => <SupplyUSDx data={this.state} />} />
+                <Route path="/supply-usdt" render={() => <SupplyUSDT data={this.state} />} />
+                <Route path="/supply-imbtc" render={() => <SupplyimBTC data={this.state} />} />
+                <Route path="/supply-weth" render={() => <SupplyWETH data={this.state} />} />
 
-                <Route path="/borrow-usdx" render={() => <Borrow_usdx data={this.state} />} />
-                <Route path="/borrow-usdt" render={() => <Borrow_usdt data={this.state} />} />
-                <Route path="/borrow-imbtc" render={() => <Borrow_imbtc data={this.state} />} />
-                <Route path="/borrow-weth" render={() => <Borrow_weth data={this.state} />} />
+                <Route path="/borrow-usdx" render={() => <BorrowUSDx data={this.state} />} />
+                <Route path="/borrow-usdt" render={() => <BorrowUSDT data={this.state} />} />
+                <Route path="/borrow-imbtc" render={() => <BorrowimBTC data={this.state} />} />
+                <Route path="/borrow-weth" render={() => <BorrowWETH data={this.state} />} />
               </div>
             </React.Fragment>
           </Switch>

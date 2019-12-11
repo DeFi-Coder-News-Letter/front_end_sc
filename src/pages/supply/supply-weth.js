@@ -50,7 +50,7 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-class Supply_weth extends Component {
+class SupplyWETH extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -488,4 +488,4 @@ class Supply_weth extends Component {
   }
 }
 
-export default Supply_weth;
+export default SupplyWETH;

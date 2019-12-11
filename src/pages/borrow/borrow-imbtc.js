@@ -45,7 +45,7 @@ let constant = require('../../ABIs/constant.json');
 
 // const WithMarketInfoEnhanced = withMarketInfo(Header);
 
-class Borrow_imbtc extends Component {
+class BorrowimBTC extends Component {
   constructor(props) {
     super(props);
 
@@ -379,4 +379,4 @@ class Borrow_imbtc extends Component {
   }
 }
 
-export default Borrow_imbtc;
+export default BorrowimBTC;

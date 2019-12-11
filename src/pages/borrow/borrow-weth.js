@@ -52,7 +52,7 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-class Borrow_weth extends Component {
+class BorrowWETH extends Component {
   constructor(props) {
     super(props);
 
@@ -508,4 +508,4 @@ class Borrow_weth extends Component {
   }
 }
 
-export default Borrow_weth;
+export default BorrowWETH;

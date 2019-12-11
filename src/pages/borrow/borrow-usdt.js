@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import Header from '../../component/header/header';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import { withMarketInfo } from '../../HOC/withMarketInfo';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import './borrow.scss';
@@ -47,7 +46,7 @@ let constant = require('../../ABIs/constant.json');
 
 // const WithMarketInfoEnhanced = withMarketInfo(Header);
 
-class Borrow_usdt extends Component {
+class BorrowUSDT extends Component {
   constructor(props) {
     super(props);
 
@@ -381,4 +380,4 @@ class Borrow_usdt extends Component {
   }
 }
 
-export default Borrow_usdt;
+export default BorrowUSDT;

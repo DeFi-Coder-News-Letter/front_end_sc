@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, Button, Input } from 'antd';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {
   format_bn,
   get_tokens_decimals,
@@ -45,7 +44,7 @@ let constant = require('../../ABIs/constant.json');
 // const WithMarketInfoEnhanced = withMarketInfo(Header);
 
 
-class Supply_usdt extends Component {
+class SupplyUSDT extends Component {
   constructor(props) {
     super(props);
 
@@ -358,4 +357,4 @@ class Supply_usdt extends Component {
   }
 }
 
-export default Supply_usdt;
+export default SupplyUSDT;

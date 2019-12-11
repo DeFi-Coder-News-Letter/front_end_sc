@@ -45,7 +45,7 @@ let constant = require('../../ABIs/constant.json');
 
 // const WithMarketInfoEnhanced = withMarketInfo(Header);
 
-class Borrow_usdx extends Component {
+class BorrowUSDx extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -377,4 +377,4 @@ class Borrow_usdx extends Component {
   }
 }
 
-export default Borrow_usdx;
+export default BorrowUSDx;

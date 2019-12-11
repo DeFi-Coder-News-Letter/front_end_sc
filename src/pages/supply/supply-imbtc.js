@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, Button, Input } from 'antd';
 import RecordBoard from '../../container/recordBoard/recordBoard';
-import { withMarketInfo } from '../../HOC/withMarketInfo';
 import {
   format_bn,
   get_tokens_decimals,
@@ -43,7 +42,7 @@ let address = require('../../ABIs/address_map.json');
 // 常量
 let constant = require('../../ABIs/constant.json');
 
-class Supply_imbtc extends Component {
+class SupplyimBTC extends Component {
   constructor(props) {
     super(props);
 
@@ -356,4 +355,4 @@ class Supply_imbtc extends Component {
   }
 }
 
-export default Supply_imbtc;
+export default SupplyimBTC;

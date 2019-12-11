@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Record from "../../component/record/record";
-import Asset from "../../constant.json";
 import { format_bn, format_num_to_K } from "../../util.js";
 
-import { Popover } from 'antd';
+// import { Popover } from 'antd';
 import moment from 'moment';
 import "./recordBoard.scss";
 
@@ -67,6 +65,7 @@ class RecordBoard extends Component {
                                                 temp_item.res_origin = res_success;
                                                 temp_item.status = temp_status;
                                             }
+                                            return item.id;
                                         })
 
                                         window.localStorage.setItem(key, JSON.stringify(contractData));
@@ -85,6 +84,7 @@ class RecordBoard extends Component {
                                 })
                             }, 2000)
                         }
+                        return item.id;
                     })
                 });
             }
