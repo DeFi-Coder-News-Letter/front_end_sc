@@ -267,7 +267,7 @@ class SupplyWETH extends Component {
                                   {this.token_name}
                                   <FormattedMessage id='balance' />
                                 </span>
-                                <span className='balance-amount' style={{cursor: 'pointer'}} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                <span className='balance-amount' style={{ cursor: 'pointer' }} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
                                   {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, 18, 2)) : '···'}
                                 </span>
                               </div>
@@ -303,7 +303,10 @@ class SupplyWETH extends Component {
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    <FormattedMessage id='SUPPLY' />
+                                    {
+                                      this.state.no_such_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_BALANCE' /> : <FormattedMessage id='SUPPLY' />
+                                    }
                                   </Button>
                                 </div>
                               </div>
@@ -437,7 +440,10 @@ class SupplyWETH extends Component {
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    <FormattedMessage id='WITHDRAW' />
+                                    {
+                                      this.state.no_such_withdraw_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_LIQUIDITY' /> : <FormattedMessage id='WITHDRAW' />
+                                    }
                                   </Button>
                                 </div>
                               </div>

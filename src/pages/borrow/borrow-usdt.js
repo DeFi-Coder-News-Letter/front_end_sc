@@ -252,7 +252,10 @@ class BorrowUSDT extends Component {
                                     disabled={false}
                                     onClick={() => { handle_borrow_click(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
                                   >
-                                    <FormattedMessage id='BORROW' />
+                                    {
+                                      this.state.no_such_borrow_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_LIQUIDITY' /> : <FormattedMessage id='BORROW' />
+                                    }
                                   </Button>
                                 </div>
                               </div>
@@ -328,7 +331,10 @@ class BorrowUSDT extends Component {
                                     disabled={false}
                                     onClick={() => { handle_repay_click(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
                                   >
-                                    <FormattedMessage id='REPAY' />
+                                    {
+                                      this.state.no_such_repay_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_BALANCE' /> : <FormattedMessage id='REPAY' />
+                                    }
                                   </Button>
                                 </div>
                               </div>

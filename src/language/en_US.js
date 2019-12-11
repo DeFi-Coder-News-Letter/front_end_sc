@@ -68,6 +68,9 @@ const en_US = {
     unwrap: "Unwrap ",
     repay: "Repay ",
     borrow: "Borrow ",
-    enable: "Enable "
+    enable: "Enable ",
+
+    INSUFFICIENT_BALANCE: "INSUFFICIENT BALANCE",
+    INSUFFICIENT_LIQUIDITY: "INSUFFICIENT LIQUIDITY"
 }
 export default en_US;

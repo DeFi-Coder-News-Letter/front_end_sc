@@ -68,6 +68,9 @@ const zh_CN = {
     unwrap: "转 ",
     repay: "偿还 ",
     borrow: "借款 ",
-    enable: "授权"
+    enable: "授权",
+
+    INSUFFICIENT_BALANCE: "余额不足",
+    INSUFFICIENT_LIQUIDITY: "流动性不足"
 }
 export default zh_CN;

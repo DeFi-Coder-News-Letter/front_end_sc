@@ -173,7 +173,8 @@ class SupplyUSDx extends Component {
                 <div className="supply-group">
                   <div className="supply-title">
                     <span>
-                      <FormattedMessage id='SUPPLY' /></span>
+                      <FormattedMessage id='SUPPLY' />
+                    </span>
                   </div>
                   <div className="supply-content">
                     <div className='supply-input'>
@@ -236,7 +237,10 @@ class SupplyUSDx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_supply_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    <FormattedMessage id='SUPPLY' />
+                                    {
+                                      this.state.no_such_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_BALANCE' /> : <FormattedMessage id='SUPPLY' />
+                                    }
                                   </Button>
                                 </div>
                               </div>
@@ -308,7 +312,10 @@ class SupplyUSDx extends Component {
                                     disabled={false}
                                     onClick={() => { handle_withdraw_click(this, this.state.USDx_decimals, address[this.state.net_type]['address_USDx']) }}
                                   >
-                                    <FormattedMessage id='WITHDRAW' />
+                                    {
+                                      this.state.no_such_withdraw_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_LIQUIDITY' /> : <FormattedMessage id='WITHDRAW' />
+                                    }
                                   </Button>
                                 </div>
                               </div>

@@ -89,9 +89,7 @@ export const get_supplied__available_to_withdraw = (mContract, tokenContract, ac
 
 
 export const get_available_to_borrow = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
-  console.log('*********');
-  // get_available_to_borrow111(mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that);
-
+  // console.log('***** get_available_to_borrow ****');
 
   mContract.methods.calculateAccountValues(account).call((err, res_account_values) => {
     var max_borrow = that.bn(res_account_values[1]).mul(that.bn(10 ** 18)).div(that.bn(collateral_rate));
@@ -119,8 +117,8 @@ export const get_available_to_borrow = (mContract, tokenContract, m_address, tok
         var liquidity_bn_safe = that.bn(t_liquidity_safe).mul(that.bn('10').pow(that.bn('18'))).div(that.bn(res_price).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
         var to_borrow_bn_safe = liquidity_bn_safe.lt(that.bn(res_cash)) ? liquidity_bn_safe : that.bn(res_cash);
 
-        console.log('available_to_borrow: ', to_borrow_bn.toString());
-        console.log('available_to_borrow_safe: ', to_borrow_bn_safe.toString());
+        // console.log('available_to_borrow: ', to_borrow_bn.toString());
+        // console.log('available_to_borrow_safe: ', to_borrow_bn_safe.toString());
         that.setState({
           available_to_borrow: to_borrow_bn.toString(),
           available_to_borrow_safe: to_borrow_bn_safe.toString()
@@ -129,34 +127,6 @@ export const get_available_to_borrow = (mContract, tokenContract, m_address, tok
     })
   })
 }
-
-
-
-// export const get_available_to_borrow111 = (mContract, tokenContract, m_address, token_address, account, collateral_rate, originationFee, that) => {
-//   console.log('*********111111111');
-//   mContract.methods.getAccountLiquidity(account).call((err, res_liquidity) => {
-//     // console.log('res_liquidity: ', res_liquidity);
-
-//     if (!(that.bn(res_liquidity).gt('0'))) {
-//       // that.setState({ available_to_borrow: 0 });
-//       return false;
-//     } else {
-
-//       tokenContract.methods.balanceOf(m_address).call((err, res_cash) => {
-//         mContract.methods.assetPrices(token_address).call((err, res_price) => {
-//           // console.log('res_cash: ', res_cash);
-//           // console.log('res_price: ', res_price);
-
-//           var liquidity_bn = that.bn(res_liquidity).mul(that.bn('10').pow(that.bn('54'))).div(that.bn(res_price).mul(that.bn(collateral_rate)).mul(that.bn('10').pow(that.bn('18')).add(that.bn(originationFee))));
-//           var to_borrow_bn = liquidity_bn.lt(that.bn(res_cash)) ? liquidity_bn : that.bn(res_cash);
-
-//           console.log('available_to_borrow111111111111111: ', to_borrow_bn.toString());
-//           // that.setState({ available_to_borrow: to_borrow_bn.toString() });
-//         })
-//       })
-//     }
-//   })
-// }
 
 
 
@@ -253,13 +223,20 @@ export const handle_supply_change = (value, that, decimals, balance) => {
 
     console.log(amount_bn.toString());
 
-    if (amount_bn.sub(that.bn(balance)) > 0) {
+    if (amount_bn.gt(that.bn(balance))) {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         supply_amount: value,
-        is_supply_enable: false
+        is_supply_enable: false,
+        no_such_balance: true
       });
       return false;
+    } else {
+      that.setState({
+        supply_amount: value,
+        is_supply_enable: true,
+        no_such_balance: false
+      });
     }
   }
 
@@ -309,13 +286,20 @@ export const handle_withdraw_change = (value, that, decimals, balance) => {
 
     console.log(amount_bn.toString());
 
-    if (amount_bn.sub(that.bn(balance)) > 0) {
+    if (amount_bn.gt(that.bn(balance))) {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         withdraw_amount: value,
-        is_withdraw_enable: false
+        is_withdraw_enable: false,
+        no_such_withdraw_balance: true
       });
       return false;
+    } else {
+      that.setState({
+        withdraw_amount: value,
+        is_withdraw_enable: true,
+        no_such_withdraw_balance: false
+      });
     }
   }
 
@@ -504,7 +488,8 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
     that.setState({
       is_borrow_enable: true,
       borrow_amount: null,
-      borrow_exceed: false
+      borrow_exceed: false,
+      no_such_borrow_balance: false
     });
     return false;
   } else {
@@ -528,14 +513,21 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
 
     console.log(amount_bn.toString());
 
-    if (amount_bn.sub(that.bn(balance)) > 0) {
+    if (amount_bn.gt(that.bn(balance))) {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         borrow_amount: value,
         is_borrow_enable: false,
-        borrow_exceed: false
+        borrow_exceed: false,
+        no_such_borrow_balance: true
       });
       return false;
+    } else {
+      that.setState({
+        borrow_amount: value,
+        is_borrow_enable: true,
+        no_such_borrow_balance: false
+      });
     }
 
     if (amount_bn.gt(that.bn(that.state.available_to_borrow_safe))) {
@@ -549,7 +541,7 @@ export const handle_borrow_change = (value, that, decimals, balance) => {
     }
   }
 
-  that.setState({ borrow_amount: value });
+  that.setState({ borrow_amount: value, no_such_borrow_balance: false });
 
   if ((Number(value)) === 0) {
     that.setState({ is_borrow_enable: false, borrow_exceed: false });
@@ -571,7 +563,8 @@ export const handle_repay_change = (value, that, decimals, balance) => {
     console.log("value === null || value === ''")
     that.setState({
       is_repay_enable: true,
-      repay_amount: null
+      repay_amount: null,
+      no_such_repay_balance: false
     });
     return false;
   } else {
@@ -595,12 +588,16 @@ export const handle_repay_change = (value, that, decimals, balance) => {
 
     console.log(amount_bn.toString());
 
-    if (amount_bn.sub(that.bn(balance)) > 0 || amount_bn.gt(that.bn(that.state.my_borrowed))) {
+    if (amount_bn.gt(that.bn(balance)) || amount_bn.gt(that.bn(that.state.my_borrowed))) {
       console.log(' --- INSUFFICIENT BALANCE ---');
       that.setState({
         repay_amount: value,
         is_repay_enable: false
       });
+
+      if (amount_bn.gt(that.bn(balance))) {
+        that.setState({ no_such_repay_balance: true });
+      }
       return false;
     }
   }

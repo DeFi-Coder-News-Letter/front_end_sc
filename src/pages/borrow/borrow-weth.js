@@ -321,7 +321,10 @@ class BorrowWETH extends Component {
                                     disabled={false}
                                     onClick={() => { handle_borrow_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    <FormattedMessage id='BORROW' />
+                                    {
+                                      this.state.no_such_borrow_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_LIQUIDITY' /> : <FormattedMessage id='BORROW' />
+                                    }
                                   </Button>
                                 </div>
                               </div>
@@ -422,7 +425,7 @@ class BorrowWETH extends Component {
                                   {this.token_name}
                                   <FormattedMessage id='balance' />
                                 </span>
-                                <span className='balance-amount' style={{cursor: 'pointer'}} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
+                                <span className='balance-amount' style={{ cursor: 'pointer' }} onClick={() => { handle_unwrap_max(this, this.state.my_balance, this.state.WETH_decimals) }}>
                                   {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.WETH_decimals, 2)) : '···'}
                                 </span>
                               </div>
@@ -457,7 +460,10 @@ class BorrowWETH extends Component {
                                     disabled={false}
                                     onClick={() => { handle_repay_click(this, this.state.WETH_decimals, address[this.state.net_type]['address_WETH']) }}
                                   >
-                                    <FormattedMessage id='REPAY' />
+                                    {
+                                      this.state.no_such_repay_balance ?
+                                        <FormattedMessage id='INSUFFICIENT_BALANCE' /> : <FormattedMessage id='REPAY' />
+                                    }
                                   </Button>
                                 </div>
                               </div>
