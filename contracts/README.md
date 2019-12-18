@@ -11,7 +11,7 @@
 	</tr>
 	<tr>
 		<td> Liquidator </td>
-		<td> 0x45b1953611Da41F841def7DceFF318F83409739d </td>
+		<td> 0x932906251479106d96904184aa4985c1a291b35d </td>
 	</tr>
 	<tr>
 		<td> USDx </td>
@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<td> USDxRateModel </td>
-		<td> 0x02C84cdF851eAd1cabcAD291a236a35AE13b3955 </td>
+		<td> 0x2253d16773a8586825ec54a535ec936ab53e0c51 </td>
 	</tr>
 	<tr>
 		<td> USDT </td>
@@ -27,7 +27,7 @@
 	</tr>
 	<tr>
 		<td> USDTRateModel </td>
-		<td> 0xdE5D087F66dBdf684141D17ab67686380Ba5df2D </td>
+		<td> 0x760f44e0d2e45eaa10d6a2f149dccffdde664ef9 </td>
 	</tr>
 	<tr>
 		<td> WETH </td>
@@ -35,7 +35,7 @@
 	</tr>
 	<tr>
 		<td> WETHRateModel </td>
-		<td> 0x8d1C6910f5Ae8acb3B56efE9681c1b6Ccfb49Bb4 </td>
+		<td> 0x50add3a22eea443e938a0c602eacc17a12ce6483 </td>
 	</tr>
 	<tr>
 		<td> PriceOracle </td>
