@@ -30,6 +30,14 @@
 		<td> 0x760f44e0d2e45eaa10d6a2f149dccffdde664ef9 </td>
 	</tr>
 	<tr>
+		<td> imBTC </td>
+		<td> 0x3212b29E33587A00FB1C83346f5dBFA69A458923 </td>
+	</tr>
+	<tr>
+		<td> imBTCRateModel </td>
+		<td> 0x50add3a22eea443e938a0c602eacc17a12ce6483 </td>
+	</tr>
+	<tr>
 		<td> WETH </td>
 		<td> 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 </td>
 	</tr>
@@ -78,6 +86,14 @@
 	<tr>
 		<td> USDTRateModel </td>
 		<td> 0x4660F2B8839c848F693C0AFBf6534B87910e478c </td>
+	</tr>
+	<tr>
+		<td> imBTC </td>
+		<td> 0x7b054eBe1D7e003afdA8e717DAEaB05D56D5836A </td>
+	</tr>
+	<tr>
+		<td> imBTCRateModel </td>
+		<td> 0x51a3cfbeFa960b4316FD990CDAB8Bf20078fA378 </td>
 	</tr>
 	<tr>
 		<td> WETH </td>
