@@ -505,7 +505,7 @@ contract MoneyMarket {
 
 /**
   * @title LiquidationChecker
-  * @author Compound
+  * @author Lendf.Me
   */
 contract LiquidationChecker {
     MoneyMarket public moneyMarket;
@@ -549,9 +549,8 @@ contract LiquidationChecker {
 }
 
 /**
-  * @title The Compound Standard Interest Rate Model with LiquidationChecker
-  * @author Compound
-  * @notice See Section 2.4 of the Compound Whitepaper
+  * @title The Lendf.Me Standard Interest Rate Model with LiquidationChecker
+  * @author Lendf.Me
   */
 contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
 
