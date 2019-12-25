@@ -516,11 +516,13 @@ class Home extends Component {
 
 
                         <div className='card card-special'>
-                            <div className='am-popup'>
-                                <FormattedMessage id='coming_soon' />
-                            </div>
+                            {
+                                /* <div className='am-popup'>
+                                    <FormattedMessage id='coming_soon' />
+                                </div> */
+                            }
 
-                            <div className='card-top blur-special'>
+                            <div className='card-top'>
                                 <div className='card-top-left'>
                                     <img src={'images/Home_imBTC.svg'} alt='' />
                                     <span className='token-imbtc'>imBTC</span>
@@ -536,7 +538,7 @@ class Home extends Component {
                             </div>
                             <div className='clear'></div>
 
-                            <div className='card-center blur-special'>
+                            <div className='card-center'>
                                 {
                                     this.props.data.i_have_borrow_imbtc &&
                                     <div className={'supply-apr'}>
@@ -585,7 +587,7 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            <div className='card-bottom blur-special'>
+                            <div className='card-bottom'>
                                 {
                                     this.props.data.i_have_supply_imbtc &&
                                     <div className={'button-wrap-home-fall'}>
