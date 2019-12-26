@@ -56,6 +56,63 @@
 </table>
 
 
+## Mainnet Test Contract Address(2019-12-25)
+
+<table>
+	<tr>
+   		<th>Contract Name</th>
+    	<th>Contract Address</th>
+	</tr>
+	<tr>
+		<td> MoneyMarket </td>
+		<td> 0xEDA3849869FD560B49daB8C110bE3a020F46c79E </td>
+	</tr>
+	<tr>
+		<td> Liquidator </td>
+		<td> 0x74E2Caa1AAc64e5E9A20ffcd8577187cC67d60E4 </td>
+	</tr>
+	<tr>
+		<td> USDx </td>
+		<td> 0x3A9E75AFcFFcD89613037989EA0ED6cEc44a4353 </td>
+	</tr>
+	<tr>
+		<td> USDxRateModel </td>
+		<td> 0x40B0F9e6EABb0381d5A4e88DD6A2bc2CE504E821 </td>
+	</tr>
+	<tr>
+		<td> USDT </td>
+		<td> 0x622B859cf4f1013642F6c177bA713d482fF5b483 </td>
+	</tr>
+	<tr>
+		<td> USDTRateModel </td>
+		<td> 0xc6A9B599bf5F18670B97B2701953D90217481c01 </td>
+	</tr>
+	<tr>
+		<td> imBTC </td>
+		<td> 0x1141687E2a906722254e77241019c57496c0e83e </td>
+	</tr>
+	<tr>
+		<td> imBTCRateModel </td>
+		<td> 0x7f8b859EEd21dc45d08cf5275e498dEB8A584f6e </td>
+	</tr>
+	<tr>
+		<td> WETH </td>
+		<td> 0x06A1cd567e61b7Edda49c30D3D32e60F607fD646 </td>
+	</tr>
+	<tr>
+		<td> WETHRateModel </td>
+		<td> 0x7f8b859EEd21dc45d08cf5275e498dEB8A584f6e </td>
+	</tr>
+	<tr>
+		<td> PriceOracle </td>
+		<td> 0x5b4e06e712c851454b071a755B61fc0a86A8680E </td>
+	</tr>
+	<tr>
+		<td> PriceOracleProxy </td>
+		<td> 0x55d19f7F257544ef2E5c5f9B6d31a2416f8d5146 </td>
+	</tr>
+</table>
+
 ## Rinkeby Contract Address(2019-12-10)
 
 <table>
