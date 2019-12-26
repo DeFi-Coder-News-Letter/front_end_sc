@@ -15,7 +15,8 @@ import {
   handle_approve,
   handle_supply_click,
   handle_withdraw_click,
-  format_num_to_K
+  format_num_to_K,
+  handle_supply_click_special
 } from '../../util.js';
 
 import MediaQuery from 'react-responsive';
@@ -232,7 +233,7 @@ class SupplyUSDT extends Component {
                                     size='large'
                                     className={this.state.is_supply_enable && !this.props.data.i_have_borrow_usdt ? null : 'disable-button'}
                                     disabled={false}
-                                    onClick={() => { handle_supply_click(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
+                                    onClick={() => { handle_supply_click_special(this, this.state.USDT_decimals, address[this.state.net_type]['address_USDT']) }}
                                   >
                                     {
                                       this.state.no_such_balance ?

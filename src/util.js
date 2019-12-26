@@ -961,3 +961,65 @@ export const format_num_to_K = (str_num) => {
 
   return part_a + '.' + part_b;
 }
+
+
+
+export const handle_supply_click_special = (that, decimals, token_address) => {
+  if (!(that.state.is_supply_enable && that.state.supply_amount)) {
+    console.log('i return you...');
+    return false;
+  }
+
+  that.setState({ is_supply_enable: false });
+
+  var amount_str = that.state.supply_amount;// '123.456'
+  var amount_bn;
+
+  if (amount_str.indexOf('.') > 0) {
+    var sub_num = amount_str.length - amount_str.indexOf('.') - 1;// 3
+    amount_str = amount_str.substr(0, amount_str.indexOf('.')) + amount_str.substr(amount_str.indexOf('.') + 1);// '123456'
+    amount_bn = that.bn(amount_str).mul(that.bn(10 ** (decimals - sub_num)));// bn_'123456'
+  } else {
+    amount_bn = that.bn(amount_str).mul(that.bn(10 ** decimals));
+  }
+
+  if (that.state.i_will_supply_max) {
+    amount_bn = that.bn(that.state.my_balance)
+  }
+
+  console.log('amount_bn: ', amount_bn);
+  console.log('amount_bn string: ', amount_bn.toString());
+
+  that.state.mMarket.methods.supply(token_address, amount_bn.toString()).estimateGas({ from: that.state.my_account }, (err, gasLimit) => {
+    that.new_web3.eth.getGasPrice((err, gasPrice) => {
+      console.log('supply_gasLimit: ', gasLimit);
+      console.log('supply_gasPrice: ', gasPrice);
+
+      if (window.ethereum.isImToken !== undefined && window.ethereum.isImToken === true) {
+        gasPrice = Number(gasPrice.toString().slice(0, -5) + '00118');
+        // alert(gasPrice)
+      }
+
+      that.state.mMarket.methods.supply(token_address, amount_bn.toString()).send(
+        {
+          from: that.state.my_account,
+          gas: Math.ceil(gasLimit * that.gas_limit_coefficient),
+          gasPrice: gasPrice
+        }, (reject, res_hash) => {
+          // 成功后返回哈希
+          if (res_hash) {
+            console.log(res_hash);
+            that.setState({ is_supply_enable: true, supply_amount: null });
+            let timestamp = new Date().getTime();
+            i_got_hash(that.state.my_account, that.state.net_type, that.token_name, 'supply', amount_bn.toString(), res_hash, timestamp, 'pendding', that);
+          }
+          // 点击取消
+          if (reject) {
+            console.log(reject)
+            that.setState({ is_supply_enable: true });
+          }
+        }
+      )
+    })
+  })
+}
