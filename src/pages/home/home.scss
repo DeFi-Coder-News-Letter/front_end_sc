@@ -136,7 +136,7 @@ $token-num-mobile: 18px;
                     }
 
                     .token-imbtc {
-                        color: #F6B11C;
+                        color: rgba(95, 93, 163, 1);
                     }
                 }
 
@@ -364,14 +364,14 @@ $token-num-mobile: 18px;
     .card-special {
         position: relative;
         overflow: hidden;
-    
+
         .blur-special {
             // -webkit-filter: blur(10px);
             // -moz-filter: blur(10px);
             // -ms-filter: blur(10px);
             filter: blur(1px);
         }
-    
+
         .am-popup {
             position: absolute;
             top: 0;
@@ -383,7 +383,7 @@ $token-num-mobile: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
-    
+
             font-size: 24px;
             font-weight: bold;
             color: rgba(67, 73, 118, 1);
@@ -688,4 +688,3 @@ $token-num-mobile: 18px;
         display: none;
     }
 }
-
