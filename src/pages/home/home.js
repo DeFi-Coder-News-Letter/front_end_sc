@@ -554,7 +554,14 @@ class Home extends Component {
                                         <span className='apr'>
                                             <FormattedMessage id='supply_APR' />
                                         </span>
-                                        <span className='apr-num apr-num-left'>{this.props.data.imbtc_supply_APR ? this.props.data.imbtc_supply_APR + '%' : '···'}</span>
+                                        <span className='apr-num apr-num-left'>
+                                            {
+                                                this.props.data.imbtc_supply_APR ?
+                                                    this.props.data.imbtc_supply_APR === '0.00' ? '<0.01%' : this.props.data.imbtc_supply_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
                                     </div>
                                 }
 
