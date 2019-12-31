@@ -420,6 +420,11 @@ $token-num-mobile: 18px;
 
 @media screen and (max-width: 767px) {
 
+    .Platform {
+        display: none !important;
+    }
+
+
     // my status
     .header-new {
         width: 89%;
