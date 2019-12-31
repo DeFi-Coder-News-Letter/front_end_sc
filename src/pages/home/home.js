@@ -58,13 +58,10 @@ class Home extends Component {
                             {
                                 this.props.data.my_account &&
                                 <React.Fragment>
-                                    <div className='netstatus-top'>
-                                        <span className={t_class}></span>
-                                        {t_net}
-                                    </div>
                                     <div className='netstatus-bm' onClick={() => { this.check_my_account() }}>
+                                        <span className={t_class}></span>
                                         <span className='account-span'>
-                                            {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
+                                            {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 4) : '···'}
                                         </span>
                                     </div>
                                 </React.Fragment>
@@ -78,6 +75,33 @@ class Home extends Component {
                                 </React.Fragment>
                             }
                         </div>
+
+                        <div className='Platform'>
+                            <span className='Platform-title'>dForce Platform</span>
+                            <span className='Platform-img'>
+                                <img src='images/down.svg' alt='' />
+                            </span>
+
+                            <div className='Platform-fixed'>
+                                <ul>
+                                    {/* <li>
+                                        <span className='img'>
+                                            <img src='images/USDx_li.svg' alt='' />
+                                        </span>
+                                        <span className='title'>USDx</span>
+                                    </li> */}
+                                    <li>
+                                        <a href='https://usdx.dforce.network/' target='_blank'>
+                                            <span className='img'>
+                                                <img src='images/USDx_li.svg' alt='' />
+                                            </span>
+                                            <span className='title'>USDx</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div className='clear'></div>
                     </div>
 
@@ -664,6 +688,65 @@ class Home extends Component {
                         </div>
 
                         <div className='clear'></div>
+
+                        <div className='footer'>
+                            <div className='footer-left'>
+                                <div className='footer-left-res'>
+                                    <span className='title'>
+                                        <FormattedMessage id='Resource' />
+                                    </span>
+                                    <span className='content-new'>
+                                        <a href='https://github.com/Lendfme' target='_blank' rel="noopener noreferrer">GitHub</a>
+                                    </span>
+                                    <span className='content-new'>
+                                        <a href='https://docs.lendf.me/faq' target='_blank' rel="noopener noreferrer">FAQ</a>
+                                    </span>
+                                </div>
+
+                                <div className='footer-left-pro'>
+                                    <span className='title'>
+                                        <FormattedMessage id='Products' />
+                                    </span>
+                                    <span className='content-new'>
+                                        <a href='https://markets.lendf.me/' target='_blank' rel="noopener noreferrer">Markets</a>
+                                    </span>
+                                    <span className='content-new'>
+                                        <a href='https://monitor.lendf.me/' target='_blank' rel="noopener noreferrer">Monitor</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className='footer-right'>
+                                <a href='https://twitter.com/LendfMe' target='_blank' rel="noopener noreferrer">
+                                    <img src={'images/twitter.svg'} alt='' />
+                                </a>
+                                <a href='https://medium.com/dforcenet' target='_blank' rel="noopener noreferrer">
+                                    <img src={'images/medium.svg'} alt='' />
+                                </a>
+                                <a href='https://t.me/dforcenet' target='_blank' rel="noopener noreferrer">
+                                    <img src={'images/telegram.svg'} alt='' />
+                                </a>
+                                <div className='clear'></div>
+
+                                <div className='footer-right-fixed'>
+                                    <div className='fixed1'>
+                                        {
+                                            // this.state.cur_language
+                                        }
+                                    </div>
+                                    <span className='fixed-img'>
+                                        {/* <img src={'images/up.svg'} alt='' /> */}
+                                    </span>
+                                    <div className='fixed2'>
+                                        <ul>
+                                            <li onClick={() => { this.setState({ cur_language: '中文' }) }}>{'中文'}</li>
+                                            <li onClick={() => { this.setState({ cur_language: 'English' }) }}>{'English'}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='clear'></div>
+                        </div>
                     </div>
                 </React.Fragment>
             </IntlProvider>

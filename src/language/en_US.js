@@ -11,7 +11,7 @@ const en_US = {
     collateralization_ratio: "Collateralization ratio",
     connect: "Connect",
 
-    market_size: "Market Size",
+    market_size: "Total Supply",
     MAX: "MAX",
     SAFE_MAX: "SAFE MAX",
     Home: "HOME",

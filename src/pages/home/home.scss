@@ -46,13 +46,17 @@ $token-num-mobile: 18px;
                 cursor: pointer;
             }
 
-            .netstatus-top {
+            .netstatus-bm {
                 position: relative;
-                padding-left: 15px;
-                font-size: 14px;
-                font-weight: 400;
-                color: rgba(48, 40, 79, 1);
-
+                width: 120px;
+                height: 35px;
+                line-height: 35px;
+                background: rgba(67, 73, 118, 1);
+                border-radius: 3px;
+                color: #FFFFFF;
+                cursor: pointer;
+                float: right;
+                padding-left: 24px;
 
                 .net-span {
                     position: absolute;
@@ -60,8 +64,8 @@ $token-num-mobile: 18px;
                     height: 8px;
                     border-radius: 50%;
                     background: #666;
-                    left: 0;
-                    top: 7px;
+                    left: 7px;
+                    top: 13px;
                 }
 
                 .main-span {
@@ -71,9 +75,7 @@ $token-num-mobile: 18px;
                 .rinkeby-span {
                     background: rgba(232, 187, 102, 1);
                 }
-            }
 
-            .netstatus-bm {
                 font-size: 14px;
                 font-weight: 400;
                 color: rgba(48, 40, 79, 1);
@@ -81,6 +83,74 @@ $token-num-mobile: 18px;
 
                 &:hover {
                     color: rgba(112, 78, 244, 1);
+                }
+
+                .account-span {
+                    color: #fff;
+                }
+            }
+        }
+
+        .Platform {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(67, 73, 118, 1);
+            position: relative;
+            margin-right: 35px;
+            float: right;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(67, 73, 118, 1);
+            cursor: pointer;
+            padding-bottom: 10px;
+            padding-top: 5px;
+
+            &:hover .Platform-fixed {
+                display: block;
+            }
+
+            .Platform-img {
+                margin-left: 5px;
+
+                img {
+                    width: 10px;
+                }
+            }
+
+            .Platform-fixed {
+                display: none;
+                position: absolute;
+                top: 35px;
+
+                ul {
+                    width: 120px;
+                    background: #fff;
+                    padding: 0;
+
+                    li {
+                        a {
+                            color: #333;
+                        }
+
+                        text-align: center;
+                        width: 100%;
+                        list-style: none;
+                        line-height: 40px;
+
+                        &:hover {
+                            background: #F0EEFF;
+                            cursor: pointer;
+                        }
+
+                        img {
+                            width: 16px;
+                            margin-right: 5px;
+                        }
+                    }
+
+                    // li:nth-child(1) {
+                    //     border-bottom: 1px solid #DDDDE8;
+                    // }
                 }
             }
         }
@@ -686,5 +756,130 @@ $token-num-mobile: 18px;
 
     .card-special {
         // display: none;
+    }
+}
+
+
+.footer {
+    width: 820px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-top: 1px solid #DEE0ED;
+
+    .footer-left {
+        float: left;
+        padding-top: 5px;
+        display: flex;
+
+        .footer-left-pro,
+        .footer-left-res {
+            margin-right: 60px;
+
+            .title {
+                display: block;
+                font-size: 16px;
+                font-weight: 500;
+                color: rgba(67, 73, 118, 1);
+                margin-bottom: 5px;
+            }
+
+            .content-new {
+                display: block;
+                font-weight: 400;
+                color: rgba(67, 73, 118, 1);
+
+                a {
+                    margin-right: 30px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: rgba(164, 167, 190, 1);
+                    line-height: 30px;
+
+                    &:hover {
+                        color: #8472FF;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-right {
+        float: right;
+
+        a {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-left: 15px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .footer-right-fixed {
+            position: relative;
+            // background-color: red;
+            float: right;
+            width: 108px;
+            cursor: pointer;
+            padding-top: 8px;
+
+            &:hover .fixed2 {
+                // display: block;
+            }
+
+            .fixed1 {
+                // background-color: palegoldenrod;
+                float: left;
+                position: relative;
+                font-size: 16px;
+                font-weight: 500;
+                color: rgba(67, 73, 118, 1);
+                margin-right: 8px;
+            }
+
+            .fixed-img {
+                float: left;
+
+                img {
+                    width: 10px;
+                }
+            }
+
+            .fixed2 {
+                display: none;
+                position: absolute;
+                bottom: 27px;
+                background: #FFF;
+                width: 90px;
+                box-shadow: 0px 0px 35px 0px rgba(94, 85, 126, 0.15);
+                /* border-radius: 6px; */
+                left: -20px;
+
+                ul {
+                    margin-bottom: 0;
+
+                    li {
+                        text-align: center;
+                        line-height: 40px;
+
+                        &:hover {
+                            background: #F0EEFF;
+                            cursor: pointer;
+                        }
+                    }
+
+                    li:nth-child(1) {
+                        border-bottom: 1px solid #DDDDE8;
+                    }
+                }
+            }
+        }
     }
 }
