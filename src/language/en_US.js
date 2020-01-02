@@ -22,6 +22,10 @@ const en_US = {
     supplying_balance: "Supplying Balance",
     utilization_Rate: "Utilization Rate",
 
+    supply_balance_total: "Supply Balance",
+    borrow_balance_total: "Borrow Balance",
+    collateralization_ratio_total: "Collateralization ratio",
+
     SUPPLY: "SUPPLY",
     WITHDRAW: "WITHDRAW",
     BORROW: "BORROW",
@@ -71,6 +75,8 @@ const en_US = {
     enable: "Enable ",
 
     INSUFFICIENT_BALANCE: "INSUFFICIENT BALANCE",
-    INSUFFICIENT_LIQUIDITY: "INSUFFICIENT LIQUIDITY"
+    INSUFFICIENT_LIQUIDITY: "INSUFFICIENT LIQUIDITY",
+    Resource: 'Resource',
+    Products: 'Products'
 }
 export default en_US;

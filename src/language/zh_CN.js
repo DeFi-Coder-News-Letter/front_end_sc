@@ -22,6 +22,10 @@ const zh_CN = {
     supplying_balance: "你的存款量",
     utilization_Rate: "借存比率",
 
+    supply_balance_total: "存款总额",
+    borrow_balance_total: "借款总额",
+    collateralization_ratio_total: "抵押率",
+
     SUPPLY: "存款",
     WITHDRAW: "取出",
     BORROW: "借款",
@@ -71,6 +75,8 @@ const zh_CN = {
     enable: "授权",
 
     INSUFFICIENT_BALANCE: "余额不足",
-    INSUFFICIENT_LIQUIDITY: "流动性不足"
+    INSUFFICIENT_LIQUIDITY: "流动性不足",
+    Resource: '资源',
+    Products: '产品'
 }
 export default zh_CN;
