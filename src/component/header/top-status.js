@@ -60,7 +60,7 @@ class TopStatus extends Component {
 
                             <div className='netstatus'>
                                 <div className='netstatus-bm' onClick={() => { this.check_my_account() }}>
-                                    <span className={'net-span rinkeby-span'}></span>
+                                    <span className={`net-span ${this.props.data.net_type}-span`}></span>
                                     <span className='account-span'>
                                         {
                                             this.props.data.my_account ?
