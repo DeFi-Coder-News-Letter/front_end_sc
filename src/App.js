@@ -101,7 +101,7 @@ class App extends Component {
         }, async () => {
           console.log('connected: ', this.state.my_account)
           let timer_Next = setInterval(() => {
-            if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+            if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals && this.state.my_account)) {
               console.log('111111111: not get yet...');
             } else {
               console.log('2222222222: i got it...');
@@ -358,7 +358,27 @@ class App extends Component {
   }
 
 
+  connect = () => {
+    // console.log(111);
+    this.new_web3.givenProvider.enable().then(res_accounts => {
+      this.setState({ my_account: res_accounts[0] }, async () => {
+        console.log('connected: ', this.state.my_account)
 
+        let timer_Next = setInterval(() => {
+          if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+            console.log('111111111: not get yet...');
+          } else {
+            console.log('2222222222: i got it...');
+            clearInterval(timer_Next);
+            this.setState({ i_am_ready: true })
+            // to do something...
+            this.get_my_status();
+            this.get_4_tokens_status();
+          }
+        }, 100)
+      })
+    })
+  }
 
 
   componentDidMount = () => {
@@ -382,7 +402,7 @@ class App extends Component {
           <Switch>
             <React.Fragment>
               <div className="App">
-                <Route exact path="/" render={() => <Home data={this.state} />} />
+                <Route exact path="/" render={() => <Home data={this.state} connect={this.connect} />} />
 
                 <Route path="/supply-usdx" render={() => <SupplyUSDx data={this.state} supply_APR={this.state.usdx_supply_APR} />} />
                 <Route path="/supply-usdt" render={() => <SupplyUSDT data={this.state} supply_APR={this.state.usdt_supply_APR} />} />
