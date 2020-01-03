@@ -315,6 +315,10 @@ $token-num-mobile: 18px;
                 .item-num-ratio {
                     color: #00A577;
                 }
+
+                .item-num-apr {
+                    color: #F2874C;
+                }
             }
 
             .collate-rate {
@@ -362,7 +366,7 @@ $token-num-mobile: 18px;
                     padding-right: 20px;
                     padding-top: 10px;
                     padding-bottom: 10px;
-                    border-right: 1px solid rgba(255, 255, 255, 0.4);
+                    // border-right: 1px solid rgba(255, 255, 255, 0.4);
 
                     .token-price-t {
                         margin-right: 5px;
@@ -373,42 +377,42 @@ $token-num-mobile: 18px;
                 .netstatus {
                     float: right;
                     width: 110px;
-                    // background: pink;
+                    height: 35px;
+                    line-height: 35px;
+                    background: #fff;
+                    position: relative;
+                    margin-top: 5px;
+                    border-radius: 4px;
+                    // text-align: right;
+                    padding-left: 20px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: rgba(34, 44, 60, 1);
 
-                    .netstatus-top {
-                        position: relative;
-                        padding-left: 15px;
-                        font-size: 14px;
-                        font-weight: 400;
 
+                    .net-span {
+                        position: absolute;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background: #666;
+                        left: 5px;
+                        top: 14px;
+                    }
 
-                        .net-span {
-                            position: absolute;
-                            width: 8px;
-                            height: 8px;
-                            border-radius: 50%;
-                            background: #666;
-                            left: 0;
-                            top: 7px;
-                        }
+                    .main-span {
+                        background: rgba(39, 170, 160, 1);
+                    }
 
-                        .main-span {
-                            background: rgba(39, 170, 160, 1);
-                        }
-
-                        .rinkeby-span {
-                            background: rgba(232, 187, 102, 1);
-                        }
+                    .rinkeby-span {
+                        background: rgba(232, 187, 102, 1);
                     }
 
                     .netstatus-bm {
                         font-size: 14px;
                         font-weight: 400;
                         cursor: pointer;
-
-                        &:hover {
-                            color: rgba(112, 78, 244, 1);
-                        }
+                        color: #222C3C;
                     }
                 }
             }
@@ -419,11 +423,6 @@ $token-num-mobile: 18px;
 
 
 @media screen and (max-width: 767px) {
-
-    .Platform {
-        display: none !important;
-    }
-
 
     // my status
     .header-new {
@@ -463,6 +462,10 @@ $token-num-mobile: 18px;
 
                 .item-num-ratio {
                     color: #00A577;
+                }
+
+                .item-num-apr {
+                    color: #F2874C;
                 }
             }
         }

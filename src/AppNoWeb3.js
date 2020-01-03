@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive';
 import { format_str_to_kmb } from './util.js';
 // import { unmountComponentAtNode } from 'react-dom';
 import { Button } from 'antd';
+import Footer from './component/footer/footer';
 
 // add i18n.
 import { IntlProvider, FormattedMessage } from 'react-intl';
@@ -51,6 +52,7 @@ class AppNoWeb3 extends Component {
   }
   // get total status
   get_markets = () => {
+    // "0.00000120110112".slice(0, "0.00000120110112".indexOf('.')+3)
     fetch(this.markets_api)
       .then((res) => { return res.text() })
       .then((data) => {
@@ -58,17 +60,29 @@ class AppNoWeb3 extends Component {
           var obj_data = JSON.parse(data);
           console.log(obj_data);
           obj_data.markets.map(item => {
+
+            // supplyAPR: item.supplyAPR.slice(0, item.supplyAPR.indexOf('.') + 3),
+            // borrowAPR: item.borrowAPR.slice(0, item.borrowAPR.indexOf('.') + 3)
+
             if (item.symbol === 'USDx') {
-              this.setState({ USDx_item: item })
+              this.setState({
+                USDx_item: item
+              })
             } else if (item.symbol === 'WETH') {
-              this.setState({ WETH_item: item })
+              this.setState({
+                WETH_item: item
+              })
             } else if (item.symbol === 'USDT') {
-              this.setState({ USDT_item: item })
+              this.setState({
+                USDT_item: item
+              })
             } else {
-              this.setState({ imBTC_item: item })
+              this.setState({
+                imBTC_item: item
+              })
             }
           })
-          this.setState({ data: obj_data });
+          // this.setState({ data: obj_data });
         }
       })
   }
@@ -99,12 +113,19 @@ class AppNoWeb3 extends Component {
                   <img className='logo-img' src='images/lendf_logo.svg' alt='' />
                 </div>
 
-                <div className='Platform' style={{ marginRight: 0 }}>
+                <div className='netstatus'>
+                  <React.Fragment>
+                    <div className='content-btn'>
+                      <FormattedMessage id='connect' />
+                    </div>
+                  </React.Fragment>
+                </div>
+
+                <div className='Platform'>
                   <span className='Platform-title'>dForce Platform</span>
                   <span className='Platform-img'>
                     <img src='images/down.svg' alt='' />
                   </span>
-
                   <div className='Platform-fixed'>
                     <ul>
                       <li>
@@ -118,7 +139,6 @@ class AppNoWeb3 extends Component {
                     </ul>
                   </div>
                 </div>
-
                 <div className='clear'></div>
               </div>
 
@@ -127,31 +147,28 @@ class AppNoWeb3 extends Component {
                 <div className='header-new-con'>
                   <div className='header-new-item supply-balance'>
                     <span className='item-title'>
-                      <FormattedMessage id='supply_balance_total' />
+                      <FormattedMessage id='supply_balance' />
                     </span>
                     <span className='item-num'>
-                      {this.state.data.totalSupplyBalanceUSD ? '$' + this.format_num_to_K(this.state.data.totalSupplyBalanceUSD) : '···'}
+                      {'···'}
                     </span>
                   </div>
 
                   <div className='header-new-item borrow-balance'>
                     <span className='item-title'>
-                      <FormattedMessage id='borrow_balance_total' />
+                      <FormattedMessage id='borrow_balance' />
                     </span>
                     <span className='item-num item-num-borrow'>
-                      {this.state.data.totalBorrowBalanceUSD ? '$' + this.format_num_to_K(this.state.data.totalBorrowBalanceUSD) : '···'}
+                      {'···'}
                     </span>
                   </div>
 
                   <div className='header-new-item collate-rate'>
                     <span className='item-title'>
-                      <FormattedMessage id='collateralization_ratio_total' />
+                      <FormattedMessage id='collateralization_ratio' />
                     </span>
                     <span className='item-num item-num-ratio'>
-                      {
-                        this.state.data.totalCollateralizationRatio &&
-                        this.format_num_to_K((this.state.data.totalCollateralizationRatio * 100).toFixed(2).toString()) + '%'
-                      }
+                      {'···'}
                     </span>
                   </div>
                 </div>
@@ -446,64 +463,8 @@ class AppNoWeb3 extends Component {
 
                 <div className='clear'></div>
 
-                <div className='footer'>
-                  <div className='footer-left'>
-                    <div className='footer-left-res'>
-                      <span className='title'>
-                        <FormattedMessage id='Resource' />
-                      </span>
-                      <span className='content-new'>
-                        <a href='https://github.com/Lendfme' target='_blank' rel="noopener noreferrer">GitHub</a>
-                      </span>
-                      <span className='content-new'>
-                        <a href='https://docs.lendf.me/faq' target='_blank' rel="noopener noreferrer">FAQ</a>
-                      </span>
-                    </div>
+                <Footer />
 
-                    <div className='footer-left-pro'>
-                      <span className='title'>
-                        <FormattedMessage id='Products' />
-                      </span>
-                      <span className='content-new'>
-                        <a href='https://markets.lendf.me/' target='_blank' rel="noopener noreferrer">Markets</a>
-                      </span>
-                      <span className='content-new'>
-                        <a href='https://monitor.lendf.me/' target='_blank' rel="noopener noreferrer">Monitor</a>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className='footer-right'>
-                    <a href='https://twitter.com/LendfMe' target='_blank' rel="noopener noreferrer">
-                      <img src={'images/twitter.svg'} alt='' />
-                    </a>
-                    <a href='https://medium.com/dforcenet' target='_blank' rel="noopener noreferrer">
-                      <img src={'images/medium.svg'} alt='' />
-                    </a>
-                    <a href='https://t.me/dforcenet' target='_blank' rel="noopener noreferrer">
-                      <img src={'images/telegram.svg'} alt='' />
-                    </a>
-                    <div className='clear'></div>
-
-                    <div className='footer-right-fixed'>
-                      <div className='fixed1'>
-                        {
-                          // this.state.cur_language
-                        }
-                      </div>
-                      <span className='fixed-img'>
-                        {/* <img src={'images/up.svg'} alt='' /> */}
-                      </span>
-                      <div className='fixed2'>
-                        <ul>
-                          <li onClick={() => { this.setState({ cur_language: '中文' }) }}>{'中文'}</li>
-                          <li onClick={() => { this.setState({ cur_language: 'English' }) }}>{'English'}</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='clear'></div>
-                </div>
               </div>
             </React.Fragment>
           </IntlProvider>

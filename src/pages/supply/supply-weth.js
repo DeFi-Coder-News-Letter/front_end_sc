@@ -6,6 +6,7 @@ import MediaQuery from 'react-responsive';
 import './supply.scss';
 import Web3 from 'web3';
 import MyStatus from '../../component/header/my-status';
+import Footer from '../../component/footer/footer';
 
 import {
   get_tokens_decimals,
@@ -172,7 +173,7 @@ class SupplyWETH extends Component {
                 </div>
               </div>
 
-              <MyStatus data={this.props.data} />
+              <MyStatus data={this.props.data} supply_APR={this.props.supply_APR} />
 
               <div className='lend-page-wrapper'>
                 <div className='supply-group'>
@@ -486,6 +487,9 @@ class SupplyWETH extends Component {
                   </div>
                 </div>
               </div>
+
+              <Footer />
+
             </div>
           }
         </MediaQuery>

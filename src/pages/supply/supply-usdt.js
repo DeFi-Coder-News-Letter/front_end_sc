@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, Button, Input } from 'antd';
 import RecordBoard from '../../container/recordBoard/recordBoard';
+import Footer from '../../component/footer/footer';
 import {
   format_bn,
   get_tokens_decimals,
@@ -165,7 +166,7 @@ class SupplyUSDT extends Component {
                 </div>
               </div>
 
-              <MyStatus data={this.props.data} />
+              <MyStatus data={this.props.data} supply_APR={this.props.supply_APR} />
 
               <div className="lend-page-wrapper">
                 <div className="supply-group">
@@ -357,6 +358,9 @@ class SupplyUSDT extends Component {
                   </div>
                 </div>
               </div>
+
+              <Footer />
+
             </div>
           }
         </MediaQuery>

@@ -27,7 +27,6 @@ class TopStatus extends Component {
                             <img className='logo2' src={'images/lendf_logo2.svg'} alt='' />
                         </div>
                         <div className='top-box-right'>
-
                             {
                                 this.props.token_name === 'USDx' &&
                                 <div className='token-price'>
@@ -35,7 +34,6 @@ class TopStatus extends Component {
                                     <span>{'1.00'}</span>
                                 </div>
                             }
-
                             {
                                 this.props.token_name === 'USDT' &&
                                 <div className='token-price'>
@@ -43,7 +41,6 @@ class TopStatus extends Component {
                                     <span>{this.props.data.usdt_price}</span>
                                 </div>
                             }
-
                             {
                                 this.props.token_name === 'WETH' &&
                                 <div className='token-price'>
@@ -51,7 +48,6 @@ class TopStatus extends Component {
                                     <span>{this.props.data.weth_price}</span>
                                 </div>
                             }
-
                             {
                                 this.props.token_name === 'imBTC' &&
                                 <div className='token-price'>
@@ -63,13 +59,13 @@ class TopStatus extends Component {
 
 
                             <div className='netstatus'>
-                                <div className='netstatus-top'>
-                                    <span className={'net-span rinkeby-span'}></span>
-                                    {this.props.data.net_type ? this.props.data.net_type.substring(0, 1).toUpperCase() + this.props.data.net_type.substring(1) : ''}
-                                </div>
                                 <div className='netstatus-bm' onClick={() => { this.check_my_account() }}>
+                                    <span className={'net-span rinkeby-span'}></span>
                                     <span className='account-span'>
-                                        {this.props.data.my_account ? this.props.data.my_account.substring(0, 4) + '...' + this.props.data.my_account.substring(this.props.data.my_account.length - 6) : '···'}
+                                        {
+                                            this.props.data.my_account ?
+                                                this.props.data.my_account.slice(0, 4) + '...' + this.props.data.my_account.slice(-4) : '···'
+                                        }
                                     </span>
                                 </div>
                             </div>

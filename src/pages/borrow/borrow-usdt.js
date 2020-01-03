@@ -4,6 +4,7 @@ import RecordBoard from '../../container/recordBoard/recordBoard';
 import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import './borrow.scss';
+import Footer from '../../component/footer/footer';
 
 import { Tabs, Input, Button } from 'antd';
 import {
@@ -169,7 +170,7 @@ class BorrowUSDT extends Component {
                 </div>
               </div>
 
-              <MyStatus data={this.props.data} />
+              <MyStatus data={this.props.data} borrow_APR={this.props.borrow_APR} />
 
               <div className='lend-page-wrapper'>
                 <div className='borrow-group'>
@@ -378,6 +379,9 @@ class BorrowUSDT extends Component {
                   </div>
                 </div>
               </div>
+
+              <Footer />
+
             </div>
           }
         </MediaQuery>

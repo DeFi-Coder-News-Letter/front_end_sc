@@ -22,9 +22,6 @@ const en_US = {
     supplying_balance: "Supplying Balance",
     utilization_Rate: "Utilization Rate",
 
-    supply_balance_total: "Supply Balance",
-    borrow_balance_total: "Borrow Balance",
-    collateralization_ratio_total: "Collateralization ratio",
 
     SUPPLY: "SUPPLY",
     WITHDRAW: "WITHDRAW",

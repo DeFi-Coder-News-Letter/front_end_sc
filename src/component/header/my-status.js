@@ -39,7 +39,7 @@ class MyStatus extends Component {
                             </span>
                         </div>
 
-                        <div className='header-new-item collate-rate'>
+                        <div className='header-new-item'>
                             <span className='item-title'>
                                 <FormattedMessage id='collateralization_ratio' />
                             </span>
@@ -50,6 +50,40 @@ class MyStatus extends Component {
                                 }
                             </span>
                         </div>
+
+                        {
+                            this.props.supply_APR &&
+                            <div className='header-new-item collate-rate'>
+                                <span className='item-title'>
+                                    <FormattedMessage id='supply_APR' />
+                                </span>
+                                <span className='item-num item-num-apr'>
+                                    {
+                                        this.props.supply_APR ?
+                                            this.props.supply_APR === '0.00' ? '<0.01%' : this.props.supply_APR + '%'
+                                            :
+                                            '···'
+                                    }
+                                </span>
+                            </div>
+                        }
+
+                        {
+                            this.props.borrow_APR &&
+                            <div className='header-new-item collate-rate'>
+                                <span className='item-title'>
+                                    <FormattedMessage id='borrow_APR' />
+                                </span>
+                                <span className='item-num item-num-apr'>
+                                    {
+                                        this.props.borrow_APR ?
+                                            this.props.borrow_APR === '0.00' ? '<0.01%' : this.props.borrow_APR + '%'
+                                            :
+                                            '···'
+                                    }
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
             </IntlProvider>

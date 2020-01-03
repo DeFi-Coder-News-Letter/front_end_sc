@@ -384,15 +384,15 @@ class App extends Component {
               <div className="App">
                 <Route exact path="/" render={() => <Home data={this.state} />} />
 
-                <Route path="/supply-usdx" render={() => <SupplyUSDx data={this.state} />} />
-                <Route path="/supply-usdt" render={() => <SupplyUSDT data={this.state} />} />
-                <Route path="/supply-imbtc" render={() => <SupplyimBTC data={this.state} />} />
-                <Route path="/supply-weth" render={() => <SupplyWETH data={this.state} />} />
+                <Route path="/supply-usdx" render={() => <SupplyUSDx data={this.state} supply_APR={this.state.usdx_supply_APR} />} />
+                <Route path="/supply-usdt" render={() => <SupplyUSDT data={this.state} supply_APR={this.state.usdt_supply_APR} />} />
+                <Route path="/supply-imbtc" render={() => <SupplyimBTC data={this.state} supply_APR={this.state.imbtc_supply_APR} />} />
+                <Route path="/supply-weth" render={() => <SupplyWETH data={this.state} supply_APR={this.state.weth_supply_APR} />} />
 
-                <Route path="/borrow-usdx" render={() => <BorrowUSDx data={this.state} />} />
-                <Route path="/borrow-usdt" render={() => <BorrowUSDT data={this.state} />} />
-                <Route path="/borrow-imbtc" render={() => <BorrowimBTC data={this.state} />} />
-                <Route path="/borrow-weth" render={() => <BorrowWETH data={this.state} />} />
+                <Route path="/borrow-usdx" render={() => <BorrowUSDx data={this.state} borrow_APR={this.state.usdx_borrow_APR} />} />
+                <Route path="/borrow-usdt" render={() => <BorrowUSDT data={this.state} borrow_APR={this.state.usdt_borrow_APR} />} />
+                <Route path="/borrow-imbtc" render={() => <BorrowimBTC data={this.state} borrow_APR={this.state.imbtc_borrow_APR} />} />
+                <Route path="/borrow-weth" render={() => <BorrowWETH data={this.state} borrow_APR={this.state.weth_borrow_APR} />} />
               </div>
             </React.Fragment>
           </Switch>

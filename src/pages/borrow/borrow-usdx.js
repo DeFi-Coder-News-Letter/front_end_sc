@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import './borrow.scss';
 import { Tabs, Input, Button } from 'antd';
+import Footer from '../../component/footer/footer';
 import {
   get_tokens_decimals,
   get_allowance,
@@ -169,7 +170,7 @@ class BorrowUSDx extends Component {
                 </div>
               </div>
 
-              <MyStatus data={this.props.data} />
+              <MyStatus data={this.props.data} borrow_APR={this.props.borrow_APR} />
 
               <div className='lend-page-wrapper'>
                 <div className='borrow-group'>
@@ -374,6 +375,9 @@ class BorrowUSDx extends Component {
                   </div>
                 </div>
               </div>
+
+              <Footer />
+
             </div>
           }
         </MediaQuery>

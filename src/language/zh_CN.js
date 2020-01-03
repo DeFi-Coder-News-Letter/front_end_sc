@@ -22,9 +22,6 @@ const zh_CN = {
     supplying_balance: "你的存款量",
     utilization_Rate: "借存比率",
 
-    supply_balance_total: "存款总额",
-    borrow_balance_total: "借款总额",
-    collateralization_ratio_total: "抵押率",
 
     SUPPLY: "存款",
     WITHDRAW: "取出",
