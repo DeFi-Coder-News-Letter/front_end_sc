@@ -5,6 +5,15 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
+const clickFAQ = () => {
+    // console.log('aaaaa');
+    if (navigator.language === 'zh-CN') {
+        window.open('https://docs.lendf.me/faqcn', '_blank');
+    } else {
+        window.open('https://docs.lendf.me/faq', '_blank');
+    }
+}
+
 const Footer = () => {
     return (
         <IntlProvider locale={'en'} messages={navigator.language === 'zh-CN' ? zh_CN : en_US} >
@@ -18,7 +27,7 @@ const Footer = () => {
                             <a href='https://github.com/Lendfme' target='_blank' rel="noopener noreferrer">GitHub</a>
                         </span>
                         <span className='content-new'>
-                            <a href='https://docs.lendf.me/faq' target='_blank' rel="noopener noreferrer">FAQ</a>
+                            <a onClick={() => { clickFAQ() }}>FAQ</a>
                         </span>
                     </div>
 
