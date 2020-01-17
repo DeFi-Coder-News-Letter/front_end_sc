@@ -15,7 +15,7 @@ export const get_allowance = async (contractInstance, my_account, address_mMarke
 }
 
 
-export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, that) => {
+export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, HBTC, that) => {
   USDx.methods.decimals().call().then(res_usdx_decimals => {
     console.log('usdx: ', res_usdx_decimals);
     that.setState({ USDx_decimals: Number(res_usdx_decimals) })
@@ -34,6 +34,11 @@ export const get_tokens_decimals = (USDx, WETH, imBTC, USDT, that) => {
   USDT.methods.decimals().call().then(res_usdt_decimals => {
     console.log('usdt: ', res_usdt_decimals);
     that.setState({ USDT_decimals: Number(res_usdt_decimals) })
+  })
+
+  HBTC.methods.decimals().call().then(res_hbtc_decimals => {
+    console.log('res_hbtc_decimals: ', res_hbtc_decimals);
+    that.setState({ HBTC_decimals: Number(res_hbtc_decimals) })
   })
 }
 

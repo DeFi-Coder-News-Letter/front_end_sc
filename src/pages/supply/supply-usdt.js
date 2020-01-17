@@ -72,10 +72,11 @@ class SupplyUSDT extends Component {
         let WETH = new this.new_web3.eth.Contract(WETH_abi, address[net_type]['address_WETH']);
         let imBTC = new this.new_web3.eth.Contract(imBTC_abi, address[net_type]['address_imBTC']);
         let USDT = new this.new_web3.eth.Contract(USDT_abi, address[net_type]['address_USDT']);
+        let HBTC = new this.new_web3.eth.Contract(imBTC_abi, address[net_type]['address_HBTC']);
         let mMarket = new this.new_web3.eth.Contract(mMarket_abi, address[net_type]['address_mMarket']);
         console.log(' *** init contract finished *** ');
-        this.setState({ net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket }, () => {
-          get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this);
+        this.setState({ net_type: net_type, USDx: USDx, WETH: WETH, imBTC: imBTC, USDT: USDT, mMarket: mMarket, HBTC: HBTC }, () => {
+          get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this.state.HBTC, this);
           this.new_web3.givenProvider.enable().then(res_accounts => {
             this.setState({ my_account: res_accounts[0] }, async () => {
               console.log('connected: ', this.state.my_account)

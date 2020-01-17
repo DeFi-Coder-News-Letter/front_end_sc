@@ -11,6 +11,7 @@
     "address_WETH": "0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e",
     "address_imBTC": "0x7b054ebe1d7e003afda8e717daeab05d56d5836a",
     "address_USDT": "0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848",
+    "address_HBTC": "0xcf07906cbcf9824d0cae475e8f958d48acf1014c",
     "address_mMarket": "0x2FD380b99E0c6ff16F569FB8214b40509F776764"
   }
 }
