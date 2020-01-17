@@ -695,7 +695,7 @@ class Home extends Component {
                             <div className='card-top'>
                                 <div className='card-top-left'>
                                     <img src={'images/Home_HBTC.png'} alt='' />
-                                    <span className='token-imbtc'>HBTC</span>
+                                    <span className='token-hbtc'>HBTC</span>
                                 </div>
                                 <div className='card-top-right'>
                                     <span className='market'>

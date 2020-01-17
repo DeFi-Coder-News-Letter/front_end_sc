@@ -11,11 +11,13 @@ import SupplyUSDx from './pages/supply/supply-usdx';
 import SupplyUSDT from './pages/supply/supply-usdt';
 import SupplyimBTC from './pages/supply/supply-imbtc';
 import SupplyWETH from './pages/supply/supply-weth';
+import SupplyHBTC from './pages/supply/supply-hbtc';
 
 import BorrowUSDx from './pages/borrow/borrow-usdx';
 import BorrowUSDT from './pages/borrow/borrow-usdt';
 import BorrowWETH from './pages/borrow/borrow-weth';
 import BorrowimBTC from './pages/borrow/borrow-imbtc';
+import BorrowHBTC from './pages/borrow/borrow-hbtc';
 
 import { get_tokens_decimals, format_bn } from './util.js';
 
@@ -460,11 +462,13 @@ class App extends Component {
                 <Route path="/supply-usdt" render={() => <SupplyUSDT data={this.state} supply_APR={this.state.usdt_supply_APR} />} />
                 <Route path="/supply-imbtc" render={() => <SupplyimBTC data={this.state} supply_APR={this.state.imbtc_supply_APR} />} />
                 <Route path="/supply-weth" render={() => <SupplyWETH data={this.state} supply_APR={this.state.weth_supply_APR} />} />
+                <Route path="/supply-hbtc" render={() => <SupplyHBTC data={this.state} supply_APR={this.state.hbtc_supply_APR} />} />
 
                 <Route path="/borrow-usdx" render={() => <BorrowUSDx data={this.state} borrow_APR={this.state.usdx_borrow_APR} />} />
                 <Route path="/borrow-usdt" render={() => <BorrowUSDT data={this.state} borrow_APR={this.state.usdt_borrow_APR} />} />
                 <Route path="/borrow-imbtc" render={() => <BorrowimBTC data={this.state} borrow_APR={this.state.imbtc_borrow_APR} />} />
                 <Route path="/borrow-weth" render={() => <BorrowWETH data={this.state} borrow_APR={this.state.weth_borrow_APR} />} />
+                <Route path="/borrow-hbtc" render={() => <BorrowHBTC data={this.state} borrow_APR={this.state.hbtc_borrow_APR} />} />
               </div>
             </React.Fragment>
           </Switch>

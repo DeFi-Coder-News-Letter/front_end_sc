@@ -45,7 +45,7 @@ let constant = require('../../ABIs/constant.json');
 
 // const WithMarketInfoEnhanced = withMarketInfo(Header);
 
-class BorrowimBTC extends Component {
+class BorrowHBTC extends Component {
   constructor(props) {
     super(props);
 
@@ -62,9 +62,9 @@ class BorrowimBTC extends Component {
     this.collateral_rate = constant.collateral_rate;
     this.originationFee = constant.originationFee;
 
-    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in imBTC';
-    this.img_src = 'imBTC';
-    this.token_name = 'imBTC';
+    this.placeholder = navigator.language === 'zh-CN' ? '输入数量' : 'Amount in HBTC';
+    this.img_src = 'HBTC';
+    this.token_name = 'HBTC';
 
     this.new_web3.eth.net.getNetworkType().then(
       (net_type) => {
@@ -80,20 +80,20 @@ class BorrowimBTC extends Component {
           this.new_web3.givenProvider.enable().then(res_accounts => {
             this.setState({ my_account: res_accounts[0] }, async () => {
               console.log('connected: ', this.state.my_account)
-              let is_approved = await get_allowance(this.state.imBTC, this.state.my_account, address[net_type]['address_mMarket'], this.bn);
+              let is_approved = await get_allowance(this.state.HBTC, this.state.my_account, address[net_type]['address_mMarket'], this.bn);
               console.log('is_approved: ', is_approved)
               this.setState({ is_approved: is_approved })
               let timer_Next = setInterval(() => {
-                if (!this.state.imBTC_decimals) {
+                if (!this.state.HBTC_decimals) {
                   console.log('111111111: not get yet...');
                 } else {
                   console.log('2222222222: i got it...');
                   clearInterval(timer_Next);
                   this.setState({ i_am_ready: true })
                   // to do something...
-                  get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
-                  get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
-                  get_my_balance(this.state.imBTC, this.state.my_account, this);
+                  get_available_to_borrow(this.state.mMarket, this.state.HBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_HBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
+                  get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_HBTC'], this);
+                  get_my_balance(this.state.HBTC, this.state.my_account, this);
                 }
               }, 100)
             })
@@ -108,20 +108,20 @@ class BorrowimBTC extends Component {
         console.log('accountsChanged: ', accounts[0]);
         this.setState({ my_account: accounts[0] }, async () => {
           console.log('connected: ', this.state.my_account)
-          let is_approved = await get_allowance(this.state.imBTC, this.state.my_account, address[this.state.net_type]['address_mMarket'], this.bn);
+          let is_approved = await get_allowance(this.state.HBTC, this.state.my_account, address[this.state.net_type]['address_mMarket'], this.bn);
           console.log('is_approved: ', is_approved)
           this.setState({ is_approved: is_approved })
           let timer_Next = setInterval(() => {
-            if (!this.state.imBTC_decimals) {
+            if (!this.state.HBTC_decimals) {
               console.log('111111111: not get yet...');
             } else {
               console.log('2222222222: i got it...');
               clearInterval(timer_Next);
               this.setState({ i_am_ready: true, load_new_history: Math.random() })
               // to do something...
-              get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
-              get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
-              get_my_balance(this.state.imBTC, this.state.my_account, this);
+              get_available_to_borrow(this.state.mMarket, this.state.HBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_HBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
+              get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_HBTC'], this);
+              get_my_balance(this.state.HBTC, this.state.my_account, this);
             }
           }, 100)
         })
@@ -136,10 +136,10 @@ class BorrowimBTC extends Component {
         console.log('account not available.')
         return false;
       }
-      console.log('update new data... (---borrow imbtc---) ');
-      get_available_to_borrow(this.state.mMarket, this.state.imBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_imBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
-      get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_imBTC'], this);
-      get_my_balance(this.state.imBTC, this.state.my_account, this);
+      console.log('update new data... (---borrow hbtc---) ');
+      get_available_to_borrow(this.state.mMarket, this.state.HBTC, address[this.state.net_type]['address_mMarket'], address[this.state.net_type]['address_HBTC'], this.state.my_account, this.collateral_rate, this.originationFee, this);
+      get_borrow_balance(this.state.mMarket, this.state.my_account, address[this.state.net_type]['address_HBTC'], this);
+      get_my_balance(this.state.HBTC, this.state.my_account, this);
     }, 1000 * 5)
   }
 
@@ -183,13 +183,13 @@ class BorrowimBTC extends Component {
                     <div className='borrow-input'>
                       <div className='info-wrapper'>
                         <span className='balance-type'>
-                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.svg`} alt="" />
+                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.png`} alt="" />
                           &nbsp;
                           {this.token_name}
                           <FormattedMessage id='borrowed' />
                         </span>
                         <span className='balance-amount'>
-                          {this.state.my_borrowed ? format_num_to_K(format_bn(this.state.my_borrowed, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
+                          {this.state.my_borrowed ? format_num_to_K(format_bn(this.state.my_borrowed, this.state.HBTC_decimals, this.decimal_precision)) : '···'}
                         </span>
                       </div>
 
@@ -204,28 +204,28 @@ class BorrowimBTC extends Component {
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
+                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, this.state.HBTC_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
                                 {
-                                  this.props.data.i_have_supply_imbtc &&
+                                  this.props.data.i_have_supply_hbtc &&
                                   <div className='alert-message'>
-                                    <FormattedMessage id='already_supply_imbtc' />
+                                    <FormattedMessage id='already_supply_hbtc' />
                                   </div>
                                 }
                                 {
-                                  !this.props.data.i_have_supply_imbtc &&
+                                  !this.props.data.i_have_supply_hbtc &&
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
                                       placeholder={this.placeholder}
                                       min={0}
-                                      onChange={(e) => handle_borrow_change(e.target.value, this, this.state.imBTC_decimals, this.state.available_to_borrow)}
+                                      onChange={(e) => handle_borrow_change(e.target.value, this, this.state.HBTC_decimals, this.state.available_to_borrow)}
                                       className='input-number'
                                       value={this.state.borrow_amount}
                                     />
-                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.imBTC_decimals) }}>
+                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_borrow_max(this, this.state.available_to_borrow_safe, this.state.HBTC_decimals) }}>
                                       <FormattedMessage id='SAFE_MAX' />
                                     </span>
 
@@ -248,9 +248,9 @@ class BorrowimBTC extends Component {
                                 <div className='button-wrapper-borrow'>
                                   <Button
                                     size='large'
-                                    className={this.state.is_borrow_enable && !this.props.data.i_have_supply_imbtc ? null : 'disable-button'}
+                                    className={this.state.is_borrow_enable && !this.props.data.i_have_supply_hbtc ? null : 'disable-button'}
                                     disabled={false}
-                                    onClick={() => { handle_borrow_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                    onClick={() => { handle_borrow_click(this, this.state.HBTC_decimals, address[this.state.net_type]['address_HBTC']) }}
                                   >
                                     {
                                       this.state.no_such_borrow_balance ?
@@ -265,14 +265,14 @@ class BorrowimBTC extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                <FormattedMessage id='before_borrowing_imbtc' />
+                                <FormattedMessage id='before_borrowing_hbtc' />
                               </div>
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
-                                  onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
+                                  onClick={() => { handle_approve(this.state.HBTC, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
@@ -296,29 +296,29 @@ class BorrowimBTC extends Component {
                                   <FormattedMessage id='balance' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
+                                  {this.state.my_balance ? format_num_to_K(format_bn(this.state.my_balance, this.state.HBTC_decimals, this.decimal_precision)) : '···'}
                                 </span>
                               </div>
 
                               <div className='input-unit-wrapper'>
                                 {
-                                  this.props.data.i_have_supply_imbtc &&
+                                  this.props.data.i_have_supply_hbtc &&
                                   <div className='alert-message'>
-                                    <FormattedMessage id='already_supply_imbtc' />
+                                    <FormattedMessage id='already_supply_hbtc' />
                                   </div>
                                 }
                                 {
-                                  !this.props.data.i_have_supply_imbtc &&
+                                  !this.props.data.i_have_supply_hbtc &&
                                   <div className='input-wrapper'>
                                     <Input
                                       type='number'
                                       placeholder={this.placeholder}
                                       min={0}
-                                      onChange={(e) => handle_repay_change(e.target.value, this, this.state.imBTC_decimals, this.state.my_balance)}
+                                      onChange={(e) => handle_repay_change(e.target.value, this, this.state.HBTC_decimals, this.state.my_balance)}
                                       className='input-number'
                                       value={this.state.repay_amount}
                                     />
-                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.imBTC_decimals) }}>
+                                    <span className={'max-amount-button-borrow'} onClick={() => { handle_repay_max(this, this.state.my_balance, this.state.my_borrowed, this.state.HBTC_decimals) }}>
                                       <FormattedMessage id='MAX' />
                                     </span>
                                   </div>
@@ -327,9 +327,9 @@ class BorrowimBTC extends Component {
                                 <div className={'button-wrapper-borrow'}>
                                   <Button
                                     size='large'
-                                    className={this.state.is_repay_enable && !this.props.data.i_have_supply_imbtc ? null : 'disable-button'}
+                                    className={this.state.is_repay_enable && !this.props.data.i_have_supply_hbtc ? null : 'disable-button'}
                                     disabled={false}
-                                    onClick={() => { handle_repay_click(this, this.state.imBTC_decimals, address[this.state.net_type]['address_imBTC']) }}
+                                    onClick={() => { handle_repay_click(this, this.state.HBTC_decimals, address[this.state.net_type]['address_HBTC']) }}
                                   >
                                     {
                                       this.state.no_such_repay_balance ?
@@ -344,14 +344,14 @@ class BorrowimBTC extends Component {
                             (this.state.i_am_ready && !this.state.is_approved) &&
                             <div className='approve-section'>
                               <div className='enable-message'>
-                                <FormattedMessage id='before_borrowing_imbtc' />
+                                <FormattedMessage id='before_borrowing_hbtc' />
                               </div>
                               <div className={'button-wrapper-borrow'}>
                                 <Button
                                   size='large'
                                   className={this.state.isEnableing ? 'disable-button' : null}
                                   disabled={false}
-                                  onClick={() => { handle_approve(this.state.imBTC, this, address[this.state.net_type]['address_mMarket']) }}
+                                  onClick={() => { handle_approve(this.state.HBTC, this, address[this.state.net_type]['address_mMarket']) }}
                                 >
                                   <FormattedMessage id='ENABLE' />
                                 </Button>
@@ -369,7 +369,7 @@ class BorrowimBTC extends Component {
                       <RecordBoard
                         account={this.state.my_account}
                         net_type={this.state.net_type}
-                        decimal={this.state.imBTC_decimals}
+                        decimal={this.state.HBTC_decimals}
                         token={this.token_name}
                         load_new_history={this.state.load_new_history}
                         new_web3={this.new_web3}
@@ -389,4 +389,4 @@ class BorrowimBTC extends Component {
   }
 }
 
-export default BorrowimBTC;
+export default BorrowHBTC;

@@ -46,16 +46,21 @@ const zh_CN = {
     before_supplying_imbtc: "授权首次imBTC存款",
     before_borrowing_imbtc: "授权首次imBTC借款",
 
+    before_supplying_hbtc: "授权首次HBTC存款",
+    before_borrowing_hbtc: "授权首次HBTC借款",
+
 
     already_borrow_usdx: "存款前需还清所有USDx借款",
     already_borrow_usdt: "存款前需还清所有USDT借款",
     already_borrow_weth: "存款前需还清所有WETH借款",
     already_borrow_imbtc: "存款前需还清所有imBTC借款",
+    already_borrow_hbtc: "存款前需还清所有HBTC借款",
 
     already_supply_usdx: "借款前需取出所有USDx存款",
     already_supply_usdt: "借款前需取出所有USDT存款",
     already_supply_weth: "借款前需取出所有WETH存款",
     already_supply_imbtc: "借款前需取出所有imBTC存款",
+    already_supply_hbtc: "借款前需取出所有HBTC存款",
 
     safe_max_tips: "抵押率低于125%时，抵押物将被清算，SAFE MAX允许你的借款量保持健康的抵押率",
     deposit_first: "先抵押再借款",
