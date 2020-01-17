@@ -177,7 +177,7 @@ class SupplyHBTC extends Component {
                     <div className='supply-input'>
                       <div className='info-wrapper'>
                         <span className='balance-type'>
-                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.png`} alt="" />
+                          <img style={{ width: '16px', height: '16px', margin: 'auto', marginTop: '-4px' }} src={`images/${this.img_src}.svg`} alt="" />
                           &nbsp;
                           {this.token_name}
                           <FormattedMessage id='supplied' />

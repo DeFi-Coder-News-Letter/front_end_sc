@@ -12,6 +12,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 import MyStatus from '../../component/header/my-status';
+import Footer from '../../component/footer/footer';
 
 
 
@@ -694,7 +695,7 @@ class Home extends Component {
                         <div className='card card-special'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
-                                    <img src={'images/Home_HBTC.png'} alt='' />
+                                    <img src={'images/Home_HBTC.svg'} alt='' />
                                     <span className='token-hbtc'>HBTC</span>
                                 </div>
                                 <div className='card-top-right'>
@@ -837,65 +838,7 @@ class Home extends Component {
 
 
                         <div className='clear'></div>
-
-                        <div className='footer'>
-                            <div className='footer-left'>
-                                <div className='footer-left-res'>
-                                    <span className='title'>
-                                        <FormattedMessage id='Resource' />
-                                    </span>
-                                    <span className='content-new'>
-                                        <a href='https://github.com/Lendfme' target='_blank' rel="noopener noreferrer">GitHub</a>
-                                    </span>
-                                    <span className='content-new'>
-                                        <a href='https://docs.lendf.me/faq' target='_blank' rel="noopener noreferrer">FAQ</a>
-                                    </span>
-                                </div>
-
-                                <div className='footer-left-pro'>
-                                    <span className='title'>
-                                        <FormattedMessage id='Products' />
-                                    </span>
-                                    <span className='content-new'>
-                                        <a href='https://markets.lendf.me/' target='_blank' rel="noopener noreferrer">Markets</a>
-                                    </span>
-                                    <span className='content-new'>
-                                        <a href='https://monitor.lendf.me/' target='_blank' rel="noopener noreferrer">Monitor</a>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className='footer-right'>
-                                <a href='https://twitter.com/LendfMe' target='_blank' rel="noopener noreferrer">
-                                    <img src={'images/twitter.svg'} alt='' />
-                                </a>
-                                <a href='https://medium.com/dforcenet' target='_blank' rel="noopener noreferrer">
-                                    <img src={'images/medium.svg'} alt='' />
-                                </a>
-                                <a href='https://t.me/dforcenet' target='_blank' rel="noopener noreferrer">
-                                    <img src={'images/telegram.svg'} alt='' />
-                                </a>
-                                <div className='clear'></div>
-
-                                <div className='footer-right-fixed'>
-                                    <div className='fixed1'>
-                                        {
-                                            // this.state.cur_language
-                                        }
-                                    </div>
-                                    <span className='fixed-img'>
-                                        {/* <img src={'images/up.svg'} alt='' /> */}
-                                    </span>
-                                    <div className='fixed2'>
-                                        <ul>
-                                            <li onClick={() => { this.setState({ cur_language: '中文' }) }}>{'中文'}</li>
-                                            <li onClick={() => { this.setState({ cur_language: 'English' }) }}>{'English'}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='clear'></div>
-                        </div>
+                        <Footer />
                     </div>
                 </React.Fragment>
             </IntlProvider>

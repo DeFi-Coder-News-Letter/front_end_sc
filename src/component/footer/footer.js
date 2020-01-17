@@ -6,7 +6,7 @@ import en_US from '../../language/en_US.js';
 import zh_CN from '../../language/zh_CN';
 
 const clickFAQ = () => {
-    // console.log('aaaaa');
+    console.log('aaaaa');
     if (navigator.language === 'zh-CN') {
         window.open('https://docs.lendf.me/faqcn', '_blank');
     } else {
