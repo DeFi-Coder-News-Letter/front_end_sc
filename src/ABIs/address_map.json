@@ -4,13 +4,15 @@
     "address_WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
     "address_imBTC": "0x3212b29E33587A00FB1C83346f5dBFA69A458923",
     "address_USDT": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-    "address_mMarket": "0x0eEe3E3828A45f7601D5F54bF49bB01d1A9dF5ea"
+    "address_mMarket": "0x0eEe3E3828A45f7601D5F54bF49bB01d1A9dF5ea",
+    "address_HBTC": "0x0316eb71485b0ab14103307bf65a021042c6d380"
   },
   "rinkeby": {
     "address_USDx": "0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2",
     "address_WETH": "0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e",
     "address_imBTC": "0x7b054ebe1d7e003afda8e717daeab05d56d5836a",
     "address_USDT": "0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848",
-    "address_mMarket": "0x2FD380b99E0c6ff16F569FB8214b40509F776764"
+    "address_mMarket": "0x2FD380b99E0c6ff16F569FB8214b40509F776764",
+    "address_HBTC": "0xcf07906cbcf9824d0cae475e8f958d48acf1014c"
   }
 }
