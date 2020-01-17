@@ -108,6 +108,7 @@ class Home extends Component {
                     <MyStatus data={this.props.data} />
 
                     <div className='card-wrap'>
+                        {/* USDx */}
                         <div className='card card-margin-right'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
@@ -210,18 +211,18 @@ class Home extends Component {
                                         </div>
 
                                         <div className={
-                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                 'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
                                         }>
                                             <Link to={{
                                                 pathname:
-                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                         './borrow-usdx' : ''
                                             }}>
                                                 <Button
                                                     size='large'
                                                     className={
-                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                             null : 'disable-button'
                                                     }
                                                     disabled={false}
@@ -251,7 +252,7 @@ class Home extends Component {
 
 
 
-
+                        {/* USDT */}
                         <div className='card'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
@@ -354,18 +355,18 @@ class Home extends Component {
                                         </div>
 
                                         <div className={
-                                            this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                            this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                 'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
                                         }>
                                             <Link to={{
                                                 pathname:
-                                                    this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                    this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                         './borrow-usdt' : ''
                                             }}>
                                                 <Button
                                                     size='large'
                                                     className={
-                                                        this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc ?
+                                                        this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                             null : 'disable-button'
                                                     }
                                                     disabled={false}
@@ -395,7 +396,7 @@ class Home extends Component {
 
 
 
-
+                        {/* WETH */}
                         <div className='card card-margin-right'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
@@ -498,18 +499,18 @@ class Home extends Component {
                                         </div>
 
                                         <div className={
-                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                 'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
                                         }>
                                             <Link to={{
                                                 pathname:
-                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                         './borrow-weth' : ''
                                             }}>
                                                 <Button
                                                     size='large'
                                                     className={
-                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc || this.props.data.i_have_supply_hbtc ?
                                                             null : 'disable-button'
                                                     }
                                                     disabled={false}
@@ -539,13 +540,13 @@ class Home extends Component {
 
 
 
+                        {/* imBTC */}
                         <div className='card card-special'>
                             {
                                 /* <div className='am-popup'>
                                     <FormattedMessage id='coming_soon' />
                                 </div> */
                             }
-
                             <div className='card-top'>
                                 <div className='card-top-left'>
                                     <img src={'images/Home_imBTC.svg'} alt='' />
@@ -648,18 +649,18 @@ class Home extends Component {
                                         </div>
 
                                         <div className={
-                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_hbtc ?
                                                 'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
                                         }>
                                             <Link to={{
                                                 pathname:
-                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
+                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_hbtc ?
                                                         './borrow-imbtc' : ''
                                             }}>
                                                 <Button
                                                     size='large'
                                                     className={
-                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx ?
+                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_hbtc ?
                                                             null : 'disable-button'
                                                     }
                                                     disabled={false}
@@ -686,6 +687,154 @@ class Home extends Component {
 
                             </div>
                         </div>
+
+
+
+                        {/* HBTC */}
+                        <div className='card card-special'>
+                            <div className='card-top'>
+                                <div className='card-top-left'>
+                                    <img src={'images/Home_HBTC.png'} alt='' />
+                                    <span className='token-imbtc'>HBTC</span>
+                                </div>
+                                <div className='card-top-right'>
+                                    <span className='market'>
+                                        <FormattedMessage id='market_size' />
+                                    </span>
+                                    <span className='market-num'>
+                                        {this.props.data.hbtc_total_supply ? '$' + format_str_to_kmb(this.props.data.hbtc_total_supply) : '···'}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className='clear'></div>
+
+                            <div className='card-center'>
+                                {
+                                    this.props.data.i_have_borrow_hbtc &&
+                                    <div className={'supply-apr'}>
+                                        <span className='apr apr-borrow-color'>
+                                            <FormattedMessage id='borrowing_balance' />
+                                        </span>
+                                        <span className='apr-num apr-num-left apr-borrow-color'>{this.props.data.my_borrow_hbtc ? format_num_to_K(this.props.data.my_borrow_hbtc) : '···'}</span>
+                                    </div>
+                                }
+                                {
+                                    !this.props.data.i_have_borrow_hbtc &&
+                                    <div className={'supply-apr'}>
+                                        <span className='apr'>
+                                            <FormattedMessage id='supply_APR' />
+                                        </span>
+                                        <span className='apr-num apr-num-left'>
+                                            {
+                                                this.props.data.hbtc_supply_APR ?
+                                                    this.props.data.hbtc_supply_APR === '0.00' ? '<0.01%' : this.props.data.hbtc_supply_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
+                                    </div>
+                                }
+
+
+                                {
+                                    this.props.data.i_have_supply_hbtc &&
+                                    <div className={'borrow-apr'}>
+                                        <span className='apr apr-supply-color'>
+                                            <FormattedMessage id='supplying_balance' />
+                                        </span>
+                                        <span className='apr-num apr-num-center apr-supply-color'>{this.props.data.my_supply_hbtc ? format_num_to_K(this.props.data.my_supply_hbtc) : '···'}</span>
+                                    </div>
+                                }
+                                {
+                                    !this.props.data.i_have_supply_hbtc &&
+                                    <div className={'borrow-apr'}>
+                                        <span className='apr'>
+                                            <FormattedMessage id='borrow_APR' />
+                                        </span>
+                                        <span className='apr-num apr-num-center'>
+                                            {
+                                                this.props.data.hbtc_borrow_APR ?
+                                                    this.props.data.hbtc_borrow_APR === '0.00' ? '<0.01%' : this.props.data.hbtc_borrow_APR + '%'
+                                                    :
+                                                    '···'
+                                            }
+                                        </span>
+                                    </div>
+                                }
+                                <div className={'u-rate'}>
+                                    <span className='apr'>
+                                        <FormattedMessage id='utilization_Rate' />
+                                    </span>
+                                    <span className='apr-num apr-num-right'>
+                                        {this.props.data.hbtc_u_rate ? this.props.data.hbtc_u_rate : '···'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className='card-bottom'>
+                                {
+                                    this.props.data.i_have_supply_hbtc &&
+                                    <div className={'button-wrap-home-fall'}>
+                                        <Link to={{ pathname: './supply-hbtc' }}>
+                                            <Button size='large' disabled={false}>
+                                                <FormattedMessage id='SUPPLY' />
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                }
+                                {
+                                    (!this.props.data.i_have_supply_hbtc && !this.props.data.i_have_borrow_hbtc) &&
+                                    <React.Fragment>
+                                        <div className={'button-wrap-home'}>
+                                            <Link to={{ pathname: './supply-hbtc' }}>
+                                                <Button size='large' disabled={false}>
+                                                    <FormattedMessage id='SUPPLY' />
+                                                </Button>
+                                            </Link>
+                                        </div>
+
+                                        <div className={
+                                            this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                'button-wrap-home-borrow' : 'button-wrap-home-borrow deposit-first-wrap'
+                                        }>
+                                            <Link to={{
+                                                pathname:
+                                                    this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                        './borrow-hbtc' : ''
+                                            }}>
+                                                <Button
+                                                    size='large'
+                                                    className={
+                                                        this.props.data.i_have_supply_usdt || this.props.data.i_have_supply_weth || this.props.data.i_have_supply_usdx || this.props.data.i_have_supply_imbtc ?
+                                                            null : 'disable-button'
+                                                    }
+                                                    disabled={false}
+                                                >
+                                                    <FormattedMessage id='BORROW' />
+                                                </Button>
+                                            </Link>
+                                            <div className='deposit-first'>
+                                                <FormattedMessage id='deposit_first' />
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                }
+                                {
+                                    this.props.data.i_have_borrow_hbtc &&
+                                    <div className={'button-wrap-home-borrow-fall'}>
+                                        <Link to={{ pathname: './borrow-hbtc' }}>
+                                            <Button size='large' disabled={false}>
+                                                <FormattedMessage id='BORROW' />
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+
+
 
                         <div className='clear'></div>
 

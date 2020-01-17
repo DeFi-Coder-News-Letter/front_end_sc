@@ -68,7 +68,7 @@ class App extends Component {
               console.log('connected: ', this.state.my_account)
 
               let timer_Next = setInterval(() => {
-                if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+                if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals && this.state.HBTC_decimals)) {
                   console.log('111111111: not get yet...');
                 } else {
                   console.log('2222222222: i got it...');
@@ -76,7 +76,7 @@ class App extends Component {
                   this.setState({ i_am_ready: true })
                   // to do something...
                   this.get_my_status();
-                  this.get_4_tokens_status();
+                  this.get_5_tokens_status();
                 }
               }, 100)
             })
@@ -95,14 +95,16 @@ class App extends Component {
           i_have_supply_usdt: false,
           i_have_supply_imbtc: false,
           i_have_supply_weth: false,
+          i_have_supply_hbtc: false,
           i_have_borrow_usdx: false,
           i_have_borrow_usdt: false,
           i_have_borrow_imbtc: false,
+          i_have_borrow_hbtc: false,
           i_have_borrow_weth: false
         }, async () => {
           console.log('connected: ', this.state.my_account)
           let timer_Next = setInterval(() => {
-            if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals && this.state.my_account)) {
+            if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals && this.state.my_account && this.state.HBTC_decimals)) {
               console.log('111111111: not get yet...');
             } else {
               console.log('2222222222: i got it...');
@@ -110,7 +112,7 @@ class App extends Component {
               this.setState({ i_am_ready: true })
               // to do something...
               this.get_my_status();
-              this.get_4_tokens_status();
+              this.get_5_tokens_status();
             }
           }, 100)
         })
@@ -147,11 +149,60 @@ class App extends Component {
 
 
 
-  get_4_tokens_status = () => {
+  get_5_tokens_status = () => {
     // get usdx_price first. ( - weth )
     this.state.mMarket.methods.assetPrices(address[this.state.net_type]['address_USDx']).call().then(res_usdx_price => {
       if (res_usdx_price !== '0') {
         this.setState({ usdx_price: res_usdx_price }, () => {
+
+
+
+          // HBTC get_hbtc_status
+          this.state.mMarket.methods.assetPrices(address[this.state.net_type]['address_HBTC']).call().then(res_hbtc_price => {
+            this.state.mMarket.methods.markets(address[this.state.net_type]['address_HBTC']).call().then(res_hbtc_markets => {
+              this.state.HBTC.methods.balanceOf(address[this.state.net_type]['address_mMarket']).call((err, res_cash) => {
+                // console.log(res_hbtc_markets);
+                // var hbtc_t_supply = this.bn(res_hbtc_markets.totalSupply).mul(this.bn(res_hbtc_price)).div(this.bn(res_usdx_price));
+                var hbtc_t_supply = this.bn(res_hbtc_markets.totalBorrows).add(this.bn(res_cash)).mul(this.bn(res_hbtc_price)).div(this.bn(res_usdx_price));
+                var t_price = this.bn(res_hbtc_price).div(this.bn(res_usdx_price));
+
+                var t_u_rate;
+                if (this.bn(res_hbtc_markets.totalBorrows).add(this.bn(res_cash)).toString() === '0') {
+                  t_u_rate = '0.00%';
+                } else {
+                  t_u_rate = this.bn(res_hbtc_markets.totalBorrows).mul(this.bn(10 ** this.state.HBTC_decimals)).div(this.bn(res_hbtc_markets.totalBorrows).add(this.bn(res_cash)));
+                }
+
+                this.setState({
+                  hbtc_price: format_bn(t_price, this.state.USDx_decimals - this.state.HBTC_decimals, 2),
+                  hbtc_total_supply: format_bn(hbtc_t_supply.toString(), 18, this.decimal_precision),
+                  hbtc_supply_APR: format_bn(this.bn(res_hbtc_markets.supplyRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+                  hbtc_borrow_APR: format_bn(this.bn(res_hbtc_markets.borrowRateMantissa).mul(this.bn(2102400)).toString(), 16, this.decimal_precision),
+                  hbtc_u_rate: format_bn(t_u_rate, this.state.HBTC_decimals - 2, this.decimal_precision) + '%'
+                });
+
+                this.state.mMarket.methods.getSupplyBalance(this.state.my_account, address[this.state.net_type]['address_HBTC']).call().then(res_my_supply_hbtc => {
+                  // console.log(res_my_supply_hbtc);
+                  if (this.bn(res_my_supply_hbtc).gt(this.bn('0'))) {
+                    this.setState({ i_have_supply_hbtc: true, my_supply_hbtc: format_bn(res_my_supply_hbtc, this.state.HBTC_decimals, 2) });
+                    return false;
+                  } else {
+                    this.setState({ i_have_supply_hbtc: false });
+                  }
+
+                  this.state.mMarket.methods.getBorrowBalance(this.state.my_account, address[this.state.net_type]['address_HBTC']).call().then(res_my_borrow_hbtc => {
+                    // console.log(res_my_borrow_hbtc);
+                    if (this.bn(res_my_borrow_hbtc).gt(this.bn('0'))) {
+                      this.setState({ i_have_borrow_hbtc: true, my_borrow_hbtc: format_bn(res_my_borrow_hbtc, this.state.HBTC_decimals, 2) });
+                      return false;
+                    } else {
+                      this.setState({ i_have_borrow_hbtc: false });
+                    }
+                  })
+                })
+              })
+            })
+          })
 
 
 
@@ -366,7 +417,7 @@ class App extends Component {
         console.log('connected: ', this.state.my_account)
 
         let timer_Next = setInterval(() => {
-          if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals)) {
+          if (!(this.state.USDx_decimals && this.state.WETH_decimals && this.state.imBTC_decimals && this.state.USDT_decimals && this.state.HBTC_decimals)) {
             console.log('111111111: not get yet...');
           } else {
             console.log('2222222222: i got it...');
@@ -374,7 +425,7 @@ class App extends Component {
             this.setState({ i_am_ready: true })
             // to do something...
             this.get_my_status();
-            this.get_4_tokens_status();
+            this.get_5_tokens_status();
           }
         }, 100)
       })
@@ -389,7 +440,7 @@ class App extends Component {
         return false;
       }
       this.get_my_status();
-      this.get_4_tokens_status();
+      this.get_5_tokens_status();
     }, 1000 * 5)
   }
 

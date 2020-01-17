@@ -4,6 +4,7 @@
     "address_WETH": "0x06a1cd567e61b7edda49c30d3d32e60f607fd646",
     "address_imBTC": "0x1141687e2a906722254e77241019c57496c0e83e",
     "address_USDT": "0x622B859cf4f1013642F6c177bA713d482fF5b483",
+    "address_HBTC": "0xa2c7088b08833a00db49a0d564b5e1463a4b49cb",
     "address_mMarket": "0xeda3849869fd560b49dab8c110be3a020f46c79e"
   },
   "rinkeby": {
