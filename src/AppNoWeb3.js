@@ -20,7 +20,8 @@ class AppNoWeb3 extends Component {
       USDx_item: {},
       USDT_item: {},
       WETH_item: {},
-      imBTC_item: {}
+      imBTC_item: {},
+      HBTC_item: {}
     }
 
     this.markets_api = 'https://api.lendf.me/v1/info?data=markets';
@@ -60,10 +61,6 @@ class AppNoWeb3 extends Component {
           var obj_data = JSON.parse(data);
           console.log(obj_data);
           obj_data.markets.map(item => {
-
-            // supplyAPR: item.supplyAPR.slice(0, item.supplyAPR.indexOf('.') + 3),
-            // borrowAPR: item.borrowAPR.slice(0, item.borrowAPR.indexOf('.') + 3)
-
             if (item.symbol === 'USDx') {
               this.setState({
                 USDx_item: item
@@ -76,13 +73,16 @@ class AppNoWeb3 extends Component {
               this.setState({
                 USDT_item: item
               })
+            } else if (item.symbol === 'HBTC') {
+              this.setState({
+                HBTC_item: item
+              })
             } else {
               this.setState({
                 imBTC_item: item
               })
             }
           })
-          // this.setState({ data: obj_data });
         }
       })
   }
@@ -175,6 +175,8 @@ class AppNoWeb3 extends Component {
               </div>
 
               <div className='card-wrap'>
+
+                {/* USDx */}
                 <div className='card card-margin-right'>
                   <div className='card-top'>
                     <div className='card-top-left'>
@@ -247,7 +249,7 @@ class AppNoWeb3 extends Component {
 
 
 
-
+                {/* USDT */}
                 <div className='card'>
                   <div className='card-top'>
                     <div className='card-top-left'>
@@ -320,7 +322,7 @@ class AppNoWeb3 extends Component {
 
 
 
-
+                {/* WETH */}
                 <div className='card card-margin-right'>
                   <div className='card-top'>
                     <div className='card-top-left'>
@@ -393,6 +395,7 @@ class AppNoWeb3 extends Component {
 
 
 
+                {/* imBTC */}
                 <div className='card card-special'>
                   <div className='card-top'>
                     <div className='card-top-left'>
@@ -461,10 +464,83 @@ class AppNoWeb3 extends Component {
                   </div>
                 </div>
 
+
+
+                {/* HBTC */}
+                <div className='card card-special'>
+                  <div className='card-top'>
+                    <div className='card-top-left'>
+                      <img src={'images/Home_HBTC.png'} alt='' />
+                      <span className='token-hbtc'>HBTC</span>
+                    </div>
+                    <div className='card-top-right'>
+                      <span className='market'>
+                        <FormattedMessage id='market_size' />
+                      </span>
+                      <span className='market-num'>
+                        {this.state.HBTC_item.grossSupplyUSD ? '$' + format_str_to_kmb(this.state.HBTC_item.grossSupplyUSD) : '···'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className='clear'></div>
+
+                  <div className='card-center'>
+                    <div className={'supply-apr'}>
+                      <span className='apr'>
+                        <FormattedMessage id='supply_APR' />
+                      </span>
+                      <span className='apr-num apr-num-left'>
+                        {
+                          this.state.HBTC_item.supplyAPR ?
+                            this.state.HBTC_item.supplyAPR === '0.00' ? '<0.01%' : this.format_APR(this.state.HBTC_item.supplyAPR) + '%'
+                            :
+                            '···'
+                        }
+                      </span>
+                    </div>
+                    <div className={'borrow-apr'}>
+                      <span className='apr'>
+                        <FormattedMessage id='borrow_APR' />
+                      </span>
+                      <span className='apr-num apr-num-center'>
+                        {
+                          this.state.HBTC_item.borrowAPR ?
+                            this.state.HBTC_item.borrowAPR === '0.00' ? '<0.01%' : this.format_APR(this.state.HBTC_item.borrowAPR) + '%'
+                            :
+                            '···'
+                        }
+                      </span>
+                    </div>
+                    <div className={'u-rate'}>
+                      <span className='apr'>
+                        <FormattedMessage id='utilization_Rate' />
+                      </span>
+                      <span className='apr-num apr-num-right'>
+                        {this.state.HBTC_item.utilizationRate ? this.state.HBTC_item.utilizationRate + '%' : '···'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className='card-bottom'>
+                    <div className={'button-wrap-home'}>
+                      <Button size='large' className={'disable-button'} disabled={false}>
+                        <FormattedMessage id='SUPPLY' />
+                      </Button>
+                    </div>
+                    <div className={'button-wrap-home-borrow deposit-first-wrap'}>
+                      <Button size='large' className={'disable-button'} disabled={false}>
+                        <FormattedMessage id='BORROW' />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
                 <div className='clear'></div>
-
                 <Footer />
-
               </div>
             </React.Fragment>
           </IntlProvider>

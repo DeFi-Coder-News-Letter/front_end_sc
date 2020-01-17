@@ -55,6 +55,13 @@ class TopStatus extends Component {
                                     <span>{this.props.data.imbtc_price}</span>
                                 </div>
                             }
+                            {
+                                this.props.token_name === 'HBTC' &&
+                                <div className='token-price'>
+                                    <span className='token-price-t'>{this.props.token_name}/USD</span>
+                                    <span>{this.props.data.hbtc_price}</span>
+                                </div>
+                            }
 
 
 
