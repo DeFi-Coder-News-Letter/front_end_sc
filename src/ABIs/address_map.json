@@ -7,10 +7,10 @@
     "address_mMarket": "0xeda3849869fd560b49dab8c110be3a020f46c79e"
   },
   "rinkeby": {
-    "address_USDx": "0xaf21bb8ae7b7a5eec37964e478583cd486fd12e2",
-    "address_WETH": "0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e",
-    "address_imBTC": "0x7b054ebe1d7e003afda8e717daeab05d56d5836a",
-    "address_USDT": "0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848",
-    "address_mMarket": "0x2FD380b99E0c6ff16F569FB8214b40509F776764"
+    "address_USDx": "0xd96cc7f80c1cb595ebcdc072531e1799b3a2436e",
+    "address_WETH": "0x7a967421410019044aa829746d65575325082e99",
+    "address_imBTC": "0x5dc95a046020880b93f15902540dbfe86489fdda",
+    "address_USDT": "0xaa74b62f737bba1d2e520f9ec38fc23b6e6817df",
+    "address_mMarket": "0xdcfd113789ef683f676435fff90b953a0cc76044"
   }
 }
