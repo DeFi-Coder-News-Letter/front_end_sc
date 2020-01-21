@@ -92,7 +92,8 @@ contract EIP20NonStandardInterface {
     /// @param _spender The address of the account able to transfer the tokens
     /// @param _value The amount of tokens to be approved for transfer
     /// @return Whether the approval was successful or not
-    function approve(address _spender, uint256 _value) public returns (bool success);
+    // function approve(address _spender, uint256 _value) public returns (bool success);
+    function approve(address _spender, uint256 _value) public;
 
     /// @param _owner The address of the account owning tokens
     /// @param _spender The address of the account able to transfer the tokens
@@ -410,6 +411,34 @@ contract SafeToken is ErrorReporter {
         bool result;
 
         token.transfer(to, amount);
+
+        assembly {
+            switch returndatasize()
+                case 0 {                      // This is a non-standard ERC-20
+                    result := not(0)          // set result to true
+                }
+                case 32 {                     // This is a complaint ERC-20
+                    returndatacopy(0, 0, 32)
+                    result := mload(0)        // Set `result = returndata` of external call
+                }
+                default {                     // This is an excessively non-compliant ERC-20, revert.
+                    revert(0, 0)
+                }
+        }
+
+        if (!result) {
+            return Error.TOKEN_TRANSFER_OUT_FAILED;
+        }
+
+        return Error.NO_ERROR;
+    }
+
+    function doApprove(address asset, address to, uint amount) internal returns (Error) {
+        EIP20NonStandardInterface token = EIP20NonStandardInterface(asset);
+
+        bool result;
+
+        token.approve(to, amount);
 
         assembly {
             switch returndatasize()
@@ -2793,7 +2822,8 @@ contract Liquidator is ErrorReporter, SafeToken {
         EIP20Interface token = EIP20Interface(asset);
 
         if (token.allowance(address(this), allowee) != uint(-1))
-            require(token.approve(allowee, uint(-1)), "FAILED_LIQUIDATE_ASSET_ALLOWANCE_FAILED");
+            // require(token.approve(allowee, uint(-1)), "FAILED_LIQUIDATE_ASSET_ALLOWANCE_FAILED");
+            require(doApprove(asset, allowee, uint(-1)) == Error.NO_ERROR, "FAILED_LIQUIDATE_ASSET_ALLOWANCE_FAILED");
     }
 
     function tokenTransferAll(address asset, address recipient) internal {

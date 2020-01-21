@@ -558,6 +558,14 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
     uint constant blocksPerYear = 2102400;
     // uint constant mantissaFivePercent = 5 * 10**16;
 
+    address public owner;
+    address public newOwner;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "non-owner");
+        _;
+    }
+
     enum IRError {
         NO_ERROR,
         FAILED_TO_ADD_CASH_PLUS_BORROWS,
@@ -565,7 +573,32 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         FAILED_TO_MUL_PRODUCT_TIMES_BORROW_RATE
     }
 
-    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {}
+    event OwnerUpdate(address indexed owner, address indexed newOwner);
+    event LiquidatorUpdate(address indexed owner, address indexed newLiquidator, address indexed oldLiquidator);
+
+    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {
+        owner = msg.sender;
+    }
+
+    function transferOwnership(address newOwner_) external onlyOwner {
+        require(newOwner_ != owner, "TransferOwnership: the same owner.");
+        newOwner = newOwner_;
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == newOwner, "AcceptOwnership: only new owner do this.");
+        emit OwnerUpdate(owner, newOwner);
+        owner = newOwner;
+        newOwner = address(0x0);
+    }
+
+    function setLiquidator(address _liquidator) external onlyOwner {
+        require(_liquidator != address(0), "setLiquidator: liquidator cannot be a zero address");
+        require(liquidator != _liquidator, "setLiquidator: The old and new addresses cannot be the same");
+        address oldLiquidator = liquidator;
+        liquidator = _liquidator;
+        emit LiquidatorUpdate(msg.sender, _liquidator, oldLiquidator);
+    }
 
     /*
      * @dev Calculates the utilization rate (borrows / (cash + borrows)) as an Exp
@@ -598,8 +631,8 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
             return (err0, Exp({mantissa: 0}), Exp({mantissa: 0}));
         }
 
-        // Borrow Rate is 5% + UtilizationRate * 45%
-        // 45% of utilizationRate, is `rate * 45 / 100`
+        // Borrow Rate is UtilizationRate * 20%
+        // 20% of utilizationRate, is `rate * 20 / 100`
         (Error err1, Exp memory utilizationRateMuled) = mulScalar(utilizationRate, 20);
         // `mulScalar` only overflows when the product is >= 2^256.
         // utilizationRate is a real number on the interval [0,1], which means that
@@ -612,7 +645,7 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         // 100 is a constant, and therefore cannot be zero, which is the only error case of divScalar.
         assert(err2 == Error.NO_ERROR);
 
-        // Add the 5% for (5% + 45% * Ua)
+        // Add the 5% for (5% + 20% * Ua)
         // (Error err3, Exp memory annualBorrowRate) = addExp(utilizationRateScaled, Exp({mantissa: mantissaFivePercent}));
         // `addExp` only fails when the addition of mantissas overflow.
         // As per above, utilizationRateMuled is capped at 45e18,
