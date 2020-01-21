@@ -66,6 +66,8 @@ export const get_supplied__available_to_withdraw = (mContract, tokenContract, ac
               var m_borrow = that.bn(res_account_values[2]).mul(that.bn(that.collateral_rate)).add(that.bn(5 ** 17)).div(that.bn(10 ** 18));
               if (that.bn(res_account_values[1]).gt(m_borrow)) {
                 m_supply = that.bn(res_account_values[1]).sub(m_borrow);
+              } else {
+                m_supply = that.bn('0');
               }
             }
             // console.log('res_supplied: ', res_supplied)

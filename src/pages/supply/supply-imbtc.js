@@ -273,7 +273,13 @@ class SupplyimBTC extends Component {
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_withdraw ? format_num_to_K(format_bn(this.state.available_to_withdraw, this.state.imBTC_decimals, this.decimal_precision)) : '···'}
+                                  {
+                                    this.state.available_to_withdraw ?
+                                      format_num_to_K(format_bn(this.state.available_to_withdraw, this.state.imBTC_decimals, this.decimal_precision))
+                                      :
+                                      Number(this.state.available_to_withdraw) === 0 ?
+                                        '0.00' : '···'
+                                  }
                                 </span>
                               </div>
 

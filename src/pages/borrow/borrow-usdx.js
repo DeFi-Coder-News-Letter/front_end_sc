@@ -205,7 +205,13 @@ class BorrowUSDx extends Component {
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, this.state.USDx_decimals, this.decimal_precision)) : '···'}
+                                  {
+                                    this.state.available_to_borrow ?
+                                      format_num_to_K(format_bn(this.state.available_to_borrow, this.state.USDx_decimals, this.decimal_precision))
+                                      :
+                                      Number(this.state.available_to_borrow) === 0 ?
+                                        '0.00' : '···'
+                                  }
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
