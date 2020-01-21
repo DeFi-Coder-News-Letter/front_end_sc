@@ -406,7 +406,13 @@ class SupplyWETH extends Component {
                                   <FormattedMessage id='available_withdraw' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.my_WETH_available_to_withdraw ? format_num_to_K(format_bn(this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals, 2)) : '···'}
+                                  {
+                                    this.state.my_WETH_available_to_withdraw ?
+                                      format_num_to_K(format_bn(this.state.my_WETH_available_to_withdraw, this.state.WETH_decimals, 2))
+                                      :
+                                      Number(this.state.my_WETH_available_to_withdraw) === 0 ?
+                                        '0.00' : '···'
+                                  }
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
