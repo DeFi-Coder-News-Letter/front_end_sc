@@ -505,7 +505,7 @@ contract MoneyMarket {
 
 /**
   * @title LiquidationChecker
-  * @author Compound
+  * @author Lendf.Me
   */
 contract LiquidationChecker {
     MoneyMarket public moneyMarket;
@@ -549,15 +549,24 @@ contract LiquidationChecker {
 }
 
 /**
-  * @title The Compound Standard Interest Rate Model with LiquidationChecker
-  * @author Compound
-  * @notice See Section 2.4 of the Compound Whitepaper
+  * @title The Lendf.Me Standard Interest Rate Model with LiquidationChecker
+  * @author Lendf.Me
   */
-contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
+contract ImBTCInterestRateModel is Exponential, LiquidationChecker {
 
     uint constant oneMinusSpreadBasisPoints = 9800;
     uint constant blocksPerYear = 2102400;
-    uint constant mantissaFivePercent = 5 * 10**16;
+    // uint constant mantissaFivePercent = 5 * 10**16;
+    uint public baseRate = 11200000000000000;
+    uint public maxBaseRate = 60000000000000000;
+
+    address public owner;
+    address public newOwner;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "non-owner");
+        _;
+    }
 
     enum IRError {
         NO_ERROR,
@@ -566,7 +575,50 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         FAILED_TO_MUL_PRODUCT_TIMES_BORROW_RATE
     }
 
-    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {}
+    event OwnerUpdate(address indexed owner, address indexed newOwner);
+    event LiquidatorUpdate(address indexed owner, address indexed newLiquidator, address indexed oldLiquidator);
+    event BaseRateUpdate(address indexed owner, uint indexed newBaseRate, uint indexed oldBaseRate);
+    event MaxBaseRateUpdate(address indexed owner, uint indexed newMaxBaseRate, uint indexed oldMaxBaseRate);
+
+    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {
+        owner = msg.sender;
+    }
+
+    function transferOwnership(address newOwner_) external onlyOwner {
+        require(newOwner_ != owner, "TransferOwnership: the same owner.");
+        newOwner = newOwner_;
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == newOwner, "AcceptOwnership: only new owner do this.");
+        emit OwnerUpdate(owner, newOwner);
+        owner = newOwner;
+        newOwner = address(0x0);
+    }
+
+    function setLiquidator(address _liquidator) external onlyOwner {
+        require(_liquidator != address(0), "setLiquidator: liquidator cannot be a zero address");
+        require(liquidator != _liquidator, "setLiquidator: The old and new addresses cannot be the same");
+        address oldLiquidator = liquidator;
+        liquidator = _liquidator;
+        emit LiquidatorUpdate(msg.sender, _liquidator, oldLiquidator);
+    }
+
+    function setMaxBaseRate(uint _maxBaseRate) external onlyOwner {
+        require(_maxBaseRate != maxBaseRate, "setMaxBaseRate: the same maxBaseRate");
+        require(_maxBaseRate <= 10**18, "setMaxBaseRate: maxBaseRate must be less than or equal to the 100%");
+        uint oldMaxBaseRate = maxBaseRate;
+        maxBaseRate = _maxBaseRate;
+        emit MaxBaseRateUpdate(msg.sender, _maxBaseRate, oldMaxBaseRate);
+    }
+
+    function setBaseRate(uint _baseRate) external onlyOwner {
+        require(_baseRate != baseRate, "setBaseRate: the same baseRate");
+        require(_baseRate <= maxBaseRate, "setBaseRate: baseRate must be less than or equal to the maxBaseRate");
+        uint oldBaseRate = baseRate;
+        baseRate = _baseRate;
+        emit BaseRateUpdate(msg.sender, _baseRate, oldBaseRate);
+    }
 
     /*
      * @dev Calculates the utilization rate (borrows / (cash + borrows)) as an Exp
@@ -599,8 +651,8 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
             return (err0, Exp({mantissa: 0}), Exp({mantissa: 0}));
         }
 
-        // Borrow Rate is 5% + UtilizationRate * 45%
-        // 45% of utilizationRate, is `rate * 45 / 100`
+        // Borrow Rate is UtilizationRate * 20%
+        // 20% of utilizationRate, is `rate * 20 / 100`
         (Error err1, Exp memory utilizationRateMuled) = mulScalar(utilizationRate, 20);
         // `mulScalar` only overflows when the product is >= 2^256.
         // utilizationRate is a real number on the interval [0,1], which means that
@@ -613,7 +665,7 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         // 100 is a constant, and therefore cannot be zero, which is the only error case of divScalar.
         assert(err2 == Error.NO_ERROR);
 
-        // Add the 5% for (5% + 45% * Ua)
+        // Add the 5% for (5% + 20% * Ua)
         // (Error err3, Exp memory annualBorrowRate) = addExp(utilizationRateScaled, Exp({mantissa: mantissaFivePercent}));
         // `addExp` only fails when the addition of mantissas overflow.
         // As per above, utilizationRateMuled is capped at 45e18,
@@ -665,7 +717,7 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         assert(err3 == Error.NO_ERROR);
 
         // Note: mantissa is the rate scaled 1e18, which matches the expected result
-        return (uint(IRError.NO_ERROR), supplyRate1.mantissa);
+        return (uint(IRError.NO_ERROR), supplyRate1.mantissa + baseRate / blocksPerYear);
     }
 
     /**
@@ -693,6 +745,6 @@ contract NCStandardInterestRateModel is Exponential, LiquidationChecker {
         _utilizationRate; // pragma ignore unused variable
 
         // Note: mantissa is the rate scaled 1e18, which matches the expected result
-        return (uint(IRError.NO_ERROR), borrowRate.mantissa);
+        return (uint(IRError.NO_ERROR), borrowRate.mantissa + baseRate / blocksPerYear);
     }
 }

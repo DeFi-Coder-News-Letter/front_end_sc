@@ -347,9 +347,6 @@ contract Exponential is ErrorReporter, CarefulMath {
         uint mantissa;
     }
 
-    uint constant mantissaOne = 10**18;
-    uint constant mantissaOneTenth = 10**17;
-
     /**
     * @dev Creates an exponential from numerator and denominator values.
     *      Note: Returns an error if (`num` * 10e18) > MAX_INT,
@@ -553,6 +550,14 @@ contract USDxRateModelOptimize is Exponential, LiquidationChecker {
     uint constant oneMinusSpreadBasisPoints = 9800;
     uint constant blocksPerYear = 2102400;
 
+    address public owner;
+    address public newOwner;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "non-owner");
+        _;
+    }
+
     enum IRError {
         NO_ERROR,
         FAILED_TO_ADD_CASH_PLUS_BORROWS,
@@ -560,7 +565,32 @@ contract USDxRateModelOptimize is Exponential, LiquidationChecker {
         FAILED_TO_MUL_PRODUCT_TIMES_BORROW_RATE
     }
 
-    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {}
+    event OwnerUpdate(address indexed owner, address indexed newOwner);
+    event LiquidatorUpdate(address indexed owner, address indexed newLiquidator, address indexed oldLiquidator);
+
+    constructor(address moneyMarket, address liquidator) LiquidationChecker(moneyMarket, liquidator) {
+        owner = msg.sender;
+    }
+
+    function transferOwnership(address newOwner_) external onlyOwner {
+        require(newOwner_ != owner, "TransferOwnership: the same owner.");
+        newOwner = newOwner_;
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == newOwner, "AcceptOwnership: only new owner do this.");
+        emit OwnerUpdate(owner, newOwner);
+        owner = newOwner;
+        newOwner = address(0x0);
+    }
+
+    function setLiquidator(address _liquidator) external onlyOwner {
+        require(_liquidator != address(0), "setLiquidator: liquidator cannot be a zero address");
+        require(liquidator != _liquidator, "setLiquidator: The old and new addresses cannot be the same");
+        address oldLiquidator = liquidator;
+        liquidator = _liquidator;
+        emit LiquidatorUpdate(msg.sender, _liquidator, oldLiquidator);
+    }
 
     /*
      * @dev Calculates the utilization rate (borrows / (cash + borrows)) as an Exp
