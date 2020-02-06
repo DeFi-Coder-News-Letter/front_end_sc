@@ -113,7 +113,7 @@
 	</tr>
 </table>
 
-## Rinkeby Contract Address(2019-12-10)
+## Rinkeby Contract Address(2020-02-06)
 
 <table>
 	<tr>
@@ -122,50 +122,82 @@
 	</tr>
 	<tr>
 		<td> MoneyMarket </td>
-		<td> 0x2FD380b99E0c6ff16F569FB8214b40509F776764 </td>
+		<td> 0xDCfD113789Ef683f676435fFf90B953A0Cc76044 </td>
 	</tr>
 	<tr>
 		<td> Liquidator </td>
-		<td> 0x8E8627FC8e2359fDc9492540D646c3F4d979A44A </td>
+		<td> 0x3D01AA8879E1DCe78574090fEE75aDAfAB690a23 </td>
 	</tr>
 	<tr>
-		<td> USDx </td>
-		<td> 0xAF21BB8ae7b7a5Eec37964e478583CD486FD12E2 </td>
+		<td> HBTC </td>
+		<td> 0xcf07906CbCF9824D0caE475E8F958d48AcF1014C </td>
 	</tr>
 	<tr>
-		<td> USDxRateModel </td>
-		<td> 0x39e4a8Cf9ec0e20A51aa1Dffe62D34fc8A3D15f9 </td>
-	</tr>
-	<tr>
-		<td> USDT </td>
-		<td> 0xA1e525F7d24D7cCB78A070BBd12C0BF21Fb4a848 </td>
-	</tr>
-	<tr>
-		<td> USDTRateModel </td>
-		<td> 0x4660F2B8839c848F693C0AFBf6534B87910e478c </td>
+		<td> HBTCRateModel </td>
+		<td> 0x51a3cfbeFa960b4316FD990CDAB8Bf20078fA378 </td>
 	</tr>
 	<tr>
 		<td> imBTC </td>
-		<td> 0x7b054eBe1D7e003afdA8e717DAEaB05D56D5836A </td>
+		<td> 0x5Dc95A046020880b93F15902540Dbfe86489FddA </td>
 	</tr>
 	<tr>
 		<td> imBTCRateModel </td>
-		<td> 0x51a3cfbeFa960b4316FD990CDAB8Bf20078fA378 </td>
+		<td> 0xe7cF47e58829Dc4eD4FDB9638eC309A00a96D13a </td>
+	</tr>
+	<tr>
+		<td> PAX </td>
+		<td> 0x722E6238335d89393A42e2cA316A5fb1b8B2EB55 </td>
+	</tr>
+	<tr>
+		<td> PAXRateModel </td>
+		<td> 0x6DB64f69D9153963c13634D7eB10499b0bde1fC8 </td>
+	</tr>
+	<tr>
+		<td> TUSD </td>
+		<td> 0xe72a3181f69Eb21A19bd4Ce19Eb68FDb333d74c6 </td>
+	</tr>
+	<tr>
+		<td> TUSDRateModel </td>
+		<td> 0x6DB64f69D9153963c13634D7eB10499b0bde1fC8 </td>
+	</tr>
+	<tr>
+		<td> USDC </td>
+		<td> 0x84e96bb630a711d66789AcaBc237c087D8B371D3 </td>
+	</tr>
+	<tr>
+		<td> USDCRateModel </td>
+		<td> 0x6DB64f69D9153963c13634D7eB10499b0bde1fC8 </td>
+	</tr>
+	<tr>
+		<td> USDT </td>
+		<td> 0xaa74B62f737bbA1D2E520F9ec38Fc23b6E6817df </td>
+	</tr>
+	<tr>
+		<td> USDTRateModel </td>
+		<td> 0x6DB64f69D9153963c13634D7eB10499b0bde1fC8 </td>
+	</tr>
+	<tr>
+		<td> USDx </td>
+		<td> 0xD96cC7f80C1cb595eBcdC072531e1799B3a2436E </td>
+	</tr>
+	<tr>
+		<td> USDxRateModel </td>
+		<td> 0x6DB64f69D9153963c13634D7eB10499b0bde1fC8 </td>
 	</tr>
 	<tr>
 		<td> WETH </td>
-		<td> 0xC8b1a5ef2e19937dd6c0f804DF2e3efE9F093B1e </td>
+		<td> 0x7A967421410019044aA829746D65575325082e99 </td>
 	</tr>
 	<tr>
 		<td> WETHRateModel </td>
-		<td> 0x51a3cfbeFa960b4316FD990CDAB8Bf20078fA378 </td>
+		<td> 0x0Ecc207Eb5E1d9476543D7e32D61A75e6bf767d3 </td>
 	</tr>
 	<tr>
 		<td> PriceOracle </td>
-		<td> 0xFdc55F9ab320819b8D4a91F50d1E78809B09eB3d </td>
+		<td> 0x48dFd33dCc114B4C3499a33C21406BB05a1A30a6 </td>
 	</tr>
 	<tr>
 		<td> PriceOracleProxy </td>
-		<td> 0xE80151d6Bc910C1EDbB37D7ea897C6Bb2428B16c </td>
+		<td> 0x09593E1944015806954992aa52dc8Bc0786e3821 </td>
 	</tr>
 </table>

@@ -1,3 +1,12 @@
+/**
+ ========================================================================
+ Notice!!! :
+    this is a test contract with function allocateTo() to get token free
+    the actual code on the mainnet is at here:
+    https://etherscan.io/address/0x3212b29E33587A00FB1C83346f5dBFA69A458923#code
+ ========================================================================
+ */
+
 pragma solidity 0.5.0;
 // File: src/erc777/IERC777.sol
 
@@ -1431,8 +1440,9 @@ contract IMBTC is EarnERC777, MinterRole, Pausable, SwitchTransferable {
         super._burn(msg.sender, account, amount, data, operatorData);
     }
 
+    //
     function mint(address recipient, uint256 amount,
-            bytes calldata userData, bytes calldata operatorData) external whenNotPaused {
+            bytes calldata userData, bytes calldata operatorData) external onlyMinter whenNotPaused {
         super._mint(msg.sender, recipient, amount, userData, operatorData);
     }
 
@@ -1464,4 +1474,10 @@ contract IMBTC is EarnERC777, MinterRole, Pausable, SwitchTransferable {
 
        _distributeRevenue(_revenueAddress);
    }
+
+    // This is not a function used in actual production
+    // Only for getting free token to test
+    function allocateTo(address _owner, uint256 value) public {
+        super._mint(msg.sender, _owner, value, '0x00', '0x00');
+    }
 }

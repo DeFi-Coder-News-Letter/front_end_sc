@@ -1,17 +1,11 @@
-// Copyright (C) 2015, 2016, 2017 Dapphub
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ ========================================================================
+ Notice!!! :
+    this is a test contract with function allocateTo() to get token free
+    the actual code on the mainnet is at here:
+    https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code
+ ========================================================================
+ */
 
 pragma solidity ^0.4.18;
 
@@ -75,6 +69,8 @@ contract wethFaucet {
         return true;
     }
 
+    // This is not a function used in actual production
+    // Only for getting free token to test
     function allocateTo(address _owner, uint256 value) public {
         balanceOf[_owner] += value;
         emit Transfer(address(this), _owner, value);
