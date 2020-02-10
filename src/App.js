@@ -78,8 +78,15 @@ class App extends Component {
               t_api = 'https://code.lendf.me/user_source?utm_source=web&utm_medium=web&utm_address=' + res_accounts[0];
             }
             console.log('fetch api: ', t_api);
-            fetch(t_api)
-              .then((res) => { return res.text() })
+            fetch(
+              t_api,
+              {
+                mode: 'no-cors',
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  'Access-Control-Allow-Origin': '*'
+                }
+              }).then((res) => { return res.text() })
               .then((data) => {
                 console.log(data);
               })
