@@ -68,7 +68,16 @@ class App extends Component {
           this.new_web3.givenProvider.enable().then(res_accounts => {
 
             // push my address first.
-            var t_api = 'http://173.82.154.71:5000/user_source?utm_source=wallet&utm_medium=mykey&utm_address=' + res_accounts[0];
+            var t_api, t_search, t_utm_source, t_utm_medium;
+            if (!!(window.location.search)) {
+              t_search = window.location.search.split('&');
+              t_utm_source = t_search[0].split('=')[1];
+              t_utm_medium = t_search[1].split('=')[1];
+              t_api = 'http://173.82.154.71:5000/user_source?utm_source=' + t_utm_source + '&utm_medium=' + t_utm_medium + '&utm_address=' + res_accounts[0];
+            } else {
+              t_api = 'http://173.82.154.71:5000/user_source?utm_source=web&utm_medium=web&utm_address=' + res_accounts[0];
+            }
+            console.log('fetch api: ', t_api);
             fetch(t_api)
               .then((res) => { return res.text() })
               .then((data) => {
