@@ -692,7 +692,7 @@ class Home extends Component {
 
 
                         {/* HBTC */}
-                        <div className='card card-special'>
+                        {/* <div className='card card-special'>
                             <div className='card-top'>
                                 <div className='card-top-left'>
                                     <img src={'images/Home_HBTC.svg'} alt='' />
@@ -832,7 +832,7 @@ class Home extends Component {
                                 }
 
                             </div>
-                        </div>
+                        </div> */}
 
 
 

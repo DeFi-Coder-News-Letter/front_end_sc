@@ -66,6 +66,15 @@ class App extends Component {
         }, () => {
           get_tokens_decimals(this.state.USDx, this.state.WETH, this.state.imBTC, this.state.USDT, this.state.HBTC, this);
           this.new_web3.givenProvider.enable().then(res_accounts => {
+
+            // push my address first.
+            var t_api = 'http://173.82.154.71:5000/user_source?utm_source=wallet&utm_medium=mykey&utm_address=' + res_accounts[0];
+            fetch(t_api)
+              .then((res) => { return res.text() })
+              .then((data) => {
+                console.log(data);
+              })
+
             this.setState({ my_account: res_accounts[0] }, async () => {
               console.log('connected: ', this.state.my_account)
 
@@ -468,7 +477,7 @@ class App extends Component {
                 <Route path="/borrow-usdt" render={() => <BorrowUSDT data={this.state} borrow_APR={this.state.usdt_borrow_APR} />} />
                 <Route path="/borrow-imbtc" render={() => <BorrowimBTC data={this.state} borrow_APR={this.state.imbtc_borrow_APR} />} />
                 <Route path="/borrow-weth" render={() => <BorrowWETH data={this.state} borrow_APR={this.state.weth_borrow_APR} />} />
-                <Route path="/borrow-hbtc" render={() => <BorrowHBTC data={this.state} borrow_APR={this.state.hbtc_borrow_APR} />} />
+                {/* <Route path="/borrow-hbtc" render={() => <BorrowHBTC data={this.state} borrow_APR={this.state.hbtc_borrow_APR} />} /> */}
               </div>
             </React.Fragment>
           </Switch>
