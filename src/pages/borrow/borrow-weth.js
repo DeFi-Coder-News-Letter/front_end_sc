@@ -276,7 +276,13 @@ class BorrowWETH extends Component {
                                   <FormattedMessage id='available_borrow' />
                                 </span>
                                 <span className='balance-amount'>
-                                  {this.state.available_to_borrow ? format_num_to_K(format_bn(this.state.available_to_borrow, 18, 2)) : '···'}
+                                  {
+                                    this.state.available_to_borrow ?
+                                      format_num_to_K(format_bn(this.state.available_to_borrow, 18, 2))
+                                      :
+                                      Number(this.state.available_to_borrow) === 0 ?
+                                        '0.00' : '···'
+                                  }
                                 </span>
                               </div>
                               <div className='input-unit-wrapper'>
